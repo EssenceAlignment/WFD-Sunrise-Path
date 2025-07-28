@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WFD Manager Readiness Assessment</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .content {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .survey-info {
+            margin-bottom: 30px;
+        }
+        .survey-frame {
+            width: 100%;
+            height: 800px;
+            border: none;
+            border-radius: 4px;
+        }
+        .manual-survey {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 0;
+        }
+        .button:hover {
+            background-color: #2980b9;
+        }
+        .api-status {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>WFD Manager Organizational Readiness Assessment</h1>
+        <p>Measuring readiness for data dashboard implementation</p>
+    </div>
+    
+    <div class="container">
+        <div class="content">
+            <div class="api-status">
+                <h3>⚠️ Survey Integration Status</h3>
+                <p>Due to API access limitations, the survey needs to be created manually in Qualtrics. Once created, the survey link can be embedded below.</p>
+            </div>
+
+            <div class="survey-info">
+                <h2>About This Assessment</h2>
+                <p>This survey uses the Organizational Readiness for Implementing Change (ORIC) framework to assess manager readiness for the new data dashboard system.</p>
+                <ul>
+                    <li>12 validated ORIC questions</li>
+                    <li>5-7 minutes to complete</li>
+                    <li>Benchmark score: 3.5 or higher indicates readiness</li>
+                    <li>Anonymous submission available</li>
+                </ul>
+            </div>
+
+            <div class="manual-survey">
+                <h2>Survey Access Options</h2>
+                
+                <h3>Option 1: Embed Qualtrics Survey</h3>
+                <p>Once the survey is created in Qualtrics, replace the URL below with your survey link:</p>
+                <input type="text" id="surveyUrl" placeholder="Enter Qualtrics survey URL" style="width: 100%; padding: 8px; margin: 10px 0;">
+                <button class="button" onclick="embedSurvey()">Load Survey</button>
+                
+                <div id="surveyContainer" style="margin-top: 20px; display: none;">
+                    <iframe id="qualtricsFrame" class="survey-frame"></iframe>
+                </div>
+
+                <h3>Option 2: Direct Link</h3>
+                <p>Share this direct link with managers:</p>
+                <input type="text" id="directLink" value="[Survey link will appear here once created]" readonly style="width: 100%; padding: 8px;">
+                
+                <h3>Option 3: Local Preview</h3>
+                <a href="wfd-survey.html" class="button">View Survey Preview</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function embedSurvey() {
+            const url = document.getElementById('surveyUrl').value;
+            if (url) {
+                document.getElementById('qualtricsFrame').src = url;
+                document.getElementById('surveyContainer').style.display = 'block';
+                document.getElementById('directLink').value = url;
+            }
+        }
+
+        // Check for URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const surveyLink = urlParams.get('survey');
+        if (surveyLink) {
+            document.getElementById('surveyUrl').value = surveyLink;
+            embedSurvey();
+        }
+    </script>
+</body>
+</html>
