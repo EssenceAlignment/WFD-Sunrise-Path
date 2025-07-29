@@ -8,7 +8,9 @@
     "lint:markdown": "markdownlint '**/*.md' --ignore node_modules",
     "fix:markdown": "markdownlint '**/*.md' --fix --ignore node_modules",
     "spell:check": "cspell '**/*.md' --no-progress",
-    "fix:all": "npm run fix:markdown && npm run spell:check"
+    "fix:all": "npm run fix:markdown && npm run spell:check",
+    "fix:errors": "node scripts/auto_fix_all_errors.js",
+    "pre-commit": "node scripts/auto_fix_all_errors.js && git add -A"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.0.0",
