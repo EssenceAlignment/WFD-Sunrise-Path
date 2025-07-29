@@ -31,6 +31,7 @@ jobs:
       uses: codecov/codecov-action@v5
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
+        slug: EssenceAlignment/WFD-Sunrise-Path
         files: ./coverage/lcov.info
         flags: unittests
         name: codecov-umbrella
