@@ -7,7 +7,7 @@
     "headings": false
   },
   "MD032": {
-    "blanks-around-lists": true
+    "blanks": true
   },
   "MD033": false,
   "MD040": {
