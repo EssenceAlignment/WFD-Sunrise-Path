@@ -1,0 +1,14 @@
+{
+  "name": "wfd-sunrise-path",
+  "version": "1.0.0",
+  "description": "Recovery Compass WFD Sunrise Path",
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.0.0",
+    "jest": "^29.0.0",
+    "jest-environment-jsdom": "^29.7.0"
+  }
+}
