@@ -286,7 +286,9 @@
     "COUNTA",
     "COUNTIF",
     "numpydoc",
-    "Bito"
+    "Bito",
+    "SUBSCALES",
+    "autobuild"
   ],
   "dictionaries": ["en_US"],
   "import": ["cspell-dict-npm/cspell-ext.json"],

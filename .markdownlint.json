@@ -7,11 +7,11 @@
     "headings": false
   },
   "MD032": {
-    "blanks": true
+    "blanks": 1
   },
   "MD033": false,
   "MD040": {
-    "allowed_languages": ["bash", "javascript", "json", "yaml", "text", ""]
+    "allowed_languages": ["bash", "javascript", "json", "yaml", "text", "html", "markdown", "js", "sh", "python", "xml", ""]
   },
   "MD036": false
 }
