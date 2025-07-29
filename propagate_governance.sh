@@ -11,17 +11,10 @@ SOURCE_DIR="/Users/ericjones/Projects/wfd-sunrise-path/WFD-Sunrise-Path"
 
 # Target repositories
 REPOS=(
+  "/Users/ericjones/Projects/recovery-compass-journeys/recovery-compass-grant-system"
   "/Users/ericjones/recovery-compass-grants/Recovery-Compass-Funding"
   "/Users/ericjones/Projects/recovery-compass-journeys"
 )
-
-# Additional repositories that need to be cloned or initialized
-echo ""
-echo "📝 Note: The following repositories exist on GitHub but need local setup:"
-echo "   - recovery-compass-grant-system (Lovable project)"
-echo "   To add governance to these, clone them locally first:"
-echo "   git clone https://github.com/[owner]/recovery-compass-grant-system"
-echo ""
 
 # Iterate through each repository
 for REPO in "${REPOS[@]}"; do
