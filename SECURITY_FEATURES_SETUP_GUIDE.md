@@ -10,29 +10,53 @@ For each repository:
 - `https://github.com/[owner]/recovery-compass-journeys/settings/security_analysis`
 - `https://github.com/Recovery-Compass/Recovery-Compass-Funding/settings/security_analysis`
 
-### 2. Enable These Security Features (Exact Steps)
+### 2. Enable These Security Features (Based on Your Advanced Security Page)
 
-Once on the Security & analysis page, you'll see toggles. Enable these:
+You're in the Advanced Security settings. Enable these features:
 
-#### **Dependabot alerts** 
-- Find: "Dependabot alerts"
-- Click: **Enable** button
-- What it does: Notifies you of vulnerable dependencies
+#### **Secret Protection Section**
 
-#### **Dependabot security updates**
-- Find: "Dependabot security updates" 
-- Click: **Enable** button
-- What it does: Automatically creates PRs to update vulnerable dependencies
+1. **Push protection**
+   - Find: "Push protection" under Secret Protection
+   - Toggle: **ON**
+   - What it does: Blocks commits that contain supported secrets
 
-#### **Secret scanning**
-- Find: "Secret scanning"
-- Click: **Enable** button
-- What it does: Scans for accidentally committed API keys/passwords
+2. **Validity checks** (Optional but recommended)
+   - Find: "Validity checks"
+   - Toggle: **ON**
+   - What it does: Automatically verifies if a secret is valid
 
-#### **Secret scanning push protection** (if available)
-- Find: "Push protection"
-- Click: **Enable** button
-- What it does: Blocks commits containing secrets
+3. **Non-provider patterns** (Optional)
+   - Find: "Non-provider patterns"
+   - Toggle: **ON**
+   - What it does: Scans for non-provider patterns
+
+4. **Scan for generic passwords** (Optional)
+   - Find: "Scan for generic passwords"
+   - Toggle: **ON**
+   - What it does: Copilot Secret Scanning detects passwords using AI
+
+#### **Code Security Section**
+
+1. **Dependency graph**
+   - Find: "Dependency graph"
+   - Toggle: **ON**
+   - What it does: Understand your dependencies
+
+2. **Dependabot alerts**
+   - Find: "Dependabot alerts" under Dependabot section
+   - Toggle: **ON**
+   - What it does: Receive alerts for vulnerabilities
+
+3. **Dependabot security updates**
+   - Find: "Dependabot security updates"
+   - Toggle: **ON**
+   - What it does: Automatically opens PRs to fix vulnerabilities
+
+4. **Grouped security updates** (Optional but helpful)
+   - Find: "Grouped security updates"
+   - Toggle: **ON**
+   - What it does: Groups updates into fewer PRs
 
 ### 3. Verify CodeQL is Active
 
@@ -98,9 +122,22 @@ gh api repos/Recovery-Compass/recovery-compass-grant-system \
   --jq '.security_and_analysis'
 ```
 
+## Priority Features for Grant Applications
+
+**Essential (Enable These First):**
+1. **Push protection** - Prevents accidental secret commits
+2. **Dependency graph** - Shows your dependencies
+3. **Dependabot alerts** - Critical for security compliance
+4. **Dependabot security updates** - Auto-fixes vulnerabilities
+
+**Nice to Have:**
+- Validity checks
+- Grouped security updates
+- Scan for generic passwords (AI-powered)
+
 ## Time Required
 
 - Per repository: ~2 minutes
 - All 4 repositories: ~8 minutes total
 
-These one-click toggles activate GitHub's security infrastructure, making your repositories grant-ready with professional security practices.
+These toggles activate GitHub's Advanced Security infrastructure, demonstrating to grant reviewers that Recovery Compass uses enterprise-grade security practices.
