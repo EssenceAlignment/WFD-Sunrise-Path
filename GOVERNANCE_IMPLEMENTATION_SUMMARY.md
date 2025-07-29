@@ -16,8 +16,8 @@
 |------------|--------|----------------|
 | WFD-Sunrise-Path | ✅ Complete | Enable Dependabot in settings |
 | recovery-compass-journeys | ✅ Complete | Enable Dependabot in settings |
-| recovery-compass-grant-system | 🌐 GitHub only | Clone locally, then run propagate script |
-| Recovery-Compass-Funding | ⚠️ Merge conflicts | Resolve conflicts then re-run |
+| recovery-compass-grant-system | ✅ Complete | Push to GitHub & enable Dependabot |
+| Recovery-Compass-Funding | ⚠️ Push conflicts | Run: `git pull origin main` then push |
 
 ### 3. Remote Repositories Requiring Governance
 
