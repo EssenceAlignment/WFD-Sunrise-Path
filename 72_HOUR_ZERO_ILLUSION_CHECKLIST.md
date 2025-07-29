@@ -78,7 +78,7 @@ Every hour matters. Miss one deadline and you join the 30% failure rate.
 □ Get written CPA opinion
 ```
 
-**Reality Check**: 
+**Reality Check**:
 - Grant success: 5-11% (not 50%)
 - Donor retention: <20% Year 1 (not 45%)
 - Acquisition cost: $1.25 per $1 raised
