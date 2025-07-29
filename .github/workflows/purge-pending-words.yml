@@ -1,0 +1,15 @@
+name: purge-pending-words
+'on':
+  schedule:
+    - cron: "0 3 * * 1"  # weekly Monday 03:00 UTC
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fail if pending.txt not empty
+        run: |
+          if [ -s styles/TermSwap/pending.txt ]; then
+            echo "Pending words require review."
+            exit 1
+          fi

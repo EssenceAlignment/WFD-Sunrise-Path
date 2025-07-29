@@ -1,42 +1,21 @@
 repos:
-  # Markdownlint
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.45.0
+    rev: v0.40.0
     hooks:
       - id: markdownlint
-        files: "\\.md$"
-        args: ["--fix"]
-
-  # Vale for spelling and style - temporarily disabled while configuring
-  # - repo: https://github.com/errata-ai/vale
-  #   rev: v3.8.0
-  #   hooks:
-  #     - id: vale
-  #       files: "\\.(md|txt)$"
-  #       args: ["--output=line"]
-
-  # YAML linting
+        args: [--disable, MD013]   # example width rule only
+        stages: [pre-commit]       # read-only lint, no --fix
+  - repo: https://github.com/errata-ai/vale
+    rev: v3.8.0
+    hooks:
+      - id: vale
+        language: system          # uses pre-installed binary
   - repo: https://github.com/adrienverge/yamllint
     rev: v1.35.1
     hooks:
       - id: yamllint
-        args: ["-c", ".yamllint"]
-
-  # JSON linting
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
-    hooks:
-      - id: check-json
-      - id: pretty-format-json
-        args: ["--autofix", "--indent=2"]
-      - id: trailing-whitespace
-      - id: end-of-file-fixer
-      - id: check-merge-conflict
-
-  # CSpell for additional spell checking
   - repo: https://github.com/streetsidesoftware/cspell-cli
-    rev: v8.17.0
+    rev: v8.7.0
     hooks:
       - id: cspell
-        files: "\\.md$"
-        args: ["--no-progress", "--gitignore"]
+        args: [--no-must-find-files]

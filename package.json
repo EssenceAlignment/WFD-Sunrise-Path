@@ -10,14 +10,10 @@
   },
   "name": "wfd-sunrise-path",
   "scripts": {
-    "fix:markdown": "markdownlint '**/*.md' --fix --ignore node_modules",
-    "lint:all": "npm run lint:check && npm run lint:yaml",
-    "lint:check": "npm run lint:markdown && npm run spell:check",
-    "lint:markdown": "markdownlint '**/*.md' --ignore node_modules",
-    "lint:yaml": "yamllint '**/*.yml' '**/*.yaml' --config-file .yamllint",
-    "spell:check": "cspell '**/*.md' --no-progress",
     "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "lint:check": "pre-commit run --all-files --show-diff-on-failure",
+    "prepare": "husky install"
   },
   "version": "1.0.0"
 }
