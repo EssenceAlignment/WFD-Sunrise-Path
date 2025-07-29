@@ -16,8 +16,15 @@
 |------------|--------|----------------|
 | WFD-Sunrise-Path | ✅ Complete | Enable Dependabot in settings |
 | recovery-compass-journeys | ✅ Complete | Enable Dependabot in settings |
-| recovery-compass-grant-system | ❌ Not a git repo | Initialize git first |
+| recovery-compass-grant-system | 🌐 GitHub only | Clone locally, then run propagate script |
 | Recovery-Compass-Funding | ⚠️ Merge conflicts | Resolve conflicts then re-run |
+
+### 3. Remote Repositories Requiring Governance
+
+**recovery-compass-grant-system (Lovable Project)**
+- Exists on GitHub as a Vite + React + shadcn/ui project
+- Needs to be cloned locally to apply governance files
+- Command: `git clone https://github.com/[owner]/recovery-compass-grant-system`
 
 ### 3. Propagation Script
 - Created `propagate_governance.sh` for consistent deployment
