@@ -9,7 +9,10 @@ repos:
     rev: v3.8.0
     hooks:
       - id: vale
-        language: system          # uses pre-installed binary
+        name: vale (system)
+        entry: vale  # uses /usr/local/bin/vale
+        language: system
+        types: [markdown]
   - repo: https://github.com/adrienverge/yamllint
     rev: v1.35.1
     hooks:

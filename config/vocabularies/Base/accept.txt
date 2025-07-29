@@ -1,0 +1,4 @@
+Markdownlint
+CSpell
+autobuild
+SUBSCALES

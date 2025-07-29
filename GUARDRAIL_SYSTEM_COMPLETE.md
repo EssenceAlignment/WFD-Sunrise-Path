@@ -80,6 +80,10 @@ truthy:
 - Language-specific indentation rules
 - Line ending normalization
 
+## Dictionary Governance
+
+* `pending.txt` terms must be promoted to `accepted.txt` via PR within **7 days** or are auto-purged by the weekly `purge-pending-words` workflow.
+
 ## How It Works
 
 ### Local Development
