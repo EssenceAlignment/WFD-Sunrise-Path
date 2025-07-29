@@ -2,20 +2,27 @@
 
 ## ✅ Completed Implementations
 
-### 1. Governance & Licensing
+### 1. Primary Repository (WFD-Sunrise-Path)
 - **MIT License** - Open-source compliance for Gitcoin/Web3 eligibility
 - **CODE_OF_CONDUCT.md** - Contributor Covenant v2.1 for inclusive community standards
 - **Contact Email** - conduct@recovery-compass.org for enforcement
+- **GitHub Templates** - Issue/PR templates with grant alignment sections
+- **CodeQL Workflow** - Automated security scanning
+- **Dependabot Configuration** - Weekly dependency updates
 
-### 2. GitHub Templates
-- **Issue Templates**
-  - Bug Report - Structured problem reporting
-  - Feature Request - With grant alignment section
-- **Pull Request Template** - Includes grant compliance checklist
+### 2. Propagation Status
 
-### 3. Security & Automation
-- **CodeQL Workflow** - Automated security scanning on PRs and weekly
-- **Dependabot Configuration** - Weekly dependency updates for npm and GitHub Actions
+| Repository | Status | Action Required |
+|------------|--------|----------------|
+| WFD-Sunrise-Path | ✅ Complete | Enable Dependabot in settings |
+| recovery-compass-journeys | ✅ Complete | Enable Dependabot in settings |
+| recovery-compass-grant-system | ❌ Not a git repo | Initialize git first |
+| Recovery-Compass-Funding | ⚠️ Merge conflicts | Resolve conflicts then re-run |
+
+### 3. Propagation Script
+- Created `propagate_governance.sh` for consistent deployment
+- Automatically copies LICENSE, CoC, and .github templates
+- Commits with IPE-compliant messages
 
 ## 📋 Grant Narrative Insertion Points
 
