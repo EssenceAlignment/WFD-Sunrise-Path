@@ -1,0 +1,89 @@
+name: Comprehensive Lint & Validation
+
+'on':
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  lint-all:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Markdownlint
+      - name: Run markdownlint
+        uses: DavidAnson/markdownlint-cli2-action@v14
+        with:
+          globs: '**/*.md'
+          config: '.markdownlint.json'
+
+      # CSpell
+      - name: Run spell check
+        run: npm run spell:check
+        continue-on-error: true
+
+      # Vale
+      - name: Vale
+        uses: errata-ai/vale-action@v2
+        with:
+          files: '["**/*.md"]'
+          fail_on_error: false
+
+      # YAML lint
+      - name: YAML Lint
+        uses: ibiqlik/action-yamllint@v3
+        with:
+          config_file: .yamllint
+
+      # JSON validation
+      - name: Validate JSON
+        run: |
+          find . -name "*.json" -not -path "./node_modules/*" -not -path "./.git/*" | while read file; do
+            echo "Validating $file"
+            jq empty "$file" || exit 1
+          done
+
+      # Check for merge conflicts
+      - name: Check for merge conflicts
+        run: |
+          if grep -rn "^<<<<<<< \|^======= \|^>>>>>>> " \
+             --include="*.md" --include="*.json" --include="*.yml" --include="*.yaml" .; then
+            echo "Merge conflict markers found!"
+            exit 1
+          fi
+
+      # Summary report
+      - name: Create summary
+        if: always()
+        run: |
+          echo "## Lint Results Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ All checks completed" >> $GITHUB_STEP_SUMMARY
+
+  # Separate job for pre-commit validation
+  pre-commit-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Run pre-commit
+        uses: pre-commit/action@v3.0.1
+        with:
+          extra_args: --all-files

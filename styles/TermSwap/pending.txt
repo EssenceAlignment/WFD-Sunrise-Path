@@ -1,0 +1,3 @@
+# Temporary words - must be reviewed within 7 days
+# Auto-added by CI - requires human promotion to accepted.txt
+# Format: word,date_added
