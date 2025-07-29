@@ -10,6 +10,7 @@
 ## 🔧 Remaining Actions
 
 ### 1. Fix Recovery-Compass-Funding
+
 ```bash
 cd /Users/ericjones/recovery-compass-grants/Recovery-Compass-Funding
 git pull origin main
@@ -20,6 +21,7 @@ git push origin main
 ```
 
 ### 2. Push recovery-compass-grant-system to GitHub
+
 ```bash
 cd /Users/ericjones/Projects/recovery-compass-journeys/recovery-compass-grant-system
 git remote add origin https://github.com/[your-username]/recovery-compass-grant-system.git
@@ -28,11 +30,14 @@ git push -u origin main
 ```
 
 ### 3. Enable Security Features (Each Repository)
+
 Visit each repository's settings:
-- https://github.com/[owner]/[repo]/settings/security_analysis
+
+- <https://github.com/[owner]/[repo]/settings/security_analysis>
 - Enable: Dependabot alerts, security updates, secret scanning
 
 ### 4. Verify Portfolio Consistency
+
 ```bash
 # Check all repos have MIT license
 find ~/Projects -name "LICENSE" -path "*recovery-compass*" -exec grep -l "MIT License" {} \;
@@ -44,6 +49,7 @@ find ~/Projects -name "CODE_OF_CONDUCT.md" -path "*recovery-compass*" -type f
 ## 🎯 Grant-Ready Status
 
 Once all four repositories are updated:
+
 - ✅ SAMHSA will see consistent security practices
 - ✅ RWJF will see inclusive governance across portfolio
 - ✅ Gitcoin/Web3 will see required MIT licensing

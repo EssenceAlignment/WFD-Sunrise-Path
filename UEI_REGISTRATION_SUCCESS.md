@@ -5,19 +5,20 @@
 **UEI**: Y4L3SDVAD8Z8  
 **Organization**: RECOVERY COMPASS  
 **Address**: 5634 NOEL DR, TEMPLE CITY, CA 91780-2319 USA  
-**Email**: eric@recovery-compass.org
+**Email**: <eric@recovery-compass.org>
 
 ## 🚀 CRITICAL DECISION: Continue Registration
 
 ### You MUST click "Continue Registration"
 
 **Why?** The UEI alone is NOT sufficient for federal grants. You need full Entity Registration to:
+
 - Apply for federal grants
 - Receive federal funding
 - Be searchable in SAM.gov
 - Get your CAGE code
 
-### What "Continue Registration" Includes:
+### What "Continue Registration" Includes
 
 1. **Business Information**
    - NAICS codes
@@ -40,7 +41,7 @@
 
 ### ⏱️ Time Required: 30-45 minutes
 
-## 📋 Information You'll Need:
+## 📋 Information You'll Need
 
 - [ ] Bank account number & routing number
 - [ ] NAICS codes (suggested: 624190 - Other Individual and Family Services)
@@ -48,28 +49,30 @@
 - [ ] Socioeconomic: 501(c)(3) Nonprofit (pending)
 - [ ] No TIN (you'll use your EIN: 33-3213246)
 
-## 🎯 Action Steps:
+## 🎯 Action Steps
 
 1. **Click "Continue Registration"** (not "Go to Workspace")
 2. Complete all sections
 3. Submit for processing
 4. Wait 7-10 business days for activation
 
-## 💡 Pro Tips:
+## 💡 Pro Tips
 
 - Save progress frequently
 - Use Chrome or Edge browser
 - Have your EIN letter handy
 - Select "Entity Registration → Data Entry" role when prompted
 
-## 🚨 DO NOT:
+## 🚨 DO NOT
+
 - Click "Go to Workspace" (this stops the process)
 - Close the browser without saving
 - Use the back button
 
-## ✅ What This Achieves:
+## ✅ What This Achieves
 
 Once your Entity Registration is active, you can:
+
 - Register on Grants.gov
 - Apply for SAMHSA grants
 - Apply for DOJ Second Chance Act funding

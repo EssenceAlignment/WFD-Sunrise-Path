@@ -11,6 +11,7 @@ The original "Compliance-Protected Growth Strategy" assumes best-case scenarios.
 **Reality**: You're in the highest-risk category - new, small, ambitious.
 
 **Mitigation Protocol**:
+
 ```
 - Set 990 deadlines 60 days early with board backup
 - Monthly compliance checklist reviewed by 2 board members
@@ -24,6 +25,7 @@ The original "Compliance-Protected Growth Strategy" assumes best-case scenarios.
 **Reality**: Your ERD Certification at $2,500 is presumptively commercial.
 
 **Immediate Actions**:
+
 ```
 1. File Form 990-T preemptively (even if under $1,000)
 2. Document "substantial public benefit" for every program
@@ -33,6 +35,7 @@ The original "Compliance-Protected Growth Strategy" assumes best-case scenarios.
 ```
 
 **Revenue Stream Risk Matrix**:
+
 | Stream | UBIT Risk | Mitigation Required | True Net Margin |
 |--------|-----------|-------------------|-----------------|
 | ERD Certification | HIGH | Open enrollment, cost-basis pricing | 15-20% |
@@ -46,6 +49,7 @@ The original "Compliance-Protected Growth Strategy" assumes best-case scenarios.
 **Reality**: One missed filing = public "Delinquent" status
 
 **Compliance Calendar**:
+
 ```
 - Day 1-30: File CT-1 (Initial Registration)
 - Month 4: RRF-1 (Annual Registration)
@@ -57,12 +61,14 @@ The original "Compliance-Protected Growth Strategy" assumes best-case scenarios.
 ### 4. Grant Reality Check
 
 **Success Rates**:
+
 - Foundation grants: 10%
 - Federal grants: 3-5%
 - Time per application: 20-100 hours
 - Break-even: Apply only if grant > $50,000
 
 **Realistic Grant Strategy**:
+
 ```
 Year 1: 0 federal grants (build track record)
 Year 1: 2-3 local foundations ($10-25K each)
@@ -76,6 +82,7 @@ Total Year 1 grant revenue: $30,000 (not $200,000)
 **Original Projection**: $0 → $500K in 12 months
 
 **Risk-Adjusted Projection**:
+
 ```
 Q1 2025: $5,000 (friends & family)
 Q2 2025: $15,000 (early donors + 1 workshop)
@@ -85,6 +92,7 @@ Total Year 1: $80,000 (not $500,000)
 ```
 
 **Survival Revenue Model**:
+
 - 60% Individual donations (most reliable)
 - 30% Foundation grants (relationship-based)
 - 10% Earned revenue (UBIT-compliant only)
@@ -93,6 +101,7 @@ Total Year 1: $80,000 (not $500,000)
 ### 6. True Cost Structure
 
 **Realistic Overhead**:
+
 ```
 Compliance & Legal: 20%
 Admin & Operations: 15%
@@ -109,6 +118,7 @@ Total Overhead: 70% (Year 1)
 **California Director Exposure**: Personal liability for compliance failures
 
 **Required Protection**:
+
 ```
 1. D&O Insurance: $1M minimum ($3,000/year)
 2. Monthly compliance attestations
@@ -122,6 +132,7 @@ Total Overhead: 70% (Year 1)
 **Risk**: "Environmental behavioral infrastructure" confuses everyone
 
 **Mission Discipline**:
+
 ```
 Original: Addiction recovery through environmental design
 Fundable: Evidence-based recovery housing programs
@@ -132,6 +143,7 @@ Test: Can a donor explain your mission in one sentence?
 ## 📊 Survival Metrics (Not Vanity Metrics)
 
 Track these monthly:
+
 1. **Months of Cash Runway** (target: 6+)
 2. **Compliance Checklist Completion** (target: 100%)
 3. **Donor Retention Rate** (sector average: 45%)
@@ -140,14 +152,16 @@ Track these monthly:
 
 ## 🎯 Year 1 Survival Priorities
 
-### Do This:
+### Do This
+
 1. **Raise $100K unrestricted** (individuals + family foundations)
 2. **File every form early** (990, CT-1, RRF-1)
 3. **Document everything** (board minutes, UBIT analysis)
 4. **Build one perfect program** (provable outcomes)
 5. **Retain one great CPA** (nonprofit specialist)
 
-### Don't Do This:
+### Don't Do This
+
 1. Chase federal grants (too early)
 2. Launch earned revenue without UBIT analysis
 3. Promise specific outcomes to funders
@@ -156,7 +170,8 @@ Track these monthly:
 
 ## 💰 Realistic Financial Plan
 
-### Year 1 Budget (Survival Mode):
+### Year 1 Budget (Survival Mode)
+
 ```
 REVENUE
 Individual Giving:      $50,000
@@ -174,7 +189,8 @@ Reserve:                $5,000
 Total Expenses:        $100,000
 ```
 
-### Year 2-3 Growth Path:
+### Year 2-3 Growth Path
+
 - Year 2: $250,000 (add federal planning grant)
 - Year 3: $500,000 (add major implementation grant)
 - Year 5: $1,000,000 (proven model, diverse revenue)
@@ -206,6 +222,7 @@ Total Expenses:        $100,000
 **Reality**: $0 → $100K → $500K → $1M over 3-5 years
 
 **Success requires**:
+
 - Paranoid compliance discipline
 - Conservative revenue projections  
 - Aggressive expense management

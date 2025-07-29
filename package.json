@@ -4,11 +4,16 @@
   "description": "Recovery Compass WFD Sunrise Path",
   "scripts": {
     "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "lint:markdown": "markdownlint '**/*.md' --ignore node_modules",
+    "fix:markdown": "markdownlint '**/*.md' --fix --ignore node_modules",
+    "spell:check": "cspell '**/*.md' --no-progress",
+    "fix:all": "npm run fix:markdown && npm run spell:check"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.0.0",
     "jest": "^29.0.0",
-    "jest-environment-jsdom": "^29.7.0"
+    "jest-environment-jsdom": "^29.7.0",
+    "markdownlint-cli": "^0.45.0"
   }
 }

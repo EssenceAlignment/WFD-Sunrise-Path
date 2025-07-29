@@ -24,34 +24,41 @@
 
 ## 🚀 How to Use Your New Setup
 
-### Loading API Keys (anytime you need them):
+### Loading API Keys (anytime you need them)
+
 ```bash
 recovery-setup
 ```
 
-### Fixing MCP Issues (if they ever occur):
+### Fixing MCP Issues (if they ever occur)
+
 ```bash
 fix-mcp
 ```
+
 Then restart Claude Desktop.
 
 ## 📍 Where Everything Lives
 
-### Your API Keys:
+### Your API Keys
+
 - **Primary**: `/Users/ericjones/Projects/recovery-compass-journeys/recovery-compass-grant-system/.env`
 - **Keychain**: Secure storage via `~/.recovery-compass-env` (already configured)
 
-### Your Scripts:
+### Your Scripts
+
 - `~/.recovery_compass_setup.sh` - Master setup script
 - `~/.fix_mcp.sh` - MCP fix script
 - `~/.zshrc` - Shell configuration with aliases
 
-### MCP Configuration:
+### MCP Configuration
+
 - `~/Library/Application Support/Claude/claude_desktop_config.json`
 
 ## 🔑 Your Available API Keys
 
 From Keychain (secure):
+
 - GITHUB_TOKEN
 - DOCKER_TOKEN
 - AIRTABLE_API_KEY
@@ -61,6 +68,7 @@ From Keychain (secure):
 - CF_API_TOKEN (Cloudflare)
 
 From grant system .env:
+
 - FIREBASE_API_KEY
 - FIREBASE_PROJECT_ID
 - SUPABASE_URL
@@ -76,12 +84,14 @@ From grant system .env:
 
 ## 🎯 Next Steps
 
-### Right Now:
+### Right Now
+
 1. **Restart Claude Desktop** (Cmd+Q, wait 5 seconds, reopen)
 2. **Open a new terminal** to load the aliases
 3. **Test**: Run `recovery-setup` to verify
 
-### Going Forward:
+### Going Forward
+
 - Use `recovery-setup` whenever you need API keys loaded
 - Use `fix-mcp` if MCP servers disconnect
 - Your setup will persist forever
@@ -102,6 +112,7 @@ From grant system .env:
 ## 📊 Summary
 
 You now have:
+
 - ✅ Stable MCP servers (no more disconnections)
 - ✅ One-command API key loading (`recovery-setup`)
 - ✅ One-command MCP fixing (`fix-mcp`)

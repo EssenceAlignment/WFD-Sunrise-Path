@@ -5,6 +5,7 @@
 ### 1. Navigate to Security Settings
 
 For each repository:
+
 - `https://github.com/Recovery-Compass/recovery-compass-grant-system/settings/security_analysis`
 - `https://github.com/EssenceAlignment/WFD-Sunrise-Path/settings/security_analysis`
 - `https://github.com/[owner]/recovery-compass-journeys/settings/security_analysis`
@@ -61,11 +62,13 @@ You're in the Advanced Security settings. Enable these features:
 ### 3. Verify CodeQL is Active
 
 Since we added `.github/workflows/security.yml`, CodeQL should automatically run on:
+
 - Every push to main branch
 - Every pull request
 - Weekly schedule (Sundays)
 
 To verify:
+
 1. Go to repository → **Actions** tab
 2. Look for "CodeQL Analysis" workflow
 3. If not visible, go to `.github/workflows/security.yml` and click "Run workflow"
@@ -73,6 +76,7 @@ To verify:
 ### 4. Set Up Security Policy (Optional but Recommended)
 
 From the Security tab you showed:
+
 1. Click **"Set up a security policy"**
 2. This creates `SECURITY.md` with template:
 
@@ -125,12 +129,14 @@ gh api repos/Recovery-Compass/recovery-compass-grant-system \
 ## Priority Features for Grant Applications
 
 **Essential (Enable These First):**
+
 1. **Push protection** - Prevents accidental secret commits
 2. **Dependency graph** - Shows your dependencies
 3. **Dependabot alerts** - Critical for security compliance
 4. **Dependabot security updates** - Auto-fixes vulnerabilities
 
 **Nice to Have:**
+
 - Validity checks
 - Grouped security updates
 - Scan for generic passwords (AI-powered)

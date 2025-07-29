@@ -3,6 +3,7 @@
 ## ⚠️ Core Assumption: Everything Breaks
 
 This plan assumes:
+
 - Every script has a half-life measured in weeks
 - Every compliance deadline will be missed without active monitoring
 - Every revenue projection is wrong by 2-5x
@@ -11,6 +12,7 @@ This plan assumes:
 ## 🚨 Immediate Actions (Next 72 Hours)
 
 ### Hour 1-4: Stop the Bleeding
+
 ```bash
 # 1. Verify MCP is working RIGHT NOW
 cat ~/Library/Application\ Support/Claude/claude_desktop_config.json
@@ -21,6 +23,7 @@ cat ~/Library/Application\ Support/Claude/claude_desktop_config.json
 ```
 
 ### Day 1: California AG Compliance
+
 ```
 TASK: File CT-1 Registration
 URL: https://oag.ca.gov/charities/initial-reg
@@ -34,6 +37,7 @@ FAIL STATE: "Delinquent" public status, fundraising frozen
 ```
 
 ### Day 2: D&O Insurance
+
 ```
 TASK: Bind $1M D&O policy
 PROVIDERS: 
@@ -45,6 +49,7 @@ FAIL STATE: Board members personally liable
 ```
 
 ### Day 3: Nonprofit CPA
+
 ```
 TASK: Engage CPA with 501(c)(3) expertise
 INTERVIEW QUESTIONS:
@@ -58,6 +63,7 @@ FAIL STATE: IRS revocation, UBIT penalties
 ## 📊 Real Numbers (Not Fantasies)
 
 ### Year 1 Cash Flow Reality
+
 ```
 MONTH 1-3: -$10,000 (setup costs)
 MONTH 4-6: +$5,000 (friends/family)
@@ -68,6 +74,7 @@ RUNWAY REQUIRED: 12 months personal savings
 ```
 
 ### True Cost Per Dollar Raised
+
 ```
 Direct Mail: $1.25 per $1 (Year 1)
 Digital Ads: $1.50 per $1 (Year 1)
@@ -77,6 +84,7 @@ Major Gifts: $0.10 per $1 (relationships)
 ```
 
 ### UBIT Risk Matrix (Conservative)
+
 ```
 Monthly Giving: SAFE (0% UBIT)
 Foundation Grants: SAFE (0% UBIT)
@@ -86,6 +94,7 @@ Everything Else: ASSUME 35% TAX
 ## 🛠️ Technical Drift Monitoring
 
 ### Daily Automated Checks
+
 ```bash
 #!/bin/bash
 # Add to crontab: 0 9 * * * /path/to/daily-check.sh
@@ -102,6 +111,7 @@ mail -s "Recovery Compass Daily Check" you@example.com < results.log
 ```
 
 ### Weekly Manual Verification
+
 - [ ] MCP servers connect in Claude
 - [ ] All API keys accessible
 - [ ] Bank balance > 6 months runway
@@ -111,6 +121,7 @@ mail -s "Recovery Compass Daily Check" you@example.com < results.log
 ## 📅 Compliance Calendar (Set Reminders NOW)
 
 ### Monthly
+
 - Day 1: Bank reconciliation
 - Day 5: Donor acknowledgments complete
 - Day 10: Board packet distributed
@@ -119,12 +130,14 @@ mail -s "Recovery Compass Daily Check" you@example.com < results.log
 - Day 30: 990 preparation check
 
 ### Quarterly
+
 - CPA UBIT review
 - Board meeting (documented)
 - Insurance premium payment
 - SAM.gov renewal check
 
 ### Annual
+
 - January: 1099s issued
 - February: W-2s filed
 - May 15: 990 deadline (extended)
@@ -134,6 +147,7 @@ mail -s "Recovery Compass Daily Check" you@example.com < results.log
 ## 🔥 When Things Break (Not If)
 
 ### MCP Breaks
+
 ```bash
 # Manual recovery (memorize this)
 mkdir -p "$HOME/Library/Application Support/Claude"
@@ -141,6 +155,7 @@ echo '{"mcpServers":{"filesystem":{"command":"npx","args":["-y","@modelcontextpr
 ```
 
 ### Aliases Disappear
+
 ```bash
 # Re-add to .zshrc manually
 echo 'alias recovery-setup="source ~/.recovery_compass_setup.sh"' >> ~/.zshrc
@@ -149,6 +164,7 @@ source ~/.zshrc
 ```
 
 ### Compliance Emergency
+
 ```
 1. STOP all operations
 2. Call nonprofit attorney
@@ -160,6 +176,7 @@ source ~/.zshrc
 ## 💰 Survival Budget (Realistic)
 
 ### Minimum Monthly Burn
+
 ```
 Compliance/Legal: $1,500
 Insurance: $300
@@ -173,6 +190,7 @@ Add Staff: Triple it
 ```
 
 ### Funding Sources (Ranked by Reality)
+
 1. **Your savings** (100% reliable)
 2. **Board giving** (75% reliable)
 3. **Friends/family** (50% reliable)
@@ -183,12 +201,14 @@ Add Staff: Triple it
 ## ✅ Success Metrics (Survival Mode)
 
 Track daily:
+
 - Days of cash remaining
 - Days since last filing
 - Number of active donors
 - Compliance checklist %
 
 Ignore:
+
 - Social media followers
 - Website traffic  
 - Press mentions
@@ -202,6 +222,7 @@ Ignore:
 **Year 5**: Growth possible. Not guaranteed.
 
 **Failure points**:
+
 - 30% fail by Year 10 (sector average)
 - 50% of those fail on compliance
 - 30% fail on cash flow
@@ -210,6 +231,7 @@ Ignore:
 ## 📋 Print This Section
 
 ### Emergency Contacts
+
 - Nonprofit Attorney: ________________
 - CPA: ________________
 - Insurance Agent: ________________
@@ -217,12 +239,14 @@ Ignore:
 - Major Donor: ________________
 
 ### Critical Passwords (Store Separately)
+
 - IRS: ________________
 - CA AG: ________________
 - SAM.gov: ________________
 - Bank: ________________
 
 ### If You're Reading This in Crisis
+
 1. Check bank balance
 2. Check compliance calendar
 3. Call your attorney

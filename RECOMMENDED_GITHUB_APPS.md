@@ -1,6 +1,7 @@
 # Recommended GitHub Apps for Recovery Compass
 
 ## Current Apps (Already Installed) ✅
+
 - **Bito Code Review** - AI code review
 - **Cloudflare Workers and Pages** - Deployment
 - **Linear** - Project management
@@ -11,31 +12,36 @@
 ## 🎯 Recommended Additions for Grant Applications
 
 ### 1. **CLA Assistant** (High Priority)
-- **URL**: https://github.com/apps/cla-assistant
+
+- **URL**: <https://github.com/apps/cla-assistant>
 - **Why**: Manages contributor license agreements automatically
 - **Grant Impact**: Shows IP protection (SAMHSA requirement)
 - **Setup**: One-click install, then it comments on PRs for signatures
 
 ### 2. **Codecov** or **Coveralls**
-- **URL**: https://github.com/apps/codecov
+
+- **URL**: <https://github.com/apps/codecov>
 - **Why**: Tracks test coverage percentages
 - **Grant Impact**: Demonstrates code quality metrics
 - **Note**: Requires test suite setup first
 
-### 3. **Snyk** 
-- **URL**: https://github.com/apps/snyk
+### 3. **Snyk**
+
+- **URL**: <https://github.com/apps/snyk>
 - **Why**: Enhanced vulnerability scanning beyond Dependabot
 - **Grant Impact**: Shows proactive security (healthcare compliance)
 - **Free Tier**: 200 tests/month for open source
 
 ### 4. **All Contributors**
-- **URL**: https://github.com/apps/allcontributors
+
+- **URL**: <https://github.com/apps/allcontributors>
 - **Why**: Recognizes all types of contributions
 - **Grant Impact**: Demonstrates inclusive community (RWJF values)
 - **Usage**: Creates contributor table in README
 
 ### 5. **Stale Bot**
-- **URL**: https://github.com/apps/stale
+
+- **URL**: <https://github.com/apps/stale>
 - **Why**: Auto-manages old issues/PRs
 - **Grant Impact**: Shows active maintenance
 - **Config**: Customizable timing and messages
@@ -43,17 +49,20 @@
 ## 🔍 Optional But Valuable
 
 ### 6. **ImgBot**
-- **URL**: https://github.com/apps/imgbot
+
+- **URL**: <https://github.com/apps/imgbot>
 - **Why**: Optimizes images automatically
 - **Grant Impact**: Shows attention to performance
 
 ### 7. **GitGuardian**
-- **URL**: https://github.com/apps/gitguardian
+
+- **URL**: <https://github.com/apps/gitguardian>
 - **Why**: Additional secret scanning
 - **Grant Impact**: Enhanced security for healthcare data
 
 ### 8. **Semantic Pull Requests**
-- **URL**: https://github.com/apps/semantic-pull-requests
+
+- **URL**: <https://github.com/apps/semantic-pull-requests>
 - **Why**: Enforces conventional commit format
 - **Grant Impact**: Shows professional development practices
 

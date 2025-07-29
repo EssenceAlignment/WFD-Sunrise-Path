@@ -10,7 +10,7 @@
 
 ### 1. Add Codecov Token to GitHub Secrets
 
-1. Go to: https://github.com/EssenceAlignment/WFD-Sunrise-Path/settings/secrets/actions
+1. Go to: <https://github.com/EssenceAlignment/WFD-Sunrise-Path/settings/secrets/actions>
 2. Click **New repository secret**
 3. Add:
    - Name: `CODECOV_TOKEN`
@@ -22,6 +22,7 @@
 Since this is primarily an HTML/CSS project, create a simple test:
 
 **Create `package.json`** (if not exists):
+
 ```json
 {
   "name": "wfd-sunrise-path",
@@ -39,6 +40,7 @@ Since this is primarily an HTML/CSS project, create a simple test:
 ```
 
 **Create `jest.config.js`**:
+
 ```javascript
 module.exports = {
   coverageDirectory: 'coverage',
@@ -53,6 +55,7 @@ module.exports = {
 ```
 
 **Create `tests/sample.test.js`**:
+
 ```javascript
 describe('WFD Sunrise Path', () => {
   test('project exists', () => {
@@ -97,11 +100,12 @@ Add this to the top of your README.md:
 
 1. **On Push**: GitHub Actions runs tests and uploads coverage
 2. **On PRs**: Codecov comments with coverage changes
-3. **Dashboard**: View at https://codecov.io/gh/EssenceAlignment/WFD-Sunrise-Path
+3. **Dashboard**: View at <https://codecov.io/gh/EssenceAlignment/WFD-Sunrise-Path>
 
 ## 🎯 Grant Impact
 
 With Codecov active, you can show:
+
 - "Our code maintains X% test coverage"
 - "All PRs are analyzed for coverage impact"
 - "We use industry-standard quality metrics"
@@ -115,9 +119,10 @@ With Codecov active, you can show:
 ## 🔍 Troubleshooting
 
 If coverage doesn't appear:
+
 1. Check GitHub Actions tab for errors
 2. Verify token is set in secrets
 3. Ensure tests generate `lcov.info` file
 
 Your coverage dashboard will be available at:
-https://codecov.io/gh/EssenceAlignment/WFD-Sunrise-Path
+<https://codecov.io/gh/EssenceAlignment/WFD-Sunrise-Path>

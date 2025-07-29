@@ -3,6 +3,7 @@
 ## 🎯 Immediate Add-Now Features (Strengthen Grant Applications)
 
 ### 1. **Secrets Store** - Secure API Key Management
+
 **Grant Impact**: Demonstrates HIPAA-compliant security practices
 
 ```bash
@@ -14,12 +15,14 @@ npx wrangler secret put OPENAI_API_KEY
 npx wrangler secret put STRIPE_SECRET_KEY
 ```
 
-**Why for Grants**: 
+**Why for Grants**:
+
 - SAMHSA requires secure handling of patient data
 - Shows enterprise-grade secrets management
 - Zero environment variable exposure
 
 ### 2. **Turnstile** - Privacy-First CAPTCHA
+
 **Grant Impact**: Aligns with equity and accessibility requirements
 
 ```html
@@ -29,11 +32,13 @@ npx wrangler secret put STRIPE_SECRET_KEY
 ```
 
 **Why for Grants**:
+
 - No third-party tracking (RWJF equity alignment)
 - WCAG accessibility compliant
 - Free tier available
 
 ### 3. **AI Gateway** - Cost Control & Compliance
+
 **Grant Impact**: Shows responsible AI usage and budget management
 
 ```javascript
@@ -46,6 +51,7 @@ const openai = new OpenAI({
 ```
 
 **Why for Grants**:
+
 - Demonstrates cost controls (important for federal grants)
 - Provides audit trail for AI usage
 - Shows data governance practices
@@ -53,17 +59,21 @@ const openai = new OpenAI({
 ## 📊 How These Strengthen Grant Applications
 
 ### SAMHSA ($500K Health Tech Grants)
+>
 > "Recovery Compass employs Cloudflare's encrypted Secrets Store for HIPAA-compliant API key management, Turnstile for privacy-preserving user verification, and AI Gateway for auditable, cost-controlled AI interactions."
 
 ### RWJF ($250K Equity Grants)
+>
 > "Our privacy-first architecture uses Turnstile to eliminate tracking cookies while maintaining security, ensuring equitable access without surveillance capitalism."
 
 ### California Wellness Foundation
+>
 > "Edge-native security through Cloudflare Workers ensures sub-50ms response times for vulnerable populations on limited bandwidth."
 
 ## 🚀 Implementation Timeline
 
 **Week 1** (This Week):
+
 - Day 1: Enable Secrets Store, migrate API keys
 - Day 2: Implement Turnstile on grant interest forms
 - Day 3: Route AI calls through AI Gateway
@@ -73,6 +83,7 @@ const openai = new OpenAI({
 ## 💡 Grant Reviewer Perspective
 
 When reviewers see:
+
 - **Secrets Store**: "This team understands healthcare data security"
 - **Turnstile**: "They prioritize user privacy and accessibility"
 - **AI Gateway**: "They have cost controls and compliance monitoring"
@@ -111,6 +122,7 @@ wrangler deploy
 ## 🎯 Bottom Line
 
 These three Cloudflare features:
+
 1. **Eliminate security vulnerabilities** (no more .env files)
 2. **Improve privacy compliance** (no Google tracking)
 3. **Add cost controls** (AI usage monitoring)

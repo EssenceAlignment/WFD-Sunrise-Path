@@ -3,6 +3,7 @@
 ## ⚠️ Reality Check
 
 **Nothing is permanent.** macOS updates break things. Electron apps reset configs. Shell aliases disappear. This guide provides:
+
 - A working setup for today
 - Monitoring to detect when it breaks
 - Recovery procedures for when (not if) it fails
@@ -23,6 +24,7 @@ git init
 ### 2. Shell Functions (Not Aliases)
 
 Create `~/.recovery-compass/functions.sh`:
+
 ```bash
 #!/bin/bash
 # Recovery Compass Shell Functions
@@ -135,6 +137,7 @@ echo "!*.env.age" >> .gitignore
 ### 4. Health Check Script
 
 Create `~/.recovery-compass/health-check.sh`:
+
 ```bash
 #!/bin/bash
 # Recovery Compass Health Check
@@ -190,6 +193,7 @@ echo "[$(date)] ✅ All checks passed" >> "$log_file"
 ### 5. LaunchAgent for Monitoring
 
 Create `~/Library/LaunchAgents/com.recovery-compass.health-check.plist`:
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -213,6 +217,7 @@ Create `~/Library/LaunchAgents/com.recovery-compass.health-check.plist`:
 ```
 
 Load it:
+
 ```bash
 launchctl load ~/Library/LaunchAgents/com.recovery-compass.health-check.plist
 ```
@@ -246,6 +251,7 @@ echo $OPENAI_API_KEY | head -c 10
 ## 🛡️ Security Hardening
 
 ### Keychain Integration
+
 ```bash
 # Add API key to keychain
 security add-generic-password \
@@ -260,6 +266,7 @@ security find-generic-password \
 ```
 
 ### Git-Crypt for Team Sharing
+
 ```bash
 # Setup git-crypt
 brew install git-crypt
@@ -277,18 +284,21 @@ git-crypt add-gpg-user teammate@example.com
 ## 📊 Realistic Expectations
 
 ### What Will Break
+
 - **Shell configs**: OS updates, Oh My Zsh updates
 - **MCP configs**: Claude Desktop updates, Electron migrations
 - **API keys**: Rotation policies, expiration
 - **File paths**: Project moves, disk migrations
 
 ### Maintenance Schedule
+
 - **Daily**: Automated health checks
 - **Weekly**: Manual verification
 - **Monthly**: Update encrypted secrets
 - **Quarterly**: Disaster recovery drill
 
 ### Recovery Time Objectives
+
 - **Shell functions down**: 5 minutes (re-source)
 - **MCP broken**: 10 minutes (run fix function)
 - **Total system failure**: 30 minutes (manual recovery)
@@ -298,22 +308,26 @@ git-crypt add-gpg-user teammate@example.com
 Because it will. Here's what to do:
 
 1. **Check the logs**:
+
    ```bash
    tail -f ~/.recovery-compass/health-check.log
    ```
 
 2. **Run manual verification**:
+
    ```bash
    ~/.recovery-compass/verify_recovery_compass
    ```
 
 3. **Restore from backup**:
+
    ```bash
    cp ~/.recovery-compass/mcp-backups/claude_desktop_config.*.json \
       "$HOME/Library/Application Support/Claude/claude_desktop_config.json"
    ```
 
 4. **Nuclear option** - Start fresh:
+
    ```bash
    rm -rf ~/.recovery-compass
    rm "$HOME/Library/Application Support/Claude/claude_desktop_config.json"
@@ -323,6 +337,7 @@ Because it will. Here's what to do:
 ## 🎯 The Truth
 
 This setup will last weeks, maybe months. Then something will break. The value isn't in permanence—it's in:
+
 - Quick recovery when things break
 - Monitoring to catch breaks early
 - Documentation for future you

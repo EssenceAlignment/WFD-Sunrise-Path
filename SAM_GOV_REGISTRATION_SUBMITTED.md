@@ -1,4 +1,4 @@
-# 🎉 Recovery Compass SAM.gov Registration SUBMITTED!
+# 🎉 Recovery Compass SAM.gov Registration SUBMITTED
 
 ## Registration Details
 
@@ -33,7 +33,8 @@ Recovery Compass now has:
 ## 📋 While Waiting for Activation (3-10 days)
 
 ### 1. Monitor Communications
-- **Primary**: eric@recovery-compass.org
+
+- **Primary**: <eric@recovery-compass.org>
 - **Check**: @sam.gov, @gsa.gov, @fsd.gov emails
 - **Important**: Check spam/junk folders
 
@@ -42,24 +43,29 @@ Recovery Compass now has:
 **Start drafting for these opportunities:**
 
 #### Federal Grants (once SAM activates)
+
 - **SAMHSA** - Behavioral Health Programs
 - **DOJ** - Second Chance Act
 - **HHS** - Substance Abuse Prevention
 
 #### State/Foundation Grants (apply NOW)
+
 - **California Community Foundation**
 - **Weingart Foundation**
 - **California Wellness Foundation**
 - **LA County Behavioral Health**
 
 ### 3. Update Your Materials
+
 - Add UEI to website
 - Update capability statements
 - Revise grant boilerplate text
 - Notify partners of federal eligibility
 
 ### 4. Prepare Grants.gov Registration
+
 Once SAM.gov activates, immediately:
+
 1. Go to Grants.gov
 2. Register organization
 3. Add E-Business POC
@@ -67,10 +73,12 @@ Once SAM.gov activates, immediately:
 
 ## 🎯 Grant Application Power Statements
 
-### For Federal Grants:
+### For Federal Grants
+>
 > "Recovery Compass (UEI: Y4L3SDVAD8Z8) is a registered SAM.gov entity combining proven pilot outcomes with cutting-edge Cloudflare edge AI to deliver personalized addiction recovery support."
 
-### For Foundation Grants:
+### For Foundation Grants
+>
 > "As a California nonprofit with pending 501(c)(3) status and active SAM.gov registration, Recovery Compass bridges innovation and compliance to scale evidence-based recovery programs."
 
 ## 📊 Your Competitive Advantages
@@ -102,9 +110,10 @@ Once SAM.gov activates, immediately:
 - State/local grants often process faster
 - Document everything for future applications
 
-## 🎉 Congratulations!
+## 🎉 Congratulations
 
 Recovery Compass is now positioned to access:
+
 - Federal grants ($100K-$5M)
 - State contracts ($50K-$500K)
 - Foundation grants ($25K-$250K)

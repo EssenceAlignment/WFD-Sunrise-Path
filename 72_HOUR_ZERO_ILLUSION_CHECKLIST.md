@@ -79,6 +79,7 @@ Every hour matters. Miss one deadline and you join the 30% failure rate.
 ```
 
 **Reality Check**:
+
 - Grant success: 5-11% (not 50%)
 - Donor retention: <20% Year 1 (not 45%)
 - Acquisition cost: $1.25 per $1 raised
@@ -125,6 +126,7 @@ Every hour matters. Miss one deadline and you join the 30% failure rate.
 ```
 
 **Your Real Numbers**:
+
 - Year 1: -$20,000 to -$30,000
 - Break-even: Year 3 (if lucky)
 - Sustainable: Year 5 (if you survive)
@@ -146,6 +148,7 @@ By Hour 72, you must have:
 ## If You're Reading This After 72 Hours
 
 You're already behind. Every hour increases risk exponentially:
+
 - Hour 73-96: 10% chance of AG notice
 - Hour 97-120: 25% chance of "Delinquent" status
 - Hour 121+: 50% chance of permanent damage
@@ -164,11 +167,13 @@ Survival Rate:
 ## Emergency Contacts (Fill Now)
 
 **When arrest/lawsuit imminent**:
+
 - Nonprofit Attorney: _______________
 - Criminal Defense: _______________
 - Crisis PR: _______________
 
 **When broke**:
+
 - Major Donor: _______________
 - Emergency Loan: _______________
 - Bankruptcy Attorney: _______________

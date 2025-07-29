@@ -11,6 +11,7 @@ With 501(c)(3) approval, Recovery Compass must balance mission-driven revenue ge
 **Key Rule**: Revenue from "trade or business, regularly carried on, not substantially related" to exempt mission = taxable UBI
 
 **Safe Harbor Strategies**:
+
 1. **ERD Certification**: Document explicit charitable/educational goals in every syllabus
 2. **Corporate Workshops**: Frame as "training social-service leaders" not generic performance
 3. **Newsletter**: Keep ads <10% of content, maintain educational focus
@@ -21,12 +22,14 @@ With 501(c)(3) approval, Recovery Compass must balance mission-driven revenue ge
 ### Mission-Related Revenue (Tax-Exempt)
 
 ✅ **Clearly Mission-Related**:
+
 - ERD methodology training for recovery professionals
 - Educational workshops on environmental response design
 - Research-based newsletters advancing addiction science
 - Certification programs improving treatment outcomes
 
 ❌ **Potentially Unrelated**:
+
 - Generic corporate wellness programs
 - Lifestyle content subscriptions
 - Ad-heavy publications
@@ -52,7 +55,7 @@ With 501(c)(3) approval, Recovery Compass must balance mission-driven revenue ge
 2. **SAM.gov Activation**
    - Standard window: 10 business days
    - No follow-up until Day 10
-   - Monitor eric@recovery-compass.org
+   - Monitor <eric@recovery-compass.org>
 
 3. **California AG Registration**
    - File within 30 days of receiving assets
@@ -73,12 +76,14 @@ With 501(c)(3) approval, Recovery Compass must balance mission-driven revenue ge
 ## 📊 Board Governance Requirements
 
 ### Board Education Package
+
 - [ ] UBIT primer for all directors
 - [ ] Revenue proposal evaluation criteria
 - [ ] Mission alignment checklist
 - [ ] Quarterly compliance review
 
 ### Documentation Standards
+
 - Every revenue stream must have written mission justification
 - Board minutes must reflect UBIT discussions
 - Annual review of all earned revenue activities
@@ -86,36 +91,43 @@ With 501(c)(3) approval, Recovery Compass must balance mission-driven revenue ge
 ## 🗓️ Seven-Day Compliance Sprint
 
 ### Day 1: Documentation
+
 - [ ] Post IRS determination letter in secure folder
 - [ ] Create board-accessible compliance repository
 - [ ] Screenshot IRS Publication 78 listing
 
 ### Day 2: Public Updates
+
 - [ ] Update website footer: "501(c)(3) tax-exempt nonprofit"
 - [ ] Add to GitHub README: "EIN: 33-3213246 • 501(c)(3) Public Charity"
 - [ ] Verify exact IRS language match
 
 ### Day 3: State Compliance
+
 - [ ] File CA CT-1 if assets received
 - [ ] Save submission confirmation
 - [ ] Calendar annual renewal date
 
 ### Day 4: ERD Certification Launch
+
 - [ ] Publish waitlist with mission-fit screening
 - [ ] Target: 25 qualified signups
 - [ ] Document educational objectives
 
 ### Day 5: Case Study Development
+
 - [ ] Draft Whittier outline (APA format)
 - [ ] Include KPI table (45% → 80%)
 - [ ] Dr. Gallup review scheduled
 
 ### Day 6: Platform Applications
+
 - [ ] Submit Google for Nonprofits
 - [ ] Archive confirmation email
 - [ ] Prepare Grants.gov next
 
 ### Day 7: Donor Activation
+
 - [ ] Soft-launch monthly giving
 - [ ] Target: 10 × $25 donors
 - [ ] Test recurring payment flow
@@ -125,6 +137,7 @@ With 501(c)(3) approval, Recovery Compass must balance mission-driven revenue ge
 ### Mission Alignment Matrix
 
 Rank each opportunity by:
+
 1. **Mission Alignment** (1-10)
 2. **Operational Lift** (1-10)
 3. **Revenue Potential** (1-10)
@@ -135,6 +148,7 @@ Rank each opportunity by:
 ### ERD Certification as Data Pipeline
 
 Requirements for participants:
+
 - Submit baseline metrics pre-training
 - Report 30/60/90-day outcomes
 - Contribute to peer-reviewed research
@@ -146,6 +160,7 @@ Requirements for participants:
 **Use**: "Environmental behavioral infrastructure"
 
 This positioning attracts:
+
 - Housing investors
 - Mental health funders
 - Public safety initiatives
@@ -176,16 +191,19 @@ This positioning attracts:
 ## 📈 Revenue Experiments Priority
 
 ### Tier 1: Pure Mission (Start Immediately)
+
 - Monthly giving program
 - ERD certification for professionals
 - Foundation grants
 
 ### Tier 2: Mission-Adjacent (Document Carefully)
+
 - Educational newsletters
 - Impact measurement tools
 - Consulting to nonprofits
 
 ### Tier 3: Evaluate Carefully (Consider Subsidiary)
+
 - Corporate wellness programs
 - Generic leadership training
 - Commercial API licensing
@@ -193,12 +211,14 @@ This positioning attracts:
 ## 🔍 Monitoring & Reporting
 
 ### Monthly Metrics
+
 - Revenue by source
 - Mission alignment score
 - UBIT exposure estimate
 - Board review status
 
 ### Quarterly Actions
+
 - File 990-T if needed
 - Board compliance review
 - Strategy adjustment
@@ -206,7 +226,8 @@ This positioning attracts:
 
 ## 💫 Final Compliance Wisdom
 
-**The Formula**: 
+**The Formula**:
+
 - Documented mission alignment
 - Conservative classification
 - Board oversight

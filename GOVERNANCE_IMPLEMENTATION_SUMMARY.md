@@ -3,9 +3,10 @@
 ## ✅ Completed Implementations
 
 ### 1. Primary Repository (WFD-Sunrise-Path)
+
 - **MIT License** - Open-source compliance for Gitcoin/Web3 eligibility
 - **CODE_OF_CONDUCT.md** - Contributor Covenant v2.1 for inclusive community standards
-- **Contact Email** - conduct@recovery-compass.org for enforcement
+- **Contact Email** - <conduct@recovery-compass.org> for enforcement
 - **GitHub Templates** - Issue/PR templates with grant alignment sections
 - **CodeQL Workflow** - Automated security scanning
 - **Dependabot Configuration** - Weekly dependency updates
@@ -22,11 +23,13 @@
 ### 3. Remote Repositories Requiring Governance
 
 **recovery-compass-grant-system (Lovable Project)**
+
 - Exists on GitHub as a Vite + React + shadcn/ui project
 - Needs to be cloned locally to apply governance files
 - Command: `git clone https://github.com/[owner]/recovery-compass-grant-system`
 
 ### 3. Propagation Script
+
 - Created `propagate_governance.sh` for consistent deployment
 - Automatically copies LICENSE, CoC, and .github templates
 - Commits with IPE-compliant messages
@@ -34,28 +37,34 @@
 ## 📋 Grant Narrative Insertion Points
 
 ### Technical Infrastructure Section
+>
 > "Our GitHub repositories enforce automated CodeQL scanning and Dependabot patching, ensuring vulnerabilities are surfaced within hours."
 
 ### Governance & Equity Section
+>
 > "A Contributor Covenant v2.1 code of conduct and open MIT licence invite inclusive, community-driven enhancements."
 
 ### Risk Mitigation Section
+>
 > "All external code contributions require a signed CLA, removing intellectual-property ambiguity."
 
 ## 🔧 Manual Setup Steps
 
 ### 1. Enable Dependabot Alerts
-- Navigate to: https://github.com/EssenceAlignment/WFD-Sunrise-Path/settings/security_analysis
+
+- Navigate to: <https://github.com/EssenceAlignment/WFD-Sunrise-Path/settings/security_analysis>
 - Toggle ON:
   - Dependabot alerts
   - Dependabot security updates
   - Secret scanning
 
 ### 2. Add CLA Assistant (Optional)
-- Visit: https://github.com/marketplace/cla-assistant
+
+- Visit: <https://github.com/marketplace/cla-assistant>
 - Click "Install" and select WFD-Sunrise-Path repository
 
 ### 3. Branch Protection Rules
+
 - Go to: Settings → Branches
 - Add rule for `main` branch
 - Require status checks:
@@ -87,7 +96,7 @@ gh api repos/EssenceAlignment/WFD-Sunrise-Path/branches/main/protection
 ## 🚀 Next Steps (No Urgency)
 
 1. **This Week**: Enable security features via GitHub settings
-2. **Before Applications**: 
+2. **Before Applications**:
    - Add NOTICE file for third-party licenses
    - Create architecture diagrams in README
    - Set up monitoring for recovery-compass.org

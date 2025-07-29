@@ -52,7 +52,7 @@ export default {
 
 ### Step 1: Get Your Site Key
 
-1. Go to: https://dash.cloudflare.com/?to=/:account/turnstile
+1. Go to: <https://dash.cloudflare.com/?to=/:account/turnstile>
 2. Click "Add site"
 3. Enter site name: "Recovery Compass"
 4. Add your domains:
@@ -134,7 +134,7 @@ async function verifyTurnstile(token, ip) {
 
 ### Step 1: Create AI Gateway
 
-1. Go to: https://dash.cloudflare.com/?to=/:account/ai/ai-gateway
+1. Go to: <https://dash.cloudflare.com/?to=/:account/ai/ai-gateway>
 2. Click "Create Gateway"
 3. Name: "recovery-compass-ai"
 4. Copy your Gateway URL
@@ -172,17 +172,20 @@ const completion = await openai.chat.completions.create({
 
 ## 📋 Implementation Checklist
 
-### Today:
+### Today
+
 - [ ] Install Wrangler: `npm install -g wrangler`
 - [ ] Login to Cloudflare: `wrangler login`
 - [ ] Add first secret: `wrangler secret put SUPABASE_SERVICE_KEY`
 
-### Tomorrow:
+### Tomorrow
+
 - [ ] Create Turnstile site in dashboard
 - [ ] Add Turnstile to one form
 - [ ] Test with localhost
 
-### This Week:
+### This Week
+
 - [ ] Migrate all API keys to Secrets Store
 - [ ] Implement Turnstile on all public forms
 - [ ] Create AI Gateway and update OpenAI calls
@@ -228,6 +231,7 @@ curl https://api.cloudflare.com/client/v4/accounts/{account_id}/ai-gateway/gatew
 **Remember**: These features work independently of the MCP server. You can implement them right now without any blockers!
 
 The MCP server is just a convenience tool - all Cloudflare features are accessible through:
+
 - Wrangler CLI
 - Cloudflare Dashboard
 - Direct API calls

@@ -5,15 +5,17 @@
 ### 🎯 Required Federal Registrations (In Order)
 
 #### 1. **DUNS Number** (Now UEI - Unique Entity Identifier)
+
 - **What**: 12-character identifier for your organization
-- **Where**: https://sam.gov/content/entity-registration
+- **Where**: <https://sam.gov/content/entity-registration>
 - **Time**: Immediate (during SAM registration)
 - **Cost**: FREE
 - **Note**: DUNS transitioned to UEI in April 2022
 
 #### 2. **SAM.gov Registration** (System for Award Management)
+
 - **What**: Central database for federal contractors/grantees
-- **Where**: https://sam.gov
+- **Where**: <https://sam.gov>
 - **Time**: 7-10 business days
 - **Cost**: FREE (beware of scam sites charging fees)
 - **Required Info**:
@@ -25,8 +27,9 @@
   - Point of contact info
 
 #### 3. **Grants.gov Registration**
+
 - **What**: Portal to apply for federal grants
-- **Where**: https://www.grants.gov/register
+- **Where**: <https://www.grants.gov/register>
 - **Time**: 2-3 days after SAM is active
 - **Cost**: FREE
 - **Steps**:
@@ -35,8 +38,9 @@
   3. Authorize individual users (AORs)
 
 #### 4. **EIN (Employer Identification Number)**
+
 - **What**: Federal tax ID for your organization
-- **Where**: https://www.irs.gov/businesses/small-businesses-self-employed/apply-for-an-employer-identification-number-ein-online
+- **Where**: <https://www.irs.gov/businesses/small-businesses-self-employed/apply-for-an-employer-identification-number-ein-online>
 - **Time**: Immediate online
 - **Cost**: FREE
 - **Note**: Required BEFORE SAM registration
@@ -52,17 +56,20 @@
 
 ### 🏢 Organization Type Considerations
 
-#### If you're a **501(c)(3) Nonprofit**:
+#### If you're a **501(c)(3) Nonprofit**
+
 - Need IRS determination letter
 - Register as nonprofit in SAM
 - Eligible for most health/social grants
 
-#### If you're a **For-Profit Entity**:
+#### If you're a **For-Profit Entity**
+
 - Limited grant eligibility
 - Consider B-Corp or benefit corporation status
 - May need to partner with nonprofit
 
-#### If you're an **Individual**:
+#### If you're an **Individual**
+
 - Most federal grants require organizations
 - Consider fiscal sponsorship
 - Or form an LLC/nonprofit
@@ -70,15 +77,18 @@
 ### 📅 Timeline for Federal Grant Readiness
 
 **Week 1**:
+
 - Day 1: Apply for EIN
 - Day 2: Start SAM registration
 - Day 3-7: Gather required documents
 
 **Week 2**:
+
 - SAM registration processing
 - Prepare organizational documents
 
 **Week 3**:
+
 - SAM activates
 - Register on Grants.gov
 - Authorize users
@@ -87,17 +97,20 @@
 
 ### 🎯 Specific Grant Requirements
 
-#### SAMHSA Grants:
+#### SAMHSA Grants
+
 - Active SAM registration
 - 2 years audited financials (if >$750K)
 - Indirect cost rate agreement (optional)
 
-#### NIH/Health Grants:
+#### NIH/Health Grants
+
 - Above requirements PLUS
 - eRA Commons account
 - Human subjects training (if applicable)
 
-#### NSF Grants:
+#### NSF Grants
+
 - Above requirements PLUS
 - Research.gov account
 - Biographical sketches in NSF format
@@ -127,11 +140,13 @@
 ### ✅ Your Current Status
 
 **Technical Readiness**: 100% ✅
+
 - GitHub governance complete
 - Security automation active
 - Professional documentation
 
 **Federal Registration**: 0% ⚠️
+
 - Need EIN
 - Need SAM registration
 - Need Grants.gov registration

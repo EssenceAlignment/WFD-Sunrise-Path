@@ -167,9 +167,9 @@ If you need to continue working without MCP:
 
 ## 📞 Support Resources
 
-- Cloudflare Discord: https://discord.cloudflare.com
+- Cloudflare Discord: <https://discord.cloudflare.com>
 - MCP GitHub Issues: Check the MCP repository for known issues
-- Cloudflare Status: https://www.cloudflarestatus.com/
+- Cloudflare Status: <https://www.cloudflarestatus.com/>
 
 ## 💡 Workaround for Recovery Compass
 
