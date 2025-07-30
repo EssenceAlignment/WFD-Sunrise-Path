@@ -1,4 +1,4 @@
-{
+
   "version": "0.2",
   "ignorePaths": [
     "node_modules/**",
@@ -233,6 +233,7 @@
     "observability",
     "traceability",
     "debuggability",
+    "Sourcery",
     "SDVAD",
     "Guidestar",
     "Weingart",
