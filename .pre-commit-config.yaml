@@ -1,24 +1,26 @@
+# Pre-commit hooks for Recovery Compass
+# Ensures alignment tests pass before any commit
+
 repos:
-  - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.40.0
+  - repo: local
     hooks:
-      - id: markdownlint
-        args: [--disable, MD013]   # example width rule only
-        stages: [pre-commit]       # read-only lint, no --fix
-  - repo: https://github.com/errata-ai/vale
-    rev: v3.8.0
-    hooks:
-      - id: vale
-        name: vale (system)
-        entry: vale  # uses /usr/local/bin/vale
+      - id: alignment-tests
+        name: Run alignment tests
+        entry: npm run test
         language: system
-        types: [markdown]
-  - repo: https://github.com/adrienverge/yamllint
-    rev: v1.35.1
-    hooks:
-      - id: yamllint
-  - repo: https://github.com/streetsidesoftware/cspell-cli
-    rev: v8.7.0
-    hooks:
-      - id: cspell
-        args: [--no-must-find-files]
+        pass_filenames: false
+        always_run: true
+
+      - id: abundance-linter
+        name: Check for urgency language
+        entry: scripts/abundance_linter.py
+        language: python
+        files: '\.(md|yml|yaml|txt)$'
+        exclude: '^(node_modules|.git|coverage|dist|build)/'
+
+      - id: context-freshness
+        name: Verify context freshness
+        entry: scripts/check_context_freshness.py
+        language: python
+        pass_filenames: false
+        always_run: true

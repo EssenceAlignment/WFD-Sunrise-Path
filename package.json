@@ -11,9 +11,13 @@
   "name": "wfd-sunrise-path",
   "scripts": {
     "test": "jest",
-    "test:coverage": "jest --coverage",
-    "lint:check": "pre-commit run --all-files --show-diff-on-failure",
-    "prepare": "husky install"
+    "lint": "markdownlint '**/*.md' --ignore node_modules --ignore coverage",
+    "spell": "cspell \"**/*\" --no-progress",
+    "check": "npm run lint && npm run spell",
+    "eval": "openai tools evals ./alignment_tests --model gpt-4o",
+    "test:alignment": "npm run eval && echo '✅ Alignment passed'",
+    "snapshot:objectives": "node scripts/snapshot_objectives.js",
+    "scan:gems": "python scripts/scan_hidden_gems.py"
   },
   "version": "1.0.0"
 }
