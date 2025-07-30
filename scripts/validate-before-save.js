@@ -44,26 +44,22 @@ class MarkdownValidator {
   checkCodeBlockSpacing(lines) {
     lines.forEach((line, index) => {
       if (line.startsWith('```')) {
-        // Opening fence
-        if (!line.endsWith('```')) {
-          if (index > 0 && lines[index - 1].trim() !== '') {
-            this.errors.push({
-              line: index + 1,
-              type: 'MD031',
-              message: 'Code block needs blank line before'
-            });
-          }
+        // Opening fence - merged nested if conditions
+        if (!line.endsWith('```') && index > 0 && lines[index - 1].trim() !== '') {
+          this.errors.push({
+            line: index + 1,
+            type: 'MD031',
+            message: 'Code block needs blank line before'
+          });
         }
 
-        // Closing fence
-        if (line === '```') {
-          if (index < lines.length - 1 && lines[index + 1].trim() !== '') {
-            this.errors.push({
-              line: index + 1,
-              type: 'MD031',
-              message: 'Code block needs blank line after'
-            });
-          }
+        // Closing fence - merged nested if conditions
+        if (line === '```' && index < lines.length - 1 && lines[index + 1].trim() !== '') {
+          this.errors.push({
+            line: index + 1,
+            type: 'MD031',
+            message: 'Code block needs blank line after'
+          });
         }
       }
     });
