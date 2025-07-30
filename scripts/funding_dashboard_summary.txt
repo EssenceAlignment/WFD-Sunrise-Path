@@ -1,0 +1,34 @@
+
+📊 FUNDING DASHBOARD SUMMARY
+Generated: 2025-07-30 02:45:29
+
+OVERVIEW:
+- Total Opportunities: 16
+- Traditional Funding: 8 opportunities
+- Non-Traditional Funding: 8 opportunities
+- Successfully Added: 0 records
+- Total Potential Funding: $16,800,000
+
+URGENT DEADLINES (Next 30 days):
+
+- Gitcoin Grants Round 21 - Public Goods - 13 days left
+- San Diego County Behavioral Health Services RFP - 20 days left
+- CDC Overdose Data to Action Grant - 29 days left
+- Salesforce.org Nonprofit Cloud Grant - 29 days left
+
+HIGHEST VALUE OPPORTUNITIES:
+
+- Social Impact Bond - Recovery Housing Success - Up to $5,000,000
+- California Health Facilities Financing Authority - Up to $2,500,000
+- Venture Philanthropy Partners Scale Fund - Up to $2,000,000
+- Conrad N. Hilton Foundation Recovery Housing Initiative - Up to $1,500,000
+- HRSA Rural Communities Opioid Response Program - Up to $1,000,000
+
+NEXT ACTIONS:
+1. Review all opportunities in Airtable dashboard
+2. Prioritize based on deadline and match score
+3. Begin application process for top 3 opportunities
+4. Set up tracking for application deadlines
+5. Assign team members to each opportunity
+
+Access your dashboard at: https://airtable.com/appNBesu9xYl5Mvm1
