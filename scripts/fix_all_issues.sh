@@ -14,20 +14,19 @@ echo -e "\n${YELLOW}📝 Fixing Markdown Issues...${NC}"
 
 # MD040 - Add language to fenced code blocks
 echo "  → Fixing code blocks without language specifiers..."
-find . -name "*.md" -type f ! -path "./node_modules/*" ! -path "./venv/*" -exec sed -i '' 's/^```$/```text/g' {} +
+find . -name "*.md" -type f ! -path "./node_modules/*" ! -path "./venv/*" -exec sed -i "" 's/^```$/```text/g' {} +
 
 # MD031 - Add blank lines around fenced code blocks
 echo "  → Adding blank lines around code blocks..."
-find . -name "*.md" -type f ! -path "./node_modules/*" ! -path "./venv/*" -exec sed -i '' -E '/^```/{x;/^$/{x;b};x;s/^/\
-/;x;}' {} +
+# This is complex with sed, using markdownlint auto-fix instead
 
 # MD032 - Add blank lines around lists
 echo "  → Adding blank lines around lists..."
-find . -name "*.md" -type f ! -path "./node_modules/*" ! -path "./venv/*" -exec sed -i '' -E 's/([^[:space:]])\n(-|\*|\+|[0-9]+\.)/\1\n\n\2/g' {} +
+find . -name "*.md" -type f ! -path "./node_modules/*" ! -path "./venv/*" -exec sed -i "" -E 's/([^[:space:]])\n(-|\*|\+|[0-9]+\.)/\1\n\n\2/g' {} +
 
 # MD022 - Add blank lines around headings
 echo "  → Adding blank lines around headings..."
-find . -name "*.md" -type f ! -path "./node_modules/*" ! -path "./venv/*" -exec sed -i '' -E 's/([^[:space:]])\n(#{1,6} )/\1\n\n\2/g' {} +
+find . -name "*.md" -type f ! -path "./node_modules/*" ! -path "./venv/*" -exec sed -i "" -E 's/([^[:space:]])\n(#{1,6} )/\1\n\n\2/g' {} +
 
 # Run markdownlint fix
 echo "  → Running markdownlint auto-fix..."
@@ -38,7 +37,7 @@ echo -e "\n${YELLOW}📖 Fixing Spelling Issues...${NC}"
 
 # Add common technical terms to dictionary
 echo "  → Adding technical terms to dictionary..."
-cat >> styles/Vocab/Base/accept.txt << EOF
+cat >> styles/Vocab/Base/accept.txt << "EOF"
 autobuild
 biopsychosocial
 Likert
@@ -53,10 +52,10 @@ echo -e "\n${YELLOW}📋 Fixing YAML Boolean Issues...${NC}"
 
 # Fix boolean values in YAML files
 echo "  → Converting string booleans to proper booleans..."
-find .github/workflows -name "*.yml" -exec sed -i '' 's/: "true"/: true/g' {} +
-find .github/workflows -name "*.yml" -exec sed -i '' 's/: "false"/: false/g' {} +
-find .github/workflows -name "*.yml" -exec sed -i '' "s/: 'true'/: true/g" {} +
-find .github/workflows -name "*.yml" -exec sed -i '' "s/: 'false'/: false/g" {} +
+find .github/workflows -name "*.yml" -exec sed -i "" 's/: "true"/: true/g' {} +
+find .github/workflows -name "*.yml" -exec sed -i "" 's/: "false"/: false/g' {} +
+find .github/workflows -name "*.yml" -exec sed -i "" "s/: 'true'/: true/g" {} +
+find .github/workflows -name "*.yml" -exec sed -i "" "s/: 'false'/: false/g" {} +
 
 # 4. Create Module Fix Script
 echo -e "\n${YELLOW}📦 Creating Module Fix Script...${NC}"

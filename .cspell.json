@@ -292,7 +292,14 @@
     "kpis",
     "hmis",
     "HMIS",
-    "biopsychosocial"
+    "biopsychosocial",
+    "Anson",
+    "esbenp",
+    "Likert",
+    "SAVR",
+    "yamllint",
+    "DavidAnson",
+    "redhat"
   ],
   "dictionaries": ["en_US"],
   "import": ["cspell-dict-npm/cspell-ext.json"],
