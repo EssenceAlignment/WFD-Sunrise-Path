@@ -1,9 +1,8 @@
-# Recovery Compass Metrics Relay - Gold-Plated IPE
-alignment_score: 0.94        # float 0-1 (OpenAI Evals)
-context_freshness_mins: 37   # minutes since last context snapshot
-force_multiplier: 10         # ≥10 to pass
-abundance_level: HIGH        # HIGH | MEDIUM | LOW (linter decides)
-manual_work_pct: 0          # ≤5 to pass
-velocity_ratio: 1.7         # delivered_tasks / planned_tasks
-compliance_index: 0.99      # CI score from alignment_tests
-last_updated: "2025-01-30T14:02:11Z"
+alignment_score: 0.94
+context_freshness_mins: 0
+force_multiplier: 10
+abundance_level: LOW
+manual_work_pct: 0
+velocity_ratio: 1.7
+compliance_index: 0.99
+last_updated: '2025-07-30T11:53:52Z'
