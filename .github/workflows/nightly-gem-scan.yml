@@ -1,0 +1,33 @@
+name: Nightly Hidden Gems Scan
+
+on:
+  schedule:
+    # Run at 3:13 AM UTC every day
+    - cron: "13 3 * * *"
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  gemscan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for commit scanning
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Run hidden gems scanner
+        run: |
+          python scripts/scan_hidden_gems.py
+
+      - name: Commit and push if changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add hidden_gems.context.md scripts/force_metrics.csv
+          git diff --quiet && git diff --staged --quiet || (git commit -m "🔍 Nightly gem scan: $(date +'%Y-%m-%d')" && git push)
