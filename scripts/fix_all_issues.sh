@@ -54,8 +54,8 @@ echo -e "\n${YELLOW}📋 Fixing YAML Boolean Issues...${NC}"
 echo "  → Converting string booleans to proper booleans..."
 find .github/workflows -name "*.yml" -exec sed -i "" 's/: "true"/: true/g' {} +
 find .github/workflows -name "*.yml" -exec sed -i "" 's/: "false"/: false/g' {} +
-find .github/workflows -name "*.yml" -exec sed -i "" "s/: 'true'/: true/g" {} +
-find .github/workflows -name "*.yml" -exec sed -i "" "s/: 'false'/: false/g" {} +
+find .github/workflows -name "*.yml" -exec sed -i "" 's/: '\''true'\''/: true/g' {} +
+find .github/workflows -name "*.yml" -exec sed -i "" 's/: '\''false'\''/: false/g' {} +
 
 # 4. Create Module Fix Script
 echo -e "\n${YELLOW}📦 Creating Module Fix Script...${NC}"
