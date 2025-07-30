@@ -10,7 +10,7 @@ cd /Users/ericjones/Projects/wfd-sunrise-path/WFD-Sunrise-Path
 ./propagate_governance.sh
 
 # The script will now process recovery-compass-grant-system since it's a git repo
-```
+```text
 
 ## Alternative: Run directly from recovery-compass-grant-system
 
@@ -31,7 +31,7 @@ git commit -m "chore(governance): add MIT licence, CoC, templates, CodeQL & Depe
 git remote add origin https://github.com/[your-username]/recovery-compass-grant-system.git
 git branch -M main
 git push -u origin main
-```
+```text
 
 ## For Recovery-Compass-Funding (with conflicts)
 
@@ -41,7 +41,7 @@ git merge --abort  # Clear the merge conflict
 git pull origin main  # Sync with remote
 cd /Users/ericjones/Projects/wfd-sunrise-path/WFD-Sunrise-Path
 ./propagate_governance.sh  # Re-run script
-```
+```text
 
 ## Quick Verification
 

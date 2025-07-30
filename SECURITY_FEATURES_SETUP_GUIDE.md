@@ -94,7 +94,7 @@ From the Security tab you showed:
 Please report vulnerabilities to: security@recovery-compass.org
 
 We will respond within 48 hours and work on a fix.
-```
+```text
 
 ### 5. Branch Protection Rules (For Main Branch)
 
@@ -124,7 +124,7 @@ gh api repos/Recovery-Compass/recovery-compass-grant-system/secret-scanning/aler
 # List security features status
 gh api repos/Recovery-Compass/recovery-compass-grant-system \
   --jq '.security_and_analysis'
-```
+```text
 
 ## Priority Features for Grant Applications
 

@@ -20,11 +20,11 @@ cat ~/Library/Application\ Support/Claude/claude_desktop_config.json
 # 2. Screenshot all working configs (paper backup)
 # 3. Print this document
 # 4. Set phone reminders for every deadline below
-```
+```text
 
 ### Day 1: California AG Compliance
 
-```
+```text
 TASK: File CT-1 Registration
 URL: https://oag.ca.gov/charities/initial-reg
 DEADLINE: TODAY (you're already late)
@@ -34,11 +34,11 @@ DOCS NEEDED:
 - Bylaws
 - $25 fee
 FAIL STATE: "Delinquent" public status, fundraising frozen
-```
+```text
 
 ### Day 2: D&O Insurance
 
-```
+```text
 TASK: Bind $1M D&O policy
 PROVIDERS: 
 - Nonprofits Insurance Alliance
@@ -46,11 +46,11 @@ PROVIDERS:
 - Great American
 COST: $600-1,200/year
 FAIL STATE: Board members personally liable
-```
+```text
 
 ### Day 3: Nonprofit CPA
 
-```
+```text
 TASK: Engage CPA with 501(c)(3) expertise
 INTERVIEW QUESTIONS:
 - How many 990s filed last year?
@@ -58,38 +58,38 @@ INTERVIEW QUESTIONS:
 - Cost for quarterly reviews?
 BUDGET: $5,000-10,000/year
 FAIL STATE: IRS revocation, UBIT penalties
-```
+```text
 
 ## 📊 Real Numbers (Not Fantasies)
 
 ### Year 1 Cash Flow Reality
 
-```
+```text
 MONTH 1-3: -$10,000 (setup costs)
 MONTH 4-6: +$5,000 (friends/family)
 MONTH 7-9: +$15,000 (small foundation)
 MONTH 10-12: +$25,000 (year-end giving)
 TOTAL YEAR 1: $35,000 revenue, $50,000 expenses
 RUNWAY REQUIRED: 12 months personal savings
-```
+```text
 
 ### True Cost Per Dollar Raised
 
-```
+```text
 Direct Mail: $1.25 per $1 (Year 1)
 Digital Ads: $1.50 per $1 (Year 1)
 Events: $0.75 per $1
 Grants: $0.25 per $1 (80-200 hours)
 Major Gifts: $0.10 per $1 (relationships)
-```
+```text
 
 ### UBIT Risk Matrix (Conservative)
 
-```
+```text
 Monthly Giving: SAFE (0% UBIT)
 Foundation Grants: SAFE (0% UBIT)
 Everything Else: ASSUME 35% TAX
-```
+```text
 
 ## 🛠️ Technical Drift Monitoring
 
@@ -108,7 +108,7 @@ zsh -ic 'type recovery-setup' || echo "ALERT: Aliases broken"
 
 # Email results
 mail -s "Recovery Compass Daily Check" you@example.com < results.log
-```
+```text
 
 ### Weekly Manual Verification
 
@@ -152,7 +152,7 @@ mail -s "Recovery Compass Daily Check" you@example.com < results.log
 # Manual recovery (memorize this)
 mkdir -p "$HOME/Library/Application Support/Claude"
 echo '{"mcpServers":{"filesystem":{"command":"npx","args":["-y","@modelcontextprotocol/server-filesystem","/Users/ericjones/Documents"]}}}' > "$HOME/Library/Application Support/Claude/claude_desktop_config.json"
-```
+```text
 
 ### Aliases Disappear
 
@@ -161,23 +161,23 @@ echo '{"mcpServers":{"filesystem":{"command":"npx","args":["-y","@modelcontextpr
 echo 'alias recovery-setup="source ~/.recovery_compass_setup.sh"' >> ~/.zshrc
 echo 'alias fix-mcp="~/.fix_mcp.sh"' >> ~/.zshrc
 source ~/.zshrc
-```
+```text
 
 ### Compliance Emergency
 
-```
+```text
 1. STOP all operations
 2. Call nonprofit attorney
 3. Document everything
 4. Prepare for audit
 5. Notify insurance carrier
-```
+```text
 
 ## 💰 Survival Budget (Realistic)
 
 ### Minimum Monthly Burn
 
-```
+```text
 Compliance/Legal: $1,500
 Insurance: $300
 Accounting: $500
@@ -187,7 +187,7 @@ Total: $2,800/month minimum
 Annual Minimum: $33,600
 Add Programs: Double it
 Add Staff: Triple it
-```
+```text
 
 ### Funding Sources (Ranked by Reality)
 

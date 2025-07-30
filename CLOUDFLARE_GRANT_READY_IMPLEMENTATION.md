@@ -13,7 +13,7 @@ npx wrangler secret put SUPABASE_SERVICE_KEY
 npx wrangler secret put QUALTRICS_TOKEN
 npx wrangler secret put OPENAI_API_KEY
 npx wrangler secret put STRIPE_SECRET_KEY
-```
+```text
 
 **Why for Grants**:
 
@@ -29,7 +29,7 @@ npx wrangler secret put STRIPE_SECRET_KEY
 <!-- Replace reCAPTCHA in funding forms -->
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <div class="cf-turnstile" data-sitekey="YOUR_SITE_KEY"></div>
-```
+```text
 
 **Why for Grants**:
 
@@ -48,7 +48,7 @@ const openai = new OpenAI({
   baseURL: "https://gateway.ai.cloudflare.com/v1/YOUR_ACCOUNT/recovery-compass/openai",
   apiKey: process.env.OPENAI_KEY
 });
-```
+```text
 
 **Why for Grants**:
 
@@ -109,7 +109,7 @@ wrangler secret put SUPABASE_SERVICE_KEY
 
 # 4. Deploy worker with secrets
 wrangler deploy
-```
+```text
 
 ## ✅ Checklist for Grant Applications
 

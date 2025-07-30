@@ -12,13 +12,13 @@ The original "Compliance-Protected Growth Strategy" assumes best-case scenarios.
 
 **Mitigation Protocol**:
 
-```
+```text
 - Set 990 deadlines 60 days early with board backup
 - Monthly compliance checklist reviewed by 2 board members
 - Quarterly CPA review of all revenue classifications
 - Annual mock IRS audit with outside counsel
 - Budget: $15,000/year minimum for compliance
-```
+```text
 
 ### 2. UBIT Landmines
 
@@ -26,13 +26,13 @@ The original "Compliance-Protected Growth Strategy" assumes best-case scenarios.
 
 **Immediate Actions**:
 
-```
+```text
 1. File Form 990-T preemptively (even if under $1,000)
 2. Document "substantial public benefit" for every program
 3. Price at or below market comparables
 4. Open enrollment (no exclusivity)
 5. Budget: 35% of gross unrelated income for taxes
-```
+```text
 
 **Revenue Stream Risk Matrix**:
 
@@ -50,13 +50,13 @@ The original "Compliance-Protected Growth Strategy" assumes best-case scenarios.
 
 **Compliance Calendar**:
 
-```
+```text
 - Day 1-30: File CT-1 (Initial Registration)
 - Month 4: RRF-1 (Annual Registration)
 - Month 11: SI-100 (Solicitation Permit)
 - Ongoing: Update within 30 days of any change
 - Budget: $5,000/year for CA compliance alone
-```
+```text
 
 ### 4. Grant Reality Check
 
@@ -69,13 +69,13 @@ The original "Compliance-Protected Growth Strategy" assumes best-case scenarios.
 
 **Realistic Grant Strategy**:
 
-```
+```text
 Year 1: 0 federal grants (build track record)
 Year 1: 2-3 local foundations ($10-25K each)
 Year 2: 1 federal planning grant
 Year 3: Major federal implementation grant
 Total Year 1 grant revenue: $30,000 (not $200,000)
-```
+```text
 
 ### 5. Revenue Projections vs Reality
 
@@ -83,13 +83,13 @@ Total Year 1 grant revenue: $30,000 (not $200,000)
 
 **Risk-Adjusted Projection**:
 
-```
+```text
 Q1 2025: $5,000 (friends & family)
 Q2 2025: $15,000 (early donors + 1 workshop)
 Q3 2025: $25,000 (small foundation grant)
 Q4 2025: $35,000 (year-end giving)
 Total Year 1: $80,000 (not $500,000)
-```
+```text
 
 **Survival Revenue Model**:
 
@@ -102,14 +102,14 @@ Total Year 1: $80,000 (not $500,000)
 
 **Realistic Overhead**:
 
-```
+```text
 Compliance & Legal: 20%
 Admin & Operations: 15%
 Fundraising: 20%
 Technology: 10%
 Insurance & Risk: 5%
 Total Overhead: 70% (Year 1)
-```
+```text
 
 **This means**: Every $100 raised delivers $30 to programs.
 
@@ -119,13 +119,13 @@ Total Overhead: 70% (Year 1)
 
 **Required Protection**:
 
-```
+```text
 1. D&O Insurance: $1M minimum ($3,000/year)
 2. Monthly compliance attestations
 3. Documented deliberation (no rubber stamps)
 4. Independent audit by Year 2
 5. Board training on fiduciary duty
-```
+```text
 
 ### 8. Mission Drift Prevention
 
@@ -133,12 +133,12 @@ Total Overhead: 70% (Year 1)
 
 **Mission Discipline**:
 
-```
+```text
 Original: Addiction recovery through environmental design
 Fundable: Evidence-based recovery housing programs
 NOT: Generic wellness or productivity consulting
 Test: Can a donor explain your mission in one sentence?
-```
+```text
 
 ## 📊 Survival Metrics (Not Vanity Metrics)
 
@@ -172,7 +172,7 @@ Track these monthly:
 
 ### Year 1 Budget (Survival Mode)
 
-```
+```text
 REVENUE
 Individual Giving:      $50,000
 Foundation Grants:      $30,000
@@ -187,7 +187,7 @@ Fundraising:           $20,000
 Technology:            $10,000
 Reserve:                $5,000
 Total Expenses:        $100,000
-```
+```text
 
 ### Year 2-3 Growth Path
 

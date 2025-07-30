@@ -19,7 +19,7 @@ First, let's create a proper recovery-compass configuration repository:
 mkdir -p ~/recovery-compass-config
 cd ~/recovery-compass-config
 git init
-```
+```text
 
 ### 2. Shell Functions (Not Aliases)
 
@@ -114,7 +114,7 @@ verify_recovery_compass() {
     
     return $status
 }
-```
+```text
 
 ### 3. Encrypted Secrets Management
 
@@ -132,7 +132,7 @@ age -r $(age-keygen -y ~/.recovery-compass/age.key) \
 # Add to .gitignore
 echo "*.env" >> .gitignore
 echo "!*.env.age" >> .gitignore
-```
+```text
 
 ### 4. Health Check Script
 
@@ -188,7 +188,7 @@ if [ $errors -gt 0 ]; then
 fi
 
 echo "[$(date)] ✅ All checks passed" >> "$log_file"
-```
+```text
 
 ### 5. LaunchAgent for Monitoring
 
@@ -214,13 +214,13 @@ Create `~/Library/LaunchAgents/com.recovery-compass.health-check.plist`:
     <string>/Users/ericjones/.recovery-compass/health-check.err</string>
 </dict>
 </plist>
-```
+```text
 
 Load it:
 
 ```bash
 launchctl load ~/Library/LaunchAgents/com.recovery-compass.health-check.plist
-```
+```text
 
 ### 6. Manual Recovery Procedures
 
@@ -246,7 +246,7 @@ export GITHUB_TOKEN=$(security find-generic-password -s "recovery-compass-github
 
 # 3. Verify
 echo $OPENAI_API_KEY | head -c 10
-```
+```text
 
 ## 🛡️ Security Hardening
 
@@ -263,7 +263,7 @@ security add-generic-password \
 security find-generic-password \
     -s "recovery-compass-openai-key" \
     -w
-```
+```text
 
 ### Git-Crypt for Team Sharing
 
@@ -279,7 +279,7 @@ echo "*.key filter=git-crypt diff=git-crypt" >> .gitattributes
 
 # Add team members
 git-crypt add-gpg-user teammate@example.com
-```
+```text
 
 ## 📊 Realistic Expectations
 

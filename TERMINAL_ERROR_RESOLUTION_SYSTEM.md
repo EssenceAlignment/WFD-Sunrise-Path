@@ -6,9 +6,9 @@
 
 **Error Pattern:**
 
-```
+```text
 MD032/blanks-around-lists Blank lines should surround lists
-```
+```text
 
 **Systematic Resolution:**
 
@@ -30,7 +30,7 @@ if (error.match(MD032_PATTERN)) {
   // Auto-fix markdown files
   runCommand('npm run fix:markdown');
 }
-```
+```text
 
 **Prevention:**
 
@@ -42,10 +42,10 @@ if (error.match(MD032_PATTERN)) {
 
 **Error Pattern:**
 
-```
+```text
 Unknown word (autobuild)
 Unknown word (SUBSCALES)
-```
+```text
 
 **Systematic Resolution:**
 
@@ -77,7 +77,7 @@ function handleUnknownWords(output) {
     runCommand('npm run spell:check');
   }
 }
-```
+```text
 
 **Smart Word Classification:**
 
@@ -94,16 +94,16 @@ function classifyWord(word) {
   // Likely typo
   return 'possible_typo';
 }
-```
+```text
 
 ### 3. Type Mismatch Errors
 
 **Error Pattern:**
 
-```
+```text
 Incorrect type. Expected "boolean"
 Incorrect type. Expected "number"
-```
+```text
 
 **Systematic Resolution:**
 
@@ -142,7 +142,7 @@ function fixTypeError(rule, property, expectedType) {
   
   writeJSON('.markdownlint.json', config);
 }
-```
+```text
 
 ## Automated Error Resolution Pipeline
 
@@ -159,7 +159,7 @@ SPELL_ERRORS=$(npm run spell:check 2>&1)
 # Parse and categorize errors
 echo "$MARKDOWN_ERRORS" | grep -E "MD[0-9]+" > markdown_issues.txt
 echo "$SPELL_ERRORS" | grep "Unknown word" > spell_issues.txt
-```
+```text
 
 ### Step 2: Automatic Resolution
 
@@ -235,7 +235,7 @@ class ErrorResolver {
 // Run the resolver
 const resolver = new ErrorResolver();
 resolver.resolveAll();
-```
+```text
 
 ### Step 3: Pre-Commit Hook
 
@@ -250,7 +250,7 @@ repos:
         language: system
         always_run: true
         pass_filenames: false
-```
+```text
 
 ## Real-Time Error Prevention
 
@@ -264,7 +264,7 @@ repos:
   "cSpell.userWords": [],
   "cSpell.autoAddWords": true
 }
-```
+```text
 
 ### 2. Git Hooks
 
@@ -290,7 +290,7 @@ if [ $? -ne 0 ]; then
     exit 1
   fi
 fi
-```
+```text
 
 ## Systematic Approach Summary
 

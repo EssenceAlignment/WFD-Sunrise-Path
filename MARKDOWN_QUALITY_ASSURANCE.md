@@ -10,11 +10,13 @@ This document demonstrates a systematic approach to preventing markdown linting 
 
 **Problem**: Lists must be surrounded by blank lines.
 
-**Solution**: 
+**Solution**:
+
 - Configured `.markdownlint.json` with `MD032` rule enforcement
 - Auto-fix capability with `npm run fix:markdown`
 
 **Example Fix**:
+
 ```markdown
 <!-- Before -->
 Some text
@@ -26,7 +28,7 @@ Some text
 
 - List item 1
 - List item 2
-```
+```text
 
 ### 2. **Unknown Words / Spelling Issues**
 
@@ -72,7 +74,7 @@ npm run fix:all
 
 # Or use the bash script directly
 ./scripts/fix-markdown-issues.sh
-```
+```text
 
 ## 🤖 Automated CI/CD
 
@@ -97,11 +99,13 @@ npm run fix:all
    ```
 
 2. **Before committing**:
+
    ```bash
    npm run lint:markdown
    ```
 
 3. **Add new technical terms**:
+
    ```json
    // In .cspell.json
    "words": [
@@ -127,10 +131,11 @@ npm run fix:all
 ## 💡 Common Scenarios
 
 ### Scenario 1: New Technical Term
+
 ```bash
 # If cspell flags "Kubernetes"
 # Add to .cspell.json words array
-```
+```text
 
 ### Scenario 2: Long URLs
 ```markdown
@@ -138,15 +143,15 @@ npm run fix:all
 [Link text][1]
 
 [1]: https://very-long-url-here.com
-```
+```text
 
 ### Scenario 3: Code Blocks
 ```markdown
 <!-- Always specify language -->
 ```bash
 echo "Hello"
-```
-```
+```text
+```text
 
 ## 🔍 Troubleshooting
 

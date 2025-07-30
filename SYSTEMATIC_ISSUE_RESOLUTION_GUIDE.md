@@ -9,10 +9,11 @@ This guide demonstrates how I systematically approach and resolve common develop
 ### 1. Markdown Formatting Issues (e.g., 'blanks-around-lists')
 
 **Detection:**
+
 ```bash
 # Run markdownlint to find all issues
 npx markdownlint "**/*.md" --config .markdownlint.json
-```
+```text
 
 **Common Issues & Fixes:**
 
@@ -26,26 +27,27 @@ Some text
 Some text
 
 - List item
-```
+```text
 
 #### MD040 - Fenced code blocks should have language
+
 ```markdown
 # ❌ Incorrect
-```
+```text
 code here
-```
+```text
 
 # ✅ Correct
 ```bash
 code here
-```
-```
+```text
+```text
 
 **Automated Fix:**
 ```bash
 # Auto-fix markdown issues
 npx markdownlint "**/*.md" --fix
-```
+```text
 
 ### 2. Spelling Issues (e.g., 'autobuild: unknown word')
 
@@ -53,7 +55,7 @@ npx markdownlint "**/*.md" --fix
 ```bash
 # Check spelling
 npx cspell "**/*.{md,yml,yaml,ts,tsx,js,jsx}"
-```
+```text
 
 **Resolution Strategies:**
 
@@ -62,13 +64,13 @@ npx cspell "**/*.{md,yml,yaml,ts,tsx,js,jsx}"
 # Add to accepted words
 echo "autobuild" >> styles/Vocab/Base/accept.txt
 echo "biopsychosocial" >> styles/Vocab/Base/accept.txt
-```
+```text
 
 #### Fix Typos
 ```bash
 # Find and replace typos
 find . -type f -name "*.md" -exec sed -i '' 's/receive/receive/g' {} +
-```
+```text
 
 ### 3. YAML Schema Issues (e.g., 'incorrect type: Expected Boolean')
 
@@ -76,7 +78,7 @@ find . -type f -name "*.md" -exec sed -i '' 's/receive/receive/g' {} +
 ```bash
 # Validate YAML files
 yamllint .github/workflows/*.yml
-```
+```text
 
 **Common Issues & Fixes:**
 
@@ -87,7 +89,7 @@ uses-feature: "true"  # String instead of boolean
 
 # ✅ Correct
 uses-feature: true    # Boolean value
-```
+```text
 
 #### Proper YAML Structure
 ```yaml
@@ -96,7 +98,7 @@ on: [push,pull_request]  # Missing space
 
 # ✅ Correct
 on: [push, pull_request]  # Proper spacing
-```
+```text
 
 ### 4. TypeScript/JavaScript Issues
 
@@ -107,7 +109,7 @@ npx tsc --noEmit
 
 # Run ESLint
 npx eslint "**/*.{ts,tsx,js,jsx}"
-```
+```text
 
 **Common Fixes:**
 
@@ -115,7 +117,7 @@ npx eslint "**/*.{ts,tsx,js,jsx}"
 ```bash
 # Install missing types
 npm install --save-dev @types/react @types/node
-```
+```text
 
 #### Import Issues
 ```typescript
@@ -124,7 +126,7 @@ import React from 'react'  // Missing semicolon
 
 // ✅ Correct
 import React from 'react';
-```
+```text
 
 ## Systematic Approach Workflow
 
@@ -152,7 +154,7 @@ repos:
         entry: yamllint
         language: system
         files: '\.(yml|yaml)$'
-```
+```text
 
 ### 2. Automated Fix Script
 
@@ -182,7 +184,7 @@ echo "📖 Updating spell check dictionary..."
 sort -u styles/Vocab/Base/accept.txt -o styles/Vocab/Base/accept.txt
 
 echo "✅ Fixes applied!"
-```
+```text
 
 ### 3. CI/CD Integration
 
@@ -214,7 +216,7 @@ jobs:
 
       - name: YAML Lint
         run: yamllint .github/workflows/
-```
+```text
 
 ## Prevention Strategies
 
@@ -232,7 +234,7 @@ jobs:
     "https://json.schemastore.org/github-workflow.json": ".github/workflows/*.yml"
   }
 }
-```
+```text
 
 ### 2. Documentation Standards
 
@@ -258,11 +260,11 @@ npx cspell --words-only "**/*.md" | sort -u >> styles/Vocab/Base/accept.txt
 
 # Clean up duplicates
 sort -u styles/Vocab/Base/accept.txt -o styles/Vocab/Base/accept.txt
-```
+```text
 
 ## Error Resolution Flowchart
 
-```
+```text
 Error Detected
     ↓
 Is it a known pattern?
@@ -274,7 +276,7 @@ Is it a known pattern?
          Create automated fix
               ↓
          Add to pre-commit hooks
-```
+```text
 
 ## Commitment Message Standards
 
@@ -295,7 +297,7 @@ git commit -m "fix: resolve linting issues across codebase
 - Add blank lines around markdown lists
 - Fix YAML boolean type errors
 - Add technical terms to spell check dictionary"
-```
+```text
 
 ---
 

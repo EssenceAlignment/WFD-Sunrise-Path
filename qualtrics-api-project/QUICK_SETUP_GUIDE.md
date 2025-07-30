@@ -1,7 +1,9 @@
 # QUICK SETUP GUIDE - WFD Qualtrics API Integration
+
 ## Time-Critical: Complete by 5 PM Today
 
 ### STEP 1: Build Survey in Qualtrics (NOW)
+
 1. Log into Qualtrics
 2. Create new survey: "WFD Manager Organizational Readiness Assessment"
 3. Copy all questions from `WFD_Manager_Survey_Structure.md`
@@ -10,12 +12,15 @@
 6. Activate survey and get the link
 
 ### STEP 2: Get Your Survey ID
+
 Once survey is created:
+
 1. In Qualtrics, go to survey
 2. Look at URL: `https://[datacenter].qualtrics.com/survey-builder/SV_XXXXXXXXX/edit`
 3. Copy the `SV_XXXXXXXXX` part - that's your Survey ID
 
 ### STEP 3: Quick API Setup (5 minutes)
+
 ```bash
 # 1. Create your config file
 cp .env.example .env
@@ -24,7 +29,7 @@ cp .env.example .env
 QUALTRICS_API_TOKEN=your_token_here
 QUALTRICS_DATA_CENTER=https://yul1.qualtrics.com  # or your datacenter
 QUALTRICS_SURVEY_ID=SV_XXXXXXXXX  # Your survey ID from step 2
-```
+```text
 
 ### STEP 4: Test the Connection
 ```bash
@@ -36,7 +41,7 @@ python main.py test
 
 # Run ORIC demo
 python main.py demo
-```
+```text
 
 ### STEP 5: For Google Sheets (Later - After 5 PM)
 1. Create a Google Sheet
@@ -44,8 +49,10 @@ python main.py demo
 3. Set up service account (instructions in README)
 4. Add to .env:
    ```
+
    GOOGLE_SHEET_ID=your_sheet_id
    GOOGLE_CREDENTIALS_FILE=/path/to/credentials.json
+
    ```
 
 ### IMMEDIATE PRIORITIES:
@@ -58,7 +65,7 @@ python main.py demo
 Once survey is live, set up automatic syncing:
 ```bash
 python main.py webhook https://your-dashboard-url.com/api/qualtrics
-```
+```text
 
 ### TROUBLESHOOTING:
 

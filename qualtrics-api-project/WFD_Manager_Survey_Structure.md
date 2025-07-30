@@ -1,4 +1,5 @@
 # WFD Manager Survey - Qualtrics Build Guide
+
 ## URGENT: Complete by 5:00 PM PDT Today (July 28, 2025)
 
 ---
@@ -6,7 +7,9 @@
 ## SURVEY TITLE: WFD Manager Organizational Readiness Assessment
 
 ### BLOCK 1: PROGRAM IDENTIFICATION
+
 **Q1. Which program area do you manage?** (Single choice)
+
 - Community Services
 - Interim Housing
 
@@ -15,6 +18,7 @@
 ---
 
 ### BLOCK 2: ORIC-12 VALIDATED INSTRUMENT
+
 *Instructions: Please indicate how much you agree or disagree with each statement about implementing the new data dashboard system at WFD.*
 
 **Scale for all ORIC-12 items:**
@@ -57,6 +61,7 @@
 ### BLOCK 3: CURRENT DATA PRACTICES (All Managers)
 
 **Q14. How often do you currently use data to make decisions in your program?**
+
 - Never
 - Rarely (once a month or less)
 - Sometimes (weekly)
@@ -64,6 +69,7 @@
 - Daily
 
 **Q15. What are your biggest challenges with using data? (Select all that apply)**
+
 - [ ] Don't have time to look at data
 - [ ] Don't know where to find the data I need
 - [ ] Data isn't relevant to my daily work
@@ -73,6 +79,7 @@
 - [ ] Other: _________
 
 **Q16. How comfortable are you with the following? (1=Very Uncomfortable, 5=Very Comfortable)**
+
 - Reading data reports
 - Creating charts or graphs
 - Identifying trends in data
@@ -84,9 +91,11 @@
 ---
 
 ### BLOCK 4A: COMMUNITY SERVICES SPECIFIC
+
 *[ONLY SHOW IF Q1 = Community Services]*
 
 **Q18. For Community Services, which metrics are most important to track? (Rank top 3)**
+
 - Client engagement hours
 - Service referrals made
 - Case note completion rates
@@ -96,6 +105,7 @@
 - Other: _________
 
 **Q19. How often do you currently review client progress data?**
+
 - Never
 - Monthly
 - Weekly
@@ -107,9 +117,11 @@
 ---
 
 ### BLOCK 4B: INTERIM HOUSING SPECIFIC
+
 *[ONLY SHOW IF Q1 = Interim Housing]*
 
 **Q21. For Interim Housing, which metrics are most important to track? (Rank top 3)**
+
 - Bed utilization rates
 - Length of stay
 - Housing placement success
@@ -119,6 +131,7 @@
 - Other: _________
 
 **Q22. How often do you currently review occupancy and operations data?**
+
 - Never
 - Monthly
 - Weekly
@@ -143,6 +156,7 @@
 ### BLOCK 6: CLOSING
 
 **Q27. Would you like to receive a summary of these survey results?**
+
 - Yes
 - No
 
@@ -151,9 +165,10 @@
 
 ---
 
-## QUALTRICS SETUP CHECKLIST:
+## QUALTRICS SETUP CHECKLIST
 
-### ✓ Survey Flow:
+### ✓ Survey Flow
+
 1. Block 1: Program ID (with branching)
 2. Block 2: ORIC-12 (all respondents)
 3. Block 3: Data Practices (all respondents)
@@ -161,17 +176,20 @@
 5. Block 5: Readiness (all respondents)
 6. Block 6: Closing
 
-### ✓ Skip Logic:
+### ✓ Skip Logic
+
 - If Q1 = "Community Services" → Show Block 4A, Hide Block 4B
 - If Q1 = "Interim Housing" → Show Block 4B, Hide Block 4A
 
-### ✓ Survey Options:
+### ✓ Survey Options
+
 - Anonymous responses: YES
 - Back button: YES
 - Progress bar: YES
 - Survey expiration: None (ongoing)
 
-### ✓ Custom Scoring:
+### ✓ Custom Scoring
+
 - ORIC Change Efficacy Score = Average(Q2-Q7)
 - ORIC Change Commitment Score = Average(Q8-Q13)
 - Overall ORIC Score = Average(Q2-Q13)

@@ -10,7 +10,7 @@
 "MD032": {
   "blanks": true  // ERROR: Expected number, got boolean
 }
-```
+```text
 
 **Systematic Solution:**
 
@@ -28,10 +28,10 @@
 
 **Problem Pattern:**
 
-```
+```text
 Unknown word (SUBSCALES)
 Unknown word (autobuild)
-```
+```text
 
 **Systematic Solution:**
 
@@ -68,11 +68,11 @@ After list
 # MD040 - Specify language for code blocks
 ```text
 This is a text block
-```
+```text
 
 ```bash
 echo "This is a bash command"
-```
+```text
 
 # MD013 - Break long lines
 
@@ -80,7 +80,7 @@ Instead of: This is a very long line that exceeds the 120 character limit and wi
 Use: This is a line that is broken up properly
 to stay within the 120 character limit.
 
-```
+```text
 
 ## Automated Systematic Approach
 
@@ -90,7 +90,7 @@ to stay within the 120 character limit.
 npm run lint:markdown
 npm run spell:check
 # Check for type errors in configs
-```
+```text
 
 ### Step 2: Categorize Issues
 
@@ -110,7 +110,7 @@ npm run spell:check
 # Re-run all checks
 npm run lint:markdown
 npm run spell:check
-```
+```text
 
 ## Prevention Strategy
 
@@ -141,7 +141,7 @@ GitHub Actions already configured to catch issues
     "allowed_languages": ["bash", "javascript", "json", "yaml", "text", ""]
   }
 }
-```
+```text
 
 ### .cspell.json
 
@@ -153,7 +153,7 @@ GitHub Actions already configured to catch issues
     "project-specific-terms"
   ]
 }
-```
+```text
 
 ## Error Resolution Workflow
 

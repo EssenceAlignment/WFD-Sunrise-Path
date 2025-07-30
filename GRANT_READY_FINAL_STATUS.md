@@ -73,7 +73,7 @@ Add this to your README.md:
 
 ```markdown
 [![codecov](https://codecov.io/gh/EssenceAlignment/WFD-Sunrise-Path/branch/main/graph/badge.svg)](https://codecov.io/gh/EssenceAlignment/WFD-Sunrise-Path)
-```
+```text
 
 ## ✅ Bottom Line
 

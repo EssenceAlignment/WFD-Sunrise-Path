@@ -18,6 +18,7 @@ The manager assessment is now live at [INSERT QUALTRICS LINK]. As you requested,
 [Dashboard link] - This prototype shows how manager survey responses will automatically populate organizational readiness scores, identify gaps in data practices, and track progress over time.
 
 **3. August 13 Data Club Materials**  
+
 - Pre-session survey results summary (will be ready August 12)
 - Interactive workshop agenda focused on the "two buckets" you mentioned
 - Manager-specific data guides for Community Services vs Interim Housing
@@ -30,12 +31,14 @@ The manager assessment is now live at [INSERT QUALTRICS LINK]. As you requested,
 ✓ Real-time readiness scoring
 
 **What Happens Next:**
+
 1. Managers complete survey by August 5 (1 week)
 2. I'll analyze results and prepare insights by August 12
 3. Present findings at August 13 Data Club session
 4. Begin weekly dashboard usage tracking
 
 **Baseline Metrics We'll Capture:**
+
 - Organizational readiness scores (via ORIC-12)
 - Current data usage frequency ("Right now they don't use any data")
 - Confidence levels with data interpretation

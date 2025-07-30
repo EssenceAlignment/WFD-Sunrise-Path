@@ -1,20 +1,21 @@
-# 🚨 RAPID DEPLOYMENT - GET SURVEY LIVE BY 5 PM!
+# 🚨 RAPID DEPLOYMENT - GET SURVEY LIVE BY 5 PM
 
-## Current Time Check: 3:24 PM - You have 96 minutes!
+## Current Time Check: 3:24 PM - You have 96 minutes
 
 ---
 
 ## 🏃‍♂️ QUICKSTART (10 minutes)
 
-### 1. Open Terminal and Navigate Here:
+### 1. Open Terminal and Navigate Here
+
 ```bash
 cd "/Users/ericjones/Desktop/Whittier First Day/Survey/qualtrics-api-project/rapid-deploy"
-```
+```text
 
 ### 2. Install Dependencies:
 ```bash
 npm install
-```
+```text
 
 ### 3. Get Your Qualtrics API Token:
 1. Log into Qualtrics
@@ -27,13 +28,13 @@ npm install
 # Edit .env and replace YOUR_API_TOKEN_HERE with your actual token
 nano .env
 # OR open in your text editor
-```
+```text
 
 Your .env should look like:
-```
+```text
 QUALTRICS_API_TOKEN=UR_1234567890abcdef
 QUALTRICS_DATACENTER=yul1
-```
+```text
 
 ---
 
@@ -41,7 +42,7 @@ QUALTRICS_DATACENTER=yul1
 
 ```bash
 npm run test-connection
-```
+```text
 
 ✅ If you see "Connection successful!" → Continue  
 ❌ If you see errors → Check your token and datacenter
@@ -53,7 +54,7 @@ npm run test-connection
 ### Run the creation script:
 ```bash
 npm run create-survey
-```
+```text
 
 This will:
 - Create the survey
@@ -65,7 +66,7 @@ This will:
 ### Then get the anonymous link:
 ```bash
 npm run get-link
-```
+```text
 
 The link will be:
 - Displayed in terminal
@@ -96,31 +97,36 @@ The link will be:
 
 ### 1. Copy the anonymous link from terminal or `anonymous-link.txt`
 
-### 2. Update your email:
+### 2. Update your email
+
 - Open `Email_to_Donna_5PM.md`
 - Replace `[INSERT QUALTRICS LINK]` with your link
 - Replace other placeholders
 
-### 3. Send to Donna by 5:00 PM!
+### 3. Send to Donna by 5:00 PM
 
 ---
 
 ## 🆘 TROUBLESHOOTING
 
 ### "API Token Invalid"
+
 - Regenerate token in Qualtrics
 - Make sure no spaces before/after token
 
 ### "Survey Creation Failed"
+
 - Use manual option (create in UI, get link via API)
 - Focus on getting link - that's what matters!
 
 ### "Can't find datacenter"
+
 - Check your Qualtrics URL
 - Common: yul1, fra1, syd1, sin1
 - If unsure, try without subdomain
 
 ### Time Running Out?
+
 1. Create survey manually in Qualtrics
 2. Get Survey ID from URL
 3. Run: `node get-anonymous-link.js SV_YOUR_ID`
@@ -142,6 +148,7 @@ The link will be:
 ## 📝 BARE MINIMUM SUCCESS
 
 If everything else fails, you need:
+
 1. ✅ Survey created in Qualtrics (any method)
 2. ✅ Anonymous link (get via API or Qualtrics UI)
 3. ✅ Email sent to Donna with link

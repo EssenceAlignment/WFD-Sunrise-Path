@@ -28,13 +28,13 @@
 
 ```bash
 recovery-setup
-```
+```text
 
 ### Fixing MCP Issues (if they ever occur)
 
 ```bash
 fix-mcp
-```
+```text
 
 Then restart Claude Desktop.
 

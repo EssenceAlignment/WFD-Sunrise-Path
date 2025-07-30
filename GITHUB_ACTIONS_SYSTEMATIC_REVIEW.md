@@ -17,7 +17,7 @@ token: ${{ secrets.CODECOV_TOKEN || '' }}
 
 # ✅ BETTER: Remove if not required (like Codecov for public repos)
 # Simply omit the token line
-```
+```text
 
 #### B. Common Warning Patterns I Check For
 
@@ -150,7 +150,7 @@ jobs:
     - name: Non-critical upload
       continue-on-error: true
       run: npm run upload-metrics
-```
+```text
 
 ## Assurance
 

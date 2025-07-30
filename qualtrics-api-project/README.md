@@ -14,6 +14,7 @@ This project provides a Python-based integration between Qualtrics Survey Platfo
 ## Architecture Overview
 
 This implementation follows the recommended Phase 1 approach from your architecture plan:
+
 - Basic integration with Qualtrics API
 - Google Sheets for immediate value
 - ORIC score calculations
@@ -32,7 +33,7 @@ This implementation follows the recommended Phase 1 approach from your architect
 
 ```bash
 cd "/Users/ericjones/Desktop/Whittier First Day/Survey/qualtrics-api-project"
-```
+```text
 
 ### 2. Install Dependencies
 
@@ -42,7 +43,7 @@ source venv/bin/activate
 
 # Install additional requirements
 pip install -r requirements.txt
-```
+```text
 
 ### 3. Configure Qualtrics API
 
@@ -72,16 +73,16 @@ cp .env.example .env
 
 # Edit .env with your actual values
 nano .env
-```
+```text
 
 Update these values in `.env`:
-```
+```text
 QUALTRICS_API_TOKEN=your_actual_api_token
 QUALTRICS_DATA_CENTER=https://yourdatacenter.qualtrics.com
 QUALTRICS_SURVEY_ID=SV_your_survey_id
 GOOGLE_SHEET_ID=your_google_sheet_id
 GOOGLE_CREDENTIALS_FILE=/path/to/your/credentials.json
-```
+```text
 
 Data center URLs:
 - US: `https://yul1.qualtrics.com`
@@ -99,13 +100,13 @@ Data center URLs:
 
 ```bash
 python main.py test
-```
+```text
 
 ### Run ORIC Calculation Demo
 
 ```bash
 python main.py demo
-```
+```text
 
 ### Sync Survey to Google Sheets
 
@@ -115,17 +116,17 @@ python main.py sync
 
 # Sync specific survey
 python main.py sync --survey-id SV_123456
-```
+```text
 
 ### Set Up Webhook (Optional)
 
 ```bash
 python main.py webhook https://your-webhook-url.com/qualtrics
-```
+```text
 
 ## Project Structure
 
-```
+```text
 qualtrics-api-project/
 ├── .env                    # Your configuration (create from .env.example)
 ├── .env.example           # Environment variable template
@@ -135,7 +136,7 @@ qualtrics-api-project/
 ├── google_sheets_sync.py # Google Sheets integration
 ├── main.py              # Command-line interface
 └── README.md            # This file
-```
+```text
 
 ## Google Sheets Structure
 
@@ -176,7 +177,7 @@ SUBSCALES = {
     'change_efficacy': ['QID4', 'QID5', 'QID6'],
     'contextual_factors': ['QID7', 'QID8', 'QID9']
 }
-```
+```text
 
 ## Creating a Dashboard in Google Sheets
 
@@ -184,7 +185,7 @@ SUBSCALES = {
 2. Create a new sheet called "Dashboard"
 3. Use these formulas:
 
-```
+```text
 # Average ORIC Score
 =AVERAGE('Survey Responses'!G:G)
 
@@ -193,7 +194,7 @@ SUBSCALES = {
 
 # Readiness Distribution
 =COUNTIF('Survey Responses'!H:H,"high")/COUNTA('Survey Responses'!H:H)
-```
+```text
 
 4. Create charts:
    - Line chart for time series data

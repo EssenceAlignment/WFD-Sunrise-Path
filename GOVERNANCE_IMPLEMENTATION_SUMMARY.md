@@ -91,7 +91,7 @@ gh api repos/EssenceAlignment/WFD-Sunrise-Path/dependabot/alerts
 
 # Check branch protection status
 gh api repos/EssenceAlignment/WFD-Sunrise-Path/branches/main/protection
-```
+```text
 
 ## 🚀 Next Steps (No Urgency)
 
@@ -103,9 +103,9 @@ gh api repos/EssenceAlignment/WFD-Sunrise-Path/branches/main/protection
 
 ## 📝 Commit History
 
-```
+```text
 60f394a - chore(legal): add MIT licence for OSS compliance (Gitcoin requirement)
 c39fbe2 - docs: add GitHub issue/PR templates for contributor guidance
-```
+```text
 
 All implementations follow the Abundance protocol - sustainable improvements without urgency narratives.

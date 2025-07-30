@@ -16,7 +16,7 @@ ps aux | grep cloudflare-server
 
 # Check if port is in use (MCP servers typically use specific ports)
 lsof -i :PORT_NUMBER
-```
+```text
 
 ### 2. Verify MCP Configuration
 
@@ -34,7 +34,7 @@ Check your MCP configuration file (usually in `~/.config/claude/mcp.json` or sim
     }
   }
 }
-```
+```text
 
 ### 3. Common Fixes
 
@@ -49,7 +49,7 @@ npm run build
 
 # Start the server manually to see errors
 node build/index.js
-```
+```text
 
 #### B. Check Environment Variables
 
@@ -61,7 +61,7 @@ echo $CLOUDFLARE_API_TOKEN
 
 # Or set it temporarily
 export CLOUDFLARE_API_TOKEN="your-token-here"
-```
+```text
 
 #### C. Permission Issues
 
@@ -71,7 +71,7 @@ chmod +x /Users/ericjones/Documents/Cline/MCP/cloudflare-server/build/index.js
 
 # Check file ownership
 ls -la /Users/ericjones/Documents/Cline/MCP/cloudflare-server/
-```
+```text
 
 ### 4. Alternative: Direct Cloudflare API Usage
 
@@ -91,7 +91,7 @@ wrangler list
 
 # Deploy a Worker
 wrangler deploy
-```
+```text
 
 #### Using cURL for API Calls
 
@@ -100,7 +100,7 @@ wrangler deploy
 curl -X GET "https://api.cloudflare.com/client/v4/zones" \
      -H "Authorization: Bearer YOUR_API_TOKEN" \
      -H "Content-Type: application/json"
-```
+```text
 
 ### 5. Debug MCP Server
 
@@ -125,7 +125,7 @@ server.stderr.on('data', (data) => {
 server.on('close', (code) => {
   console.log(`Server exited with code ${code}`);
 });
-```
+```text
 
 ### 6. Check Dependencies
 
@@ -141,7 +141,7 @@ npm install
 
 # Check for vulnerabilities
 npm audit
-```
+```text
 
 ### 7. Firewall/Security Software
 

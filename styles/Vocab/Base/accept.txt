@@ -26,6 +26,7 @@ HHS
 HRSA
 JCOD
 JWT
+Likert
 MCP
 Markdownlint
 NAICS
@@ -40,6 +41,7 @@ RSA
 RWJF
 SAM
 SAMHSA
+SAVR
 SDVAD
 SHA
 SSH

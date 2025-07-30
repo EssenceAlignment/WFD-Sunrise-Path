@@ -1,16 +1,18 @@
 # 🚨 URGENT: ACTION ITEMS FOR NEXT 90 MINUTES
+
 ## Complete by 5:00 PM PDT (July 28, 2025)
 
 ### 🎯 MISSION: Get WFD Manager Survey Live for Donna
 
 ---
 
-## ⏰ RIGHT NOW (3:18 PM):
+## ⏰ RIGHT NOW (3:18 PM)
 
 ### 1️⃣ BUILD SURVEY IN QUALTRICS (30 minutes)
+
 - [ ] Log into Qualtrics
 - [ ] Create new survey: "WFD Manager Organizational Readiness Assessment"
-- [ ] Open `WFD_Manager_Survey_Structure.md` 
+- [ ] Open `WFD_Manager_Survey_Structure.md`
 - [ ] Copy/paste all questions EXACTLY as written
 - [ ] Set up skip logic on Q1:
   - If "Community Services" → Show Q18-20, Hide Q21-23
@@ -19,6 +21,7 @@
 - [ ] Add progress bar
 
 ### 2️⃣ TEST SURVEY (15 minutes)
+
 - [ ] Preview and test Community Services path
 - [ ] Clear responses
 - [ ] Preview and test Interim Housing path
@@ -26,11 +29,13 @@
 - [ ] Check skip logic works correctly
 
 ### 3️⃣ ACTIVATE & GET LINK (5 minutes)
+
 - [ ] Activate survey
 - [ ] Get anonymous distribution link
 - [ ] Copy Survey ID for API setup later
 
 ### 4️⃣ SEND EMAIL TO DONNA (10 minutes)
+
 - [ ] Open `Email_to_Donna_5PM.md`
 - [ ] Replace [INSERT QUALTRICS LINK] with actual link
 - [ ] Replace [Dashboard link] with your dashboard URL
@@ -39,7 +44,8 @@
 
 ---
 
-## ✅ CRITICAL CHECKLIST:
+## ✅ CRITICAL CHECKLIST
+
 - Survey uses ORIC-12 validated questions (Q2-Q13)
 - Has "two buckets" with skip logic (Community Services vs Interim Housing)
 - Includes data practice questions (Q14-Q17)
@@ -48,7 +54,8 @@
 
 ---
 
-## 📝 KEY POINTS FOR DONNA:
+## 📝 KEY POINTS FOR DONNA
+
 1. "We're using the validated ORIC-12 tool as you requested"
 2. "Managers can complete it today - takes 10 minutes"
 3. "Skip logic separates the two program types"
@@ -57,7 +64,8 @@
 
 ---
 
-## ⏱️ TIME CHECK:
+## ⏱️ TIME CHECK
+
 - 3:18 PM - START NOW
 - 3:48 PM - Survey built and tested
 - 4:00 PM - Have link ready
@@ -66,16 +74,20 @@
 
 ---
 
-## 🔥 API SETUP (Can do AFTER 5 PM):
+## 🔥 API SETUP (Can do AFTER 5 PM)
+
 The API integration is ready but NOT urgent. Focus on:
+
 1. Getting survey live
 2. Sending email to Donna
 3. API setup can wait until tomorrow
 
 ---
 
-## 💡 REMEMBER:
+## 💡 REMEMBER
+
 Donna specifically said:
+
 - "Use one of the validated tools" ✓ ORIC-12
 - "So they can sign up today" ✓ Survey goes live by 5 PM
 - "Two buckets" ✓ Skip logic for programs
