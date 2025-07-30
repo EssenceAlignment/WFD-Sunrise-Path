@@ -201,7 +201,7 @@ npm install
 yarn install
 ```
 
-2. **Verify import paths:**
+1. **Verify import paths:**
 
 ```javascript
 // Use relative paths correctly
@@ -213,7 +213,7 @@ import styles from './styles.css';    // ✓
 import data from './data.json';       // ✓
 ```
 
-3. **TypeScript path mapping:**
+1. **TypeScript path mapping:**
 
 ```json
 // tsconfig.json
@@ -270,7 +270,7 @@ import { useState } from 'react';  // React import not needed for JSX
 import React from 'react';  // Required for JSX
 ```
 
-2. **Configure for React 17+ new JSX transform:**
+1. **Configure for React 17+ new JSX transform:**
 
 ```json
 // tsconfig.json or jsconfig.json
@@ -281,7 +281,7 @@ import React from 'react';  // Required for JSX
 }
 ```
 
-3. **Remove React files from non-React projects:**
+1. **Remove React files from non-React projects:**
 
 ```bash
 # If not a React project, remove React files

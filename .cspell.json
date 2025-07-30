@@ -299,7 +299,9 @@
     "SAVR",
     "yamllint",
     "DavidAnson",
-    "redhat"
+    "redhat",
+    "prebuild",
+    "postbuild"
   ],
   "dictionaries": ["en_US"],
   "import": ["cspell-dict-npm/cspell-ext.json"],
