@@ -1,0 +1,108 @@
+name: Docker Compose CI
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'recovery-compass-docker/**'
+      - '.github/workflows/docker-compose-ci.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'recovery-compass-docker/**'
+      - '.github/workflows/docker-compose-ci.yml'
+
+jobs:
+  docker-compose-test:
+    name: Test Docker Compose Stack
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Create minimal env files
+      run: |
+        cd recovery-compass-docker
+        cp .env.secrets.example .env.secrets
+        # Use GitHub secrets for real values
+        echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD || 'test_password' }}" >> .env.secrets
+        echo "REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD || 'test_redis' }}" >> .env.secrets
+
+    - name: Test minimal stack startup
+      run: |
+        cd recovery-compass-docker
+        docker compose -f docker-compose.minimal.yml up -d
+        sleep 10
+        docker compose -f docker-compose.minimal.yml ps
+        docker compose -f docker-compose.minimal.yml logs
+
+    - name: Verify services are healthy
+      run: |
+        cd recovery-compass-docker
+        # Check PostgreSQL
+        docker compose -f docker-compose.minimal.yml exec -T postgres pg_isready -U recovery_compass
+        # Check Redis (with password)
+        docker compose -f docker-compose.minimal.yml exec -T redis redis-cli -a ${REDIS_PASSWORD:-test_redis} ping
+
+    - name: Run health checks
+      run: |
+        cd recovery-compass-docker
+        # Verify containers are still running
+        docker compose -f docker-compose.minimal.yml ps --format json | jq -e '.[].State == "running"'
+
+    - name: Clean up
+      if: always()
+      run: |
+        cd recovery-compass-docker
+        docker compose -f docker-compose.minimal.yml down -v
+
+  kompose-validation:
+    name: Validate Kubernetes Migration Path
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install Kompose
+      run: |
+        curl -L https://github.com/kubernetes/kompose/releases/download/v1.31.2/kompose-linux-amd64 -o kompose
+        chmod +x kompose
+        sudo mv ./kompose /usr/local/bin/kompose
+
+    - name: Convert docker-compose to Kubernetes
+      run: |
+        cd recovery-compass-docker
+        mkdir -p k8s-manifests
+        # Convert the minimal stack first
+        kompose convert -f docker-compose.minimal.yml -o k8s-manifests/
+
+    - name: List generated Kubernetes manifests
+      run: |
+        cd recovery-compass-docker
+        echo "=== Generated Kubernetes Manifests ==="
+        ls -la k8s-manifests/
+        echo ""
+        echo "=== Manifest Contents ==="
+        for file in k8s-manifests/*.yaml; do
+          echo "--- $file ---"
+          cat "$file"
+          echo ""
+        done
+
+    - name: Upload Kubernetes manifests
+      uses: actions/upload-artifact@v4
+      with:
+        name: kubernetes-manifests
+        path: recovery-compass-docker/k8s-manifests/
+        retention-days: 7
+
+    - name: Validate manifest syntax
+      run: |
+        cd recovery-compass-docker
+        for file in k8s-manifests/*.yaml; do
+          echo "Validating $file..."
+          # Basic YAML validation
+          python3 -c "import yaml; yaml.safe_load(open('$file'))"
+        done
