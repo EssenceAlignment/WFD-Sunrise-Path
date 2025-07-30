@@ -74,10 +74,12 @@ Once SAM.gov activates, immediately:
 ## 🎯 Grant Application Power Statements
 
 ### For Federal Grants
+
 >
 > "Recovery Compass (UEI: Y4L3SDVAD8Z8) is a registered SAM.gov entity combining proven pilot outcomes with cutting-edge Cloudflare edge AI to deliver personalized addiction recovery support."
 
 ### For Foundation Grants
+
 >
 > "As a California nonprofit with pending 501(c)(3) status and active SAM.gov registration, Recovery Compass bridges innovation and compliance to scale evidence-based recovery programs."
 

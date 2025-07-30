@@ -5,12 +5,7 @@
     "line_length": 250,
     "tables": false
   },
-  "MD032": {
-    "ol_multi": 1,
-    "ol_single": 1,
-    "ul_multi": 1,
-    "ul_single": 1
-  },
+  "MD032": false,
   "MD033": false,
   "MD036": false,
   "MD040": {
@@ -25,8 +20,7 @@
       "js",
       "sh",
       "python",
-      "xml",
-      ""
+      "xml"
     ]
   },
   "default": true

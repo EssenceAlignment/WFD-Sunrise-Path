@@ -11,6 +11,7 @@ Every hour matters. Miss one deadline and you join the 30% failure rate.
 □ Count actual cash on hand
 □ Stop ALL fundraising activity
 □ Print this checklist
+
 ```text
 
 **Reality**: If you've taken even $1, you're already in violation of CA law.
@@ -31,6 +32,7 @@ Every hour matters. Miss one deadline and you join the 30% failure rate.
   Registry of Charitable Trusts
   P.O. Box 903447
   Sacramento, CA 94203-4470
+
 ```text
 
 **Fail State**: "Delinquent" public listing, all fundraising frozen
@@ -46,6 +48,7 @@ Every hour matters. Miss one deadline and you join the 30% failure rate.
 □ Bind policy TODAY
 □ Email declarations page to every board member
 □ Archive proof of coverage
+
 ```text
 
 **Fail State**: Board members personally sued, homes at risk
@@ -59,6 +62,7 @@ Every hour matters. Miss one deadline and you join the 30% failure rate.
 □ Sign engagement letter TODAY
 □ Prepay quarterly review ($2,500)
 □ Schedule immediate UBIT review
+
 ```text
 
 **Fail State**: IRS revocation, 35% tax + penalties on all earned revenue
@@ -76,6 +80,7 @@ Every hour matters. Miss one deadline and you join the 30% failure rate.
   - Tax exposure (assume 35%)
 □ Share with CPA and board
 □ Get written CPA opinion
+
 ```text
 
 **Reality Check**:
@@ -107,6 +112,7 @@ Every hour matters. Miss one deadline and you join the 30% failure rate.
   - Delete all configs
   - Recover from paper only
   - Time the recovery
+
 ```text
 
 **Script Half-Life**: Days, not weeks. Oh My Zsh update = instant alias death.
@@ -123,6 +129,7 @@ Every hour matters. Miss one deadline and you join the 30% failure rate.
 □ Link to actual bank API if possible
 □ Share read-only with board
 □ Set daily check reminder
+
 ```text
 
 **Your Real Numbers**:
@@ -162,6 +169,7 @@ Survival Rate:
 - Without CT-1 filed: 20%
 - Without CPA: 10%
 - With optimism: 0%
+
 ```text
 
 ## Emergency Contacts (Fill Now)

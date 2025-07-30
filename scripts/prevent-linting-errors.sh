@@ -22,7 +22,7 @@ fi
 
 # 2. Fix all markdown files
 echo "📝 Checking and fixing all markdown files..."
-find . -name "*.md" -not -path "./node_modules/*" -not -path "./venv/*" -not -path "./qualtrics-api-project/rapid-deploy/node_modules/*" | while read file; do
+find . -name "*.md" -not -path "./node_modules/*" -not -path "./venv/*" -not -path "./qualtrics-api-project/rapid-deploy/node_modules/*" | while IFS= read -r file; do
   echo "Checking: $file"
 
   # Run validator

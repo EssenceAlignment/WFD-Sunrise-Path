@@ -37,14 +37,17 @@
 ## 📋 Grant Narrative Insertion Points
 
 ### Technical Infrastructure Section
+
 >
 > "Our GitHub repositories enforce automated CodeQL scanning and Dependabot patching, ensuring vulnerabilities are surfaced within hours."
 
 ### Governance & Equity Section
+
 >
 > "A Contributor Covenant v2.1 code of conduct and open MIT licence invite inclusive, community-driven enhancements."
 
 ### Risk Mitigation Section
+
 >
 > "All external code contributions require a signed CLA, removing intellectual-property ambiguity."
 
@@ -83,14 +86,19 @@
 ## 📊 Verification Commands
 
 ```bash
+
 # Check if workflows are active (once permissions are set)
+
 gh workflow list
 
 # View Dependabot alerts (after enabling)
+
 gh api repos/EssenceAlignment/WFD-Sunrise-Path/dependabot/alerts
 
 # Check branch protection status
+
 gh api repos/EssenceAlignment/WFD-Sunrise-Path/branches/main/protection
+
 ```text
 
 ## 🚀 Next Steps (No Urgency)
@@ -106,6 +114,7 @@ gh api repos/EssenceAlignment/WFD-Sunrise-Path/branches/main/protection
 ```text
 60f394a - chore(legal): add MIT licence for OSS compliance (Gitcoin requirement)
 c39fbe2 - docs: add GitHub issue/PR templates for contributor guidance
+
 ```text
 
 All implementations follow the Abundance protocol - sustainable improvements without urgency narratives.

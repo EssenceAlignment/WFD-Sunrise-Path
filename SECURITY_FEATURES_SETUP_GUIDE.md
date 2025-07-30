@@ -81,6 +81,7 @@ From the Security tab you showed:
 2. This creates `SECURITY.md` with template:
 
 ```markdown
+
 # Security Policy
 
 ## Supported Versions
@@ -94,6 +95,7 @@ From the Security tab you showed:
 Please report vulnerabilities to: security@recovery-compass.org
 
 We will respond within 48 hours and work on a fix.
+
 ```text
 
 ### 5. Branch Protection Rules (For Main Branch)
@@ -115,15 +117,20 @@ Navigate to: Settings → Branches → Add rule
 After enabling, verify with:
 
 ```bash
+
 # Check Dependabot alerts (should return [] if no vulnerabilities)
+
 gh api repos/Recovery-Compass/recovery-compass-grant-system/dependabot/alerts
 
 # Check secret scanning alerts
+
 gh api repos/Recovery-Compass/recovery-compass-grant-system/secret-scanning/alerts
 
 # List security features status
+
 gh api repos/Recovery-Compass/recovery-compass-grant-system \
   --jq '.security_and_analysis'
+
 ```text
 
 ## Priority Features for Grant Applications

@@ -7,12 +7,15 @@
 **Grant Impact**: Demonstrates HIPAA-compliant security practices
 
 ```bash
+
 # Move sensitive keys from GitHub to Cloudflare
+
 cd /Users/ericjones/Projects/Recovery-Compass-Funding
 npx wrangler secret put SUPABASE_SERVICE_KEY
 npx wrangler secret put QUALTRICS_TOKEN
 npx wrangler secret put OPENAI_API_KEY
 npx wrangler secret put STRIPE_SECRET_KEY
+
 ```text
 
 **Why for Grants**:
@@ -29,6 +32,7 @@ npx wrangler secret put STRIPE_SECRET_KEY
 <!-- Replace reCAPTCHA in funding forms -->
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <div class="cf-turnstile" data-sitekey="YOUR_SITE_KEY"></div>
+
 ```text
 
 **Why for Grants**:
@@ -48,6 +52,7 @@ const openai = new OpenAI({
   baseURL: "https://gateway.ai.cloudflare.com/v1/YOUR_ACCOUNT/recovery-compass/openai",
   apiKey: process.env.OPENAI_KEY
 });
+
 ```text
 
 **Why for Grants**:
@@ -59,14 +64,17 @@ const openai = new OpenAI({
 ## 📊 How These Strengthen Grant Applications
 
 ### SAMHSA ($500K Health Tech Grants)
+
 >
 > "Recovery Compass employs Cloudflare's encrypted Secrets Store for HIPAA-compliant API key management, Turnstile for privacy-preserving user verification, and AI Gateway for auditable, cost-controlled AI interactions."
 
 ### RWJF ($250K Equity Grants)
+
 >
 > "Our privacy-first architecture uses Turnstile to eliminate tracking cookies while maintaining security, ensuring equitable access without surveillance capitalism."
 
 ### California Wellness Foundation
+
 >
 > "Edge-native security through Cloudflare Workers ensures sub-50ms response times for vulnerable populations on limited bandwidth."
 
@@ -97,18 +105,25 @@ When reviewers see:
 ## 🔧 Quick Setup Commands
 
 ```bash
+
 # 1. Install Wrangler globally
+
 npm install -g wrangler
 
 # 2. Authenticate with Cloudflare
+
 wrangler login
 
 # 3. Create secrets
+
 wrangler secret put SUPABASE_SERVICE_KEY
+
 # (paste key when prompted)
 
 # 4. Deploy worker with secrets
+
 wrangler deploy
+
 ```text
 
 ## ✅ Checklist for Grant Applications

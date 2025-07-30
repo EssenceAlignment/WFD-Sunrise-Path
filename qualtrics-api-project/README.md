@@ -33,16 +33,21 @@ This implementation follows the recommended Phase 1 approach from your architect
 
 ```bash
 cd "/Users/ericjones/Desktop/Whittier First Day/Survey/qualtrics-api-project"
+
 ```text
 
 ### 2. Install Dependencies
 
 ```bash
+
 # Activate virtual environment
+
 source venv/bin/activate
 
 # Install additional requirements
+
 pip install -r requirements.txt
+
 ```text
 
 ### 3. Configure Qualtrics API
@@ -68,20 +73,26 @@ pip install -r requirements.txt
 ### 5. Configure Environment Variables
 
 ```bash
+
 # Copy the example environment file
+
 cp .env.example .env
 
 # Edit .env with your actual values
+
 nano .env
+
 ```text
 
 Update these values in `.env`:
+
 ```text
 QUALTRICS_API_TOKEN=your_actual_api_token
 QUALTRICS_DATA_CENTER=https://yourdatacenter.qualtrics.com
 QUALTRICS_SURVEY_ID=SV_your_survey_id
 GOOGLE_SHEET_ID=your_google_sheet_id
 GOOGLE_CREDENTIALS_FILE=/path/to/your/credentials.json
+
 ```text
 
 Data center URLs:
@@ -100,28 +111,35 @@ Data center URLs:
 
 ```bash
 python main.py test
+
 ```text
 
 ### Run ORIC Calculation Demo
 
 ```bash
 python main.py demo
+
 ```text
 
 ### Sync Survey to Google Sheets
 
 ```bash
+
 # Sync configured survey
+
 python main.py sync
 
 # Sync specific survey
+
 python main.py sync --survey-id SV_123456
+
 ```text
 
 ### Set Up Webhook (Optional)
 
 ```bash
 python main.py webhook https://your-webhook-url.com/qualtrics
+
 ```text
 
 ## Project Structure
@@ -129,13 +147,21 @@ python main.py webhook https://your-webhook-url.com/qualtrics
 ```text
 qualtrics-api-project/
 ├── .env                    # Your configuration (create from .env.example)
+
 ├── .env.example           # Environment variable template
+
 ├── requirements.txt       # Python dependencies
+
 ├── qualtrics_client.py   # Qualtrics API wrapper
+
 ├── oric_calculator.py    # ORIC score calculations
+
 ├── google_sheets_sync.py # Google Sheets integration
+
 ├── main.py              # Command-line interface
+
 └── README.md            # This file
+
 ```text
 
 ## Google Sheets Structure
@@ -171,12 +197,15 @@ Edit `oric_calculator.py` to customize:
 3. **Score Ranges**: Modify readiness level thresholds
 
 Example:
+
 ```python
 SUBSCALES = {
     'change_commitment': ['QID1', 'QID2', 'QID3'],  # Your actual question IDs
+
     'change_efficacy': ['QID4', 'QID5', 'QID6'],
     'contextual_factors': ['QID7', 'QID8', 'QID9']
 }
+
 ```text
 
 ## Creating a Dashboard in Google Sheets
@@ -186,14 +215,19 @@ SUBSCALES = {
 3. Use these formulas:
 
 ```text
+
 # Average ORIC Score
+
 =AVERAGE('Survey Responses'!G:G)
 
 # Response Count
+
 =COUNTA('Survey Responses'!A:A)-1
 
 # Readiness Distribution
+
 =COUNTIF('Survey Responses'!H:H,"high")/COUNTA('Survey Responses'!H:H)
+
 ```text
 
 4. Create charts:
@@ -204,14 +238,17 @@ SUBSCALES = {
 ## Troubleshooting
 
 ### API Token Issues
+
 - Ensure token has correct permissions
 - Check data center URL matches your account
 
 ### Google Sheets Access Denied
+
 - Verify service account email has edit access
 - Check credentials file path is correct
 
 ### Missing Survey Responses
+
 - Confirm survey ID is correct
 - Check survey has completed responses
 - Verify date range if filtering

@@ -11,121 +11,176 @@ This guide demonstrates how I systematically approach and resolve common develop
 **Detection:**
 
 ```bash
+
 # Run markdownlint to find all issues
+
 npx markdownlint "**/*.md" --config .markdownlint.json
+
 ```text
 
 **Common Issues & Fixes:**
 
 #### MD032 - Blanks around lists
+
 ```markdown
+
 # ❌ Incorrect
+
 Some text
 - List item
 
 # ✅ Correct
+
 Some text
 
 - List item
+
 ```text
 
 #### MD040 - Fenced code blocks should have language
 
 ```markdown
+
 # ❌ Incorrect
+
 ```text
 code here
+
 ```text
 
 # ✅ Correct
+
 ```bash
 code here
+
 ```text
+
 ```text
 
 **Automated Fix:**
+
 ```bash
+
 # Auto-fix markdown issues
+
 npx markdownlint "**/*.md" --fix
+
 ```text
 
 ### 2. Spelling Issues (e.g., 'autobuild: unknown word')
 
 **Detection:**
+
 ```bash
+
 # Check spelling
+
 npx cspell "**/*.{md,yml,yaml,ts,tsx,js,jsx}"
+
 ```text
 
 **Resolution Strategies:**
 
 #### Add to Dictionary (for valid technical terms)
+
 ```bash
+
 # Add to accepted words
+
 echo "autobuild" >> styles/Vocab/Base/accept.txt
 echo "biopsychosocial" >> styles/Vocab/Base/accept.txt
+
 ```text
 
 #### Fix Typos
+
 ```bash
+
 # Find and replace typos
+
 find . -type f -name "*.md" -exec sed -i '' 's/receive/receive/g' {} +
+
 ```text
 
 ### 3. YAML Schema Issues (e.g., 'incorrect type: Expected Boolean')
 
 **Detection:**
+
 ```bash
+
 # Validate YAML files
+
 yamllint .github/workflows/*.yml
+
 ```text
 
 **Common Issues & Fixes:**
 
 #### Boolean Type Errors
+
 ```yaml
+
 # ❌ Incorrect
+
 uses-feature: "true"  # String instead of boolean
 
 # ✅ Correct
+
 uses-feature: true    # Boolean value
+
 ```text
 
 #### Proper YAML Structure
+
 ```yaml
+
 # ❌ Incorrect
+
 on: [push,pull_request]  # Missing space
 
 # ✅ Correct
+
 on: [push, pull_request]  # Proper spacing
+
 ```text
 
 ### 4. TypeScript/JavaScript Issues
 
 **Detection:**
+
 ```bash
+
 # Run TypeScript compiler
+
 npx tsc --noEmit
 
 # Run ESLint
+
 npx eslint "**/*.{ts,tsx,js,jsx}"
+
 ```text
 
 **Common Fixes:**
 
 #### Missing Dependencies
+
 ```bash
+
 # Install missing types
+
 npm install --save-dev @types/react @types/node
+
 ```text
 
 #### Import Issues
+
 ```typescript
 // ❌ Incorrect
 import React from 'react'  // Missing semicolon
 
 // ✅ Correct
 import React from 'react';
+
 ```text
 
 ## Systematic Approach Workflow
@@ -133,6 +188,7 @@ import React from 'react';
 ### 1. Pre-commit Checks
 
 Create `.pre-commit-config.yaml`:
+
 ```yaml
 repos:
   - repo: local
@@ -154,41 +210,50 @@ repos:
         entry: yamllint
         language: system
         files: '\.(yml|yaml)$'
+
 ```text
 
 ### 2. Automated Fix Script
 
 Create `scripts/fix-all-issues.sh`:
+
 ```bash
 #!/bin/bash
 
 echo "🔧 Fixing common issues systematically..."
 
 # Fix markdown issues
+
 echo "📝 Fixing markdown formatting..."
 npx markdownlint "**/*.md" --fix
 
 # Add blank lines around lists
+
 find . -name "*.md" -type f -exec sed -i '' 's/\([^[:space:]]\)\n\(-\|\*\|+\|[0-9]\+\.\)/\1\n\n\2/g' {} +
 
 # Fix code block languages
+
 find . -name "*.md" -type f -exec sed -i '' 's/^```$/```text/g' {} +
 
 # Fix YAML boolean values
+
 echo "📋 Fixing YAML issues..."
 find .github/workflows -name "*.yml" -exec sed -i '' 's/: "true"/: true/g' {} +
 find .github/workflows -name "*.yml" -exec sed -i '' 's/: "false"/: false/g' {} +
 
 # Update spell check dictionary
+
 echo "📖 Updating spell check dictionary..."
 sort -u styles/Vocab/Base/accept.txt -o styles/Vocab/Base/accept.txt
 
 echo "✅ Fixes applied!"
+
 ```text
 
 ### 3. CI/CD Integration
 
 Add to `.github/workflows/lint.yml`:
+
 ```yaml
 name: Lint All Files
 
@@ -216,6 +281,7 @@ jobs:
 
       - name: YAML Lint
         run: yamllint .github/workflows/
+
 ```text
 
 ## Prevention Strategies
@@ -223,6 +289,7 @@ jobs:
 ### 1. Editor Configuration
 
 `.vscode/settings.json`:
+
 ```json
 {
   "editor.formatOnSave": true,
@@ -234,6 +301,7 @@ jobs:
     "https://json.schemastore.org/github-workflow.json": ".github/workflows/*.yml"
   }
 }
+
 ```text
 
 ### 2. Documentation Standards
@@ -246,20 +314,27 @@ jobs:
 ### 3. Regular Maintenance
 
 ```bash
+
 # Weekly maintenance script
+
 #!/bin/bash
 
 # Update dependencies
+
 npm update
 
 # Run all linters
+
 npm run lint:all
 
 # Update spell check dictionary
+
 npx cspell --words-only "**/*.md" | sort -u >> styles/Vocab/Base/accept.txt
 
 # Clean up duplicates
+
 sort -u styles/Vocab/Base/accept.txt -o styles/Vocab/Base/accept.txt
+
 ```text
 
 ## Error Resolution Flowchart
@@ -276,27 +351,35 @@ Is it a known pattern?
          Create automated fix
               ↓
          Add to pre-commit hooks
+
 ```text
 
 ## Commitment Message Standards
 
 When fixing these issues:
+
 ```bash
+
 # Markdown fixes
+
 git commit -m "fix(docs): resolve markdown formatting issues - add blank lines around lists"
 
 # Spelling fixes
+
 git commit -m "fix(spelling): add technical terms to dictionary"
 
 # YAML fixes
+
 git commit -m "fix(ci): correct boolean types in workflow files"
 
 # Multiple fixes
+
 git commit -m "fix: resolve linting issues across codebase
 
 - Add blank lines around markdown lists
 - Fix YAML boolean type errors
 - Add technical terms to spell check dictionary"
+
 ```text
 
 ---

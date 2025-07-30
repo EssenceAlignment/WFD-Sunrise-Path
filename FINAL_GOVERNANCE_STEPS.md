@@ -14,10 +14,13 @@
 ```bash
 cd /Users/ericjones/recovery-compass-grants/Recovery-Compass-Funding
 git pull origin main
+
 # Resolve any conflicts if they arise
+
 git add .
 git commit -m "chore: merge upstream changes"
 git push origin main
+
 ```text
 
 ### 2. Push recovery-compass-grant-system to GitHub
@@ -27,6 +30,7 @@ cd /Users/ericjones/Projects/recovery-compass-journeys/recovery-compass-grant-sy
 git remote add origin https://github.com/[your-username]/recovery-compass-grant-system.git
 git branch -M main
 git push -u origin main
+
 ```text
 
 ### 3. Enable Security Features (Each Repository)
@@ -39,11 +43,15 @@ Visit each repository's settings:
 ### 4. Verify Portfolio Consistency
 
 ```bash
+
 # Check all repos have MIT license
+
 find ~/Projects -name "LICENSE" -path "*recovery-compass*" -exec grep -l "MIT License" {} \;
 
 # List all repos with governance
+
 find ~/Projects -name "CODE_OF_CONDUCT.md" -path "*recovery-compass*" -type f
+
 ```text
 
 ## 🎯 Grant-Ready Status

@@ -1,10 +1,13 @@
 ## Description
+
 Brief description of the changes in this PR.
 
 ## Related Issue
+
 Closes #(issue number)
 
 ## Type of Change
+
 - [ ] Bug fix (non-breaking change which fixes an issue)
 - [ ] New feature (non-breaking change which adds functionality)
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
@@ -13,11 +16,13 @@ Closes #(issue number)
 - [ ] Security fix
 
 ## Testing
+
 - [ ] I have tested these changes locally
 - [ ] I have added tests that prove my fix is effective or that my feature works
 - [ ] New and existing unit tests pass locally with my changes
 
 ## Checklist
+
 - [ ] My code follows the style guidelines of this project
 - [ ] I have performed a self-review of my own code
 - [ ] I have commented my code, particularly in hard-to-understand areas
@@ -26,9 +31,11 @@ Closes #(issue number)
 - [ ] Any dependent changes have been merged and published
 
 ## Grant Compliance (if applicable)
+
 - [ ] Changes align with SAMHSA technical requirements
 - [ ] Changes support RWJF equity, diversity, and inclusion principles
 - [ ] Security considerations addressed for healthcare data handling
 
 ## Screenshots (if applicable)
+
 Add screenshots to demonstrate visual changes.

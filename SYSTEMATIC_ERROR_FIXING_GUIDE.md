@@ -10,6 +10,7 @@
 "MD032": {
   "blanks": true  // ERROR: Expected number, got boolean
 }
+
 ```text
 
 **Systematic Solution:**
@@ -31,6 +32,7 @@
 ```text
 Unknown word (SUBSCALES)
 Unknown word (autobuild)
+
 ```text
 
 **Systematic Solution:**
@@ -57,7 +59,9 @@ Unknown word (autobuild)
 **Systematic Fixes:**
 
 ```markdown
+
 # MD032 - Add blank lines around lists
+
 Before list
 
 - Item 1
@@ -66,12 +70,15 @@ Before list
 After list
 
 # MD040 - Specify language for code blocks
+
 ```text
 This is a text block
+
 ```text
 
 ```bash
 echo "This is a bash command"
+
 ```text
 
 # MD013 - Break long lines
@@ -85,11 +92,16 @@ to stay within the 120 character limit.
 ## Automated Systematic Approach
 
 ### Step 1: Identify All Issues
+
 ```bash
+
 # Run all linters to get complete picture
+
 npm run lint:markdown
 npm run spell:check
+
 # Check for type errors in configs
+
 ```text
 
 ### Step 2: Categorize Issues
@@ -107,9 +119,12 @@ npm run spell:check
 ### Step 4: Verify Fixes
 
 ```bash
+
 # Re-run all checks
+
 npm run lint:markdown
 npm run spell:check
+
 ```text
 
 ## Prevention Strategy
@@ -141,6 +156,7 @@ GitHub Actions already configured to catch issues
     "allowed_languages": ["bash", "javascript", "json", "yaml", "text", ""]
   }
 }
+
 ```text
 
 ### .cspell.json
@@ -153,6 +169,7 @@ GitHub Actions already configured to catch issues
     "project-specific-terms"
   ]
 }
+
 ```text
 
 ## Error Resolution Workflow

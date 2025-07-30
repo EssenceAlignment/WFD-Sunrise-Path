@@ -11,11 +11,15 @@ This error typically means the MCP server isn't running or is configured incorre
 ### 1. Check MCP Server Status
 
 ```bash
+
 # Check if the MCP server process is running
+
 ps aux | grep cloudflare-server
 
 # Check if port is in use (MCP servers typically use specific ports)
+
 lsof -i :PORT_NUMBER
+
 ```text
 
 ### 2. Verify MCP Configuration
@@ -34,6 +38,7 @@ Check your MCP configuration file (usually in `~/.config/claude/mcp.json` or sim
     }
   }
 }
+
 ```text
 
 ### 3. Common Fixes
@@ -41,14 +46,19 @@ Check your MCP configuration file (usually in `~/.config/claude/mcp.json` or sim
 #### A. Restart the MCP Server
 
 ```bash
+
 # Navigate to the cloudflare server directory
+
 cd /Users/ericjones/Documents/Cline/MCP/cloudflare-server
 
 # Rebuild if necessary
+
 npm run build
 
 # Start the server manually to see errors
+
 node build/index.js
+
 ```text
 
 #### B. Check Environment Variables
@@ -56,21 +66,29 @@ node build/index.js
 Ensure your Cloudflare API credentials are set:
 
 ```bash
+
 # Check if environment variable is set
+
 echo $CLOUDFLARE_API_TOKEN
 
 # Or set it temporarily
+
 export CLOUDFLARE_API_TOKEN="your-token-here"
+
 ```text
 
 #### C. Permission Issues
 
 ```bash
+
 # Ensure the server has execute permissions
+
 chmod +x /Users/ericjones/Documents/Cline/MCP/cloudflare-server/build/index.js
 
 # Check file ownership
+
 ls -la /Users/ericjones/Documents/Cline/MCP/cloudflare-server/
+
 ```text
 
 ### 4. Alternative: Direct Cloudflare API Usage
@@ -80,26 +98,35 @@ If MCP continues to fail, you can interact with Cloudflare directly:
 #### Using Wrangler CLI
 
 ```bash
+
 # Install Wrangler globally
+
 npm install -g wrangler
 
 # Login to Cloudflare
+
 wrangler login
 
 # List your Workers
+
 wrangler list
 
 # Deploy a Worker
+
 wrangler deploy
+
 ```text
 
 #### Using cURL for API Calls
 
 ```bash
+
 # Example: List zones
+
 curl -X GET "https://api.cloudflare.com/client/v4/zones" \
      -H "Authorization: Bearer YOUR_API_TOKEN" \
      -H "Content-Type: application/json"
+
 ```text
 
 ### 5. Debug MCP Server
@@ -125,22 +152,29 @@ server.stderr.on('data', (data) => {
 server.on('close', (code) => {
   console.log(`Server exited with code ${code}`);
 });
+
 ```text
 
 ### 6. Check Dependencies
 
 ```bash
+
 # Navigate to the server directory
+
 cd /Users/ericjones/Documents/Cline/MCP/cloudflare-server
 
 # Check if all dependencies are installed
+
 npm list
 
 # Reinstall dependencies
+
 npm install
 
 # Check for vulnerabilities
+
 npm audit
+
 ```text
 
 ### 7. Firewall/Security Software

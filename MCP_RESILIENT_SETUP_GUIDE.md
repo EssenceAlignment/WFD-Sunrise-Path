@@ -19,6 +19,7 @@ First, let's create a proper recovery-compass configuration repository:
 mkdir -p ~/recovery-compass-config
 cd ~/recovery-compass-config
 git init
+
 ```text
 
 ### 2. Shell Functions (Not Aliases)
@@ -27,7 +28,9 @@ Create `~/.recovery-compass/functions.sh`:
 
 ```bash
 #!/bin/bash
+
 # Recovery Compass Shell Functions
+
 # Source this from .zshrc/.bashrc
 
 recovery_setup() {
@@ -35,6 +38,7 @@ recovery_setup() {
     
     if [ -f "$env_file" ]; then
         # Decrypt if encrypted
+
         if [ -f "$env_file.age" ]; then
             age -d -i ~/.ssh/id_ed25519 "$env_file.age" > "$env_file.tmp"
             export $(grep -v '^#' "$env_file.tmp" | xargs)
@@ -54,6 +58,7 @@ fix_mcp() {
     local backup_dir="$HOME/.recovery-compass/mcp-backups"
     
     # Create backup
+
     mkdir -p "$backup_dir"
     if [ -f "$config_dir/claude_desktop_config.json" ]; then
         cp "$config_dir/claude_desktop_config.json" \
@@ -61,6 +66,7 @@ fix_mcp() {
     fi
     
     # Apply minimal config
+
     cat > "$config_dir/claude_desktop_config.json" << 'EOF'
 {
   "mcpServers": {
@@ -86,6 +92,7 @@ verify_recovery_compass() {
     echo "🔍 Verifying Recovery Compass Setup..."
     
     # Check shell functions
+
     if type recovery_setup &>/dev/null; then
         echo "✅ recovery_setup function available"
     else
@@ -94,6 +101,7 @@ verify_recovery_compass() {
     fi
     
     # Check MCP config
+
     local mcp_config="$HOME/Library/Application Support/Claude/claude_desktop_config.json"
     if [ -f "$mcp_config" ]; then
         echo "✅ MCP config exists"
@@ -103,6 +111,7 @@ verify_recovery_compass() {
     fi
     
     # Check API keys in keychain
+
     local keys=("recovery-compass-github-token" "recovery-compass-openai-key")
     for key in "${keys[@]}"; do
         if security find-generic-password -s "$key" &>/dev/null; then
@@ -114,24 +123,31 @@ verify_recovery_compass() {
     
     return $status
 }
+
 ```text
 
 ### 3. Encrypted Secrets Management
 
 ```bash
+
 # Install age for encryption
+
 brew install age
 
 # Generate encryption key
+
 age-keygen -o ~/.recovery-compass/age.key
 
 # Encrypt your .env file
+
 age -r $(age-keygen -y ~/.recovery-compass/age.key) \
     -o .env.age .env
 
 # Add to .gitignore
+
 echo "*.env" >> .gitignore
 echo "!*.env.age" >> .gitignore
+
 ```text
 
 ### 4. Health Check Script
@@ -140,7 +156,9 @@ Create `~/.recovery-compass/health-check.sh`:
 
 ```bash
 #!/bin/bash
+
 # Recovery Compass Health Check
+
 # Run daily via cron/launchd
 
 log_file="$HOME/.recovery-compass/health-check.log"
@@ -163,6 +181,7 @@ check_command_exists() {
 }
 
 # Run checks
+
 errors=0
 
 check_file_exists "$HOME/.recovery-compass/functions.sh" || ((errors++))
@@ -171,14 +190,17 @@ check_command_exists "npx" || ((errors++))
 check_command_exists "age" || ((errors++))
 
 # Check if functions are sourced
+
 if ! type recovery_setup &>/dev/null; then
     echo "[$(date)] ❌ Shell functions not loaded" >> "$log_file"
     ((errors++))
 fi
 
 # Alert if errors
+
 if [ $errors -gt 0 ]; then
     # Send to Slack if webhook configured
+
     if [ -n "$slack_webhook" ]; then
         curl -X POST -H 'Content-type: application/json' \
             --data "{\"text\":\"⚠️ Recovery Compass health check failed with $errors errors\"}" \
@@ -188,6 +210,7 @@ if [ $errors -gt 0 ]; then
 fi
 
 echo "[$(date)] ✅ All checks passed" >> "$log_file"
+
 ```text
 
 ### 5. LaunchAgent for Monitoring
@@ -214,12 +237,14 @@ Create `~/Library/LaunchAgents/com.recovery-compass.health-check.plist`:
     <string>/Users/ericjones/.recovery-compass/health-check.err</string>
 </dict>
 </plist>
+
 ```text
 
 Load it:
 
 ```bash
 launchctl load ~/Library/LaunchAgents/com.recovery-compass.health-check.plist
+
 ```text
 
 ### 6. Manual Recovery Procedures
@@ -227,7 +252,9 @@ launchctl load ~/Library/LaunchAgents/com.recovery-compass.health-check.plist
 When everything breaks, here's the manual path:
 
 ```bash
+
 # 1. Recreate MCP config manually
+
 mkdir -p "$HOME/Library/Application Support/Claude"
 cat > "$HOME/Library/Application Support/Claude/claude_desktop_config.json" << 'EOF'
 {
@@ -241,11 +268,14 @@ cat > "$HOME/Library/Application Support/Claude/claude_desktop_config.json" << '
 EOF
 
 # 2. Load API keys manually
+
 export OPENAI_API_KEY=$(security find-generic-password -s "recovery-compass-openai-key" -w)
 export GITHUB_TOKEN=$(security find-generic-password -s "recovery-compass-github-token" -w)
 
 # 3. Verify
+
 echo $OPENAI_API_KEY | head -c 10
+
 ```text
 
 ## 🛡️ Security Hardening
@@ -253,32 +283,41 @@ echo $OPENAI_API_KEY | head -c 10
 ### Keychain Integration
 
 ```bash
+
 # Add API key to keychain
+
 security add-generic-password \
     -a "$USER" \
     -s "recovery-compass-openai-key" \
     -w "your-api-key-here"
 
 # Retrieve from keychain
+
 security find-generic-password \
     -s "recovery-compass-openai-key" \
     -w
+
 ```text
 
 ### Git-Crypt for Team Sharing
 
 ```bash
+
 # Setup git-crypt
+
 brew install git-crypt
 cd ~/recovery-compass-config
 git-crypt init
 
 # Add files to encrypt
+
 echo ".env filter=git-crypt diff=git-crypt" >> .gitattributes
 echo "*.key filter=git-crypt diff=git-crypt" >> .gitattributes
 
 # Add team members
+
 git-crypt add-gpg-user teammate@example.com
+
 ```text
 
 ## 📊 Realistic Expectations
@@ -332,6 +371,7 @@ Because it will. Here's what to do:
    rm -rf ~/.recovery-compass
    rm "$HOME/Library/Application Support/Claude/claude_desktop_config.json"
    # Then rebuild from this guide
+
    ```
 
 ## 🎯 The Truth

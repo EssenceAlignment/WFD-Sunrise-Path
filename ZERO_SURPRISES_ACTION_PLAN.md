@@ -14,12 +14,17 @@ This plan assumes:
 ### Hour 1-4: Stop the Bleeding
 
 ```bash
+
 # 1. Verify MCP is working RIGHT NOW
+
 cat ~/Library/Application\ Support/Claude/claude_desktop_config.json
 
 # 2. Screenshot all working configs (paper backup)
+
 # 3. Print this document
+
 # 4. Set phone reminders for every deadline below
+
 ```text
 
 ### Day 1: California AG Compliance
@@ -34,6 +39,7 @@ DOCS NEEDED:
 - Bylaws
 - $25 fee
 FAIL STATE: "Delinquent" public status, fundraising frozen
+
 ```text
 
 ### Day 2: D&O Insurance
@@ -46,6 +52,7 @@ PROVIDERS:
 - Great American
 COST: $600-1,200/year
 FAIL STATE: Board members personally liable
+
 ```text
 
 ### Day 3: Nonprofit CPA
@@ -58,6 +65,7 @@ INTERVIEW QUESTIONS:
 - Cost for quarterly reviews?
 BUDGET: $5,000-10,000/year
 FAIL STATE: IRS revocation, UBIT penalties
+
 ```text
 
 ## 📊 Real Numbers (Not Fantasies)
@@ -71,6 +79,7 @@ MONTH 7-9: +$15,000 (small foundation)
 MONTH 10-12: +$25,000 (year-end giving)
 TOTAL YEAR 1: $35,000 revenue, $50,000 expenses
 RUNWAY REQUIRED: 12 months personal savings
+
 ```text
 
 ### True Cost Per Dollar Raised
@@ -81,6 +90,7 @@ Digital Ads: $1.50 per $1 (Year 1)
 Events: $0.75 per $1
 Grants: $0.25 per $1 (80-200 hours)
 Major Gifts: $0.10 per $1 (relationships)
+
 ```text
 
 ### UBIT Risk Matrix (Conservative)
@@ -89,6 +99,7 @@ Major Gifts: $0.10 per $1 (relationships)
 Monthly Giving: SAFE (0% UBIT)
 Foundation Grants: SAFE (0% UBIT)
 Everything Else: ASSUME 35% TAX
+
 ```text
 
 ## 🛠️ Technical Drift Monitoring
@@ -97,17 +108,22 @@ Everything Else: ASSUME 35% TAX
 
 ```bash
 #!/bin/bash
+
 # Add to crontab: 0 9 * * * /path/to/daily-check.sh
 
 # Check if configs exist
+
 test -f ~/.zshrc || echo "ALERT: .zshrc missing"
 test -f "$HOME/Library/Application Support/Claude/claude_desktop_config.json" || echo "ALERT: MCP config missing"
 
 # Check if aliases work
+
 zsh -ic 'type recovery-setup' || echo "ALERT: Aliases broken"
 
 # Email results
+
 mail -s "Recovery Compass Daily Check" you@example.com < results.log
+
 ```text
 
 ### Weekly Manual Verification
@@ -149,18 +165,24 @@ mail -s "Recovery Compass Daily Check" you@example.com < results.log
 ### MCP Breaks
 
 ```bash
+
 # Manual recovery (memorize this)
+
 mkdir -p "$HOME/Library/Application Support/Claude"
 echo '{"mcpServers":{"filesystem":{"command":"npx","args":["-y","@modelcontextprotocol/server-filesystem","/Users/ericjones/Documents"]}}}' > "$HOME/Library/Application Support/Claude/claude_desktop_config.json"
+
 ```text
 
 ### Aliases Disappear
 
 ```bash
+
 # Re-add to .zshrc manually
+
 echo 'alias recovery-setup="source ~/.recovery_compass_setup.sh"' >> ~/.zshrc
 echo 'alias fix-mcp="~/.fix_mcp.sh"' >> ~/.zshrc
 source ~/.zshrc
+
 ```text
 
 ### Compliance Emergency
@@ -171,6 +193,7 @@ source ~/.zshrc
 3. Document everything
 4. Prepare for audit
 5. Notify insurance carrier
+
 ```text
 
 ## 💰 Survival Budget (Realistic)
@@ -187,6 +210,7 @@ Total: $2,800/month minimum
 Annual Minimum: $33,600
 Add Programs: Double it
 Add Staff: Triple it
+
 ```text
 
 ### Funding Sources (Ranked by Reality)

@@ -46,6 +46,7 @@ codebase. No more manual fixes for linting, spelling, or type errors.
   "ul_multi": 1,
   "ol_multi": 1
 }
+
 ```text
 
 - Properly configured for blanks around lists
@@ -57,6 +58,7 @@ codebase. No more manual fixes for linting, spelling, or type errors.
 truthy:
   allowed-values: ['true', 'false']
   check-keys: true
+
 ```text
 
 - Enforces strict boolean types
@@ -112,16 +114,21 @@ truthy:
 
 ```bash
 /Users/ericjones/Library/Python/3.12/bin/pre-commit autoupdate
+
 ```text
 
 ### Running Manually
 
 ```bash
+
 # Run all checks
+
 /Users/ericjones/Library/Python/3.12/bin/pre-commit run --all-files
 
 # Run specific check
+
 /Users/ericjones/Library/Python/3.12/bin/pre-commit run markdownlint --all-files
+
 ```text
 
 ## Never Manual Again

@@ -31,7 +31,8 @@
     "headings": null              // ✗ Null instead of boolean
   }
 }
-```
+
+```text
 
 ### 2. MD022/blanks-around-headings (Line 30)
 
@@ -42,14 +43,18 @@
 
 ```markdown
 <!-- INCORRECT -->
+
 ## Heading
+
 This text has no blank line above it.
 
 <!-- CORRECT -->
+
 ## Heading
 
 This text has a proper blank line above it.
-```
+
+```text
 
 ### 3. MD031/blanks-around-fences (Line 31)
 
@@ -61,20 +66,25 @@ This text has a proper blank line above it.
 ```markdown
 <!-- INCORRECT -->
 Some text here
-```code
+
+```javascript
 // Code without blank lines
-```
+
+```text
+
 More text here
 
 <!-- CORRECT -->
 Some text here
 
-```code
+```javascript
 // Code with proper blank lines
-```
+
+```text
 
 More text here
-```
+
+```text
 
 ### 4. MD040/fenced-code-language (Line 31)
 
@@ -85,24 +95,31 @@ More text here
 
 ````markdown
 <!-- INCORRECT -->
-```
+
+```text
 echo "No language specified"
-```
+
+```javascript
 
 <!-- CORRECT -->
+
 ```bash
 echo "Language specified"
-```
+
+```javascript
 
 ```javascript
 const example = "Always specify language";
-```
+
+```text
 
 ```json
 {
   "key": "value"
 }
-```
+
+```text
+
 ````
 
 ## My Systematic Approach to Never Let These Happen Again
@@ -241,7 +258,8 @@ function autoFixMarkdown(filePath) {
 }
 
 module.exports = { MarkdownValidator, autoFixMarkdown };
-```
+
+```javascript
 
 ### 2. JSON Configuration Validator
 
@@ -318,17 +336,20 @@ function autoFixMarkdownlintConfig(configPath) {
 }
 
 module.exports = { validateMarkdownlintConfig, autoFixMarkdownlintConfig };
-```
+
+```bash
 
 ### 3. Master Prevention Script
 
 ```bash
 #!/bin/bash
+
 # scripts/prevent-linting-errors.sh
 
 echo "🛡️ Running Systematic Linting Error Prevention..."
 
 # 1. Validate and fix .markdownlint.json
+
 echo "📋 Checking .markdownlint.json configuration..."
 node -e "
 const { validateMarkdownlintConfig, autoFixMarkdownlintConfig } = require('./scripts/validate-json-configs.js');
@@ -344,11 +365,13 @@ if (errors.length > 0) {
 "
 
 # 2. Fix all markdown files
+
 echo "📝 Checking and fixing all markdown files..."
 find . -name "*.md" -not -path "./node_modules/*" -not -path "./venv/*" | while read file; do
   echo "Checking: $file"
 
   # Run validator
+
   node -e "
   const { MarkdownValidator, autoFixMarkdown } = require('./scripts/validate-before-save.js');
   const validator = new MarkdownValidator();
@@ -364,11 +387,13 @@ find . -name "*.md" -not -path "./node_modules/*" -not -path "./venv/*" | while 
 done
 
 # 3. Run markdownlint to verify
+
 echo "🔍 Running final validation..."
 npx markdownlint "**/*.md" --fix --ignore node_modules --ignore venv
 
 echo "✨ All linting issues prevented and fixed!"
-```
+
+```text
 
 ### 4. VS Code Real-Time Prevention
 
@@ -396,18 +421,22 @@ echo "✨ All linting issues prevented and fixed!"
     "source.fixAll.markdownlint": "explicit"
   }
 }
-```
+
+```bash
 
 ### 5. Git Pre-commit Hook Enhancement
 
 ```bash
 #!/bin/bash
+
 # .git/hooks/pre-commit
 
 # Check for the specific issues mentioned
+
 echo "🔍 Checking for specific linting issues..."
 
 # Check .markdownlint.json for boolean type errors
+
 if [ -f .markdownlint.json ]; then
   node -e "
   const fs = require('fs');
@@ -423,17 +452,21 @@ if [ -f .markdownlint.json ]; then
 fi
 
 # Check markdown files for MD022, MD031, MD040
+
 git diff --cached --name-only --diff-filter=ACM | grep '\.md$' | while read file; do
   # Extract content from staging
+
   content=$(git show ":$file")
 
   # Check for headings without blank lines (MD022)
+
   if echo "$content" | grep -E '^#{1,6}\s+.*\n[^\n]' > /dev/null; then
     echo "❌ $file: MD022 - Heading needs blank line after"
     exit 1
   fi
 
   # Check for code blocks without language (MD040)
+
   if echo "$content" | grep -E '^```$' > /dev/null; then
     echo "❌ $file: MD040 - Code block needs language identifier"
     exit 1
@@ -441,7 +474,8 @@ git diff --cached --name-only --diff-filter=ACM | grep '\.md$' | while read file
 done
 
 echo "✅ All specific linting checks passed!"
-```
+
+```text
 
 ## My Commitment to Systematic Excellence
 

@@ -9,24 +9,33 @@ Since the MCP server is having issues, here's how to implement the three key Clo
 ### Using Wrangler CLI
 
 ```bash
+
 # Install Wrangler if not already installed
+
 npm install -g wrangler
 
 # Login to Cloudflare
+
 wrangler login
 
 # Add secrets for Recovery Compass
+
 wrangler secret put SUPABASE_SERVICE_KEY
+
 # (Enter the key when prompted)
 
 wrangler secret put QUALTRICS_TOKEN
+
 # (Enter the token when prompted)
 
 wrangler secret put OPENAI_API_KEY
+
 # (Enter the key when prompted)
 
 wrangler secret put STRIPE_SECRET_KEY
+
 # (Enter the key when prompted)
+
 ```text
 
 ### In Your Worker Code
@@ -46,6 +55,7 @@ export default {
     // Never log or return secrets in responses!
   }
 }
+
 ```text
 
 ## 2. Turnstile Implementation
@@ -103,6 +113,7 @@ export default {
   </script>
 </body>
 </html>
+
 ```text
 
 ### Step 3: Verify on Backend
@@ -128,6 +139,7 @@ async function verifyTurnstile(token, ip) {
   const data = await response.json();
   return data.success;
 }
+
 ```text
 
 ## 3. AI Gateway Implementation
@@ -159,6 +171,7 @@ const completion = await openai.chat.completions.create({
   messages: [{ role: "user", content: "Analyze this recovery story..." }],
   model: "gpt-4",
 });
+
 ```text
 
 ### Step 3: View Analytics
@@ -199,18 +212,24 @@ const completion = await openai.chat.completions.create({
 ## 🔧 Testing Commands
 
 ```bash
+
 # List your secrets (names only, not values)
+
 wrangler secret list
 
 # Deploy with secrets
+
 wrangler deploy
 
 # Tail logs to debug
+
 wrangler tail
 
 # Check AI Gateway stats
+
 curl https://api.cloudflare.com/client/v4/accounts/{account_id}/ai-gateway/gateways \
   -H "Authorization: Bearer {api_token}"
+
 ```text
 
 ## 💡 Pro Tips

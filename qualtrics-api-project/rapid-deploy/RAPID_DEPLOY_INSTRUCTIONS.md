@@ -10,30 +10,41 @@
 
 ```bash
 cd "/Users/ericjones/Desktop/Whittier First Day/Survey/qualtrics-api-project/rapid-deploy"
+
 ```text
 
 ### 2. Install Dependencies:
+
 ```bash
 npm install
+
 ```text
 
 ### 3. Get Your Qualtrics API Token:
+
 1. Log into Qualtrics
 2. Go to: **Account Settings → Qualtrics IDs → API**
 3. Click **Generate Token**
 4. Copy the token
 
 ### 4. Update .env File:
+
 ```bash
+
 # Edit .env and replace YOUR_API_TOKEN_HERE with your actual token
+
 nano .env
+
 # OR open in your text editor
+
 ```text
 
 Your .env should look like:
+
 ```text
 QUALTRICS_API_TOKEN=UR_1234567890abcdef
 QUALTRICS_DATACENTER=yul1
+
 ```text
 
 ---
@@ -42,6 +53,7 @@ QUALTRICS_DATACENTER=yul1
 
 ```bash
 npm run test-connection
+
 ```text
 
 ✅ If you see "Connection successful!" → Continue  
@@ -52,8 +64,10 @@ npm run test-connection
 ## 🚀 OPTION A: CREATE SURVEY VIA API (15 minutes)
 
 ### Run the creation script:
+
 ```bash
 npm run create-survey
+
 ```text
 
 This will:
@@ -64,8 +78,10 @@ This will:
 - Save the Survey ID
 
 ### Then get the anonymous link:
+
 ```bash
 npm run get-link
+
 ```text
 
 The link will be:

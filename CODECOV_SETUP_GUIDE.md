@@ -37,6 +37,7 @@ Since this is primarily an HTML/CSS project, create a simple test:
     "@testing-library/jest-dom": "^6.0.0"
   }
 }
+
 ```text
 
 **Create `jest.config.js`**:
@@ -52,6 +53,7 @@ module.exports = {
   ],
   testEnvironment: 'jsdom',
 };
+
 ```text
 
 **Create `tests/sample.test.js`**:
@@ -64,18 +66,21 @@ describe('WFD Sunrise Path', () => {
   
   // Add more meaningful tests as project grows
 });
+
 ```text
 
 ### 3. Install Dependencies Locally
 
 ```bash
 npm install --save-dev jest @testing-library/jest-dom
+
 ```text
 
 ### 4. Test Locally
 
 ```bash
 npm run test:coverage
+
 ```text
 
 ### 5. Commit and Push
@@ -86,6 +91,7 @@ The workflow file has already been created at `.github/workflows/test-and-covera
 git add .
 git commit -m "ci: add Codecov integration for code quality metrics"
 git push origin main
+
 ```text
 
 ### 6. Add Codecov Badge to README
@@ -94,6 +100,7 @@ Add this to the top of your README.md:
 
 ```markdown
 [![codecov](https://codecov.io/gh/EssenceAlignment/WFD-Sunrise-Path/branch/main/graph/badge.svg?token=YOUR_TOKEN)](https://codecov.io/gh/EssenceAlignment/WFD-Sunrise-Path)
+
 ```text
 
 ## ✅ What Happens Next

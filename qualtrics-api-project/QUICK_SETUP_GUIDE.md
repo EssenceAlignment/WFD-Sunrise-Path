@@ -22,28 +22,40 @@ Once survey is created:
 ### STEP 3: Quick API Setup (5 minutes)
 
 ```bash
+
 # 1. Create your config file
+
 cp .env.example .env
 
 # 2. Edit .env and add:
+
 QUALTRICS_API_TOKEN=your_token_here
 QUALTRICS_DATA_CENTER=https://yul1.qualtrics.com  # or your datacenter
+
 QUALTRICS_SURVEY_ID=SV_XXXXXXXXX  # Your survey ID from step 2
+
 ```text
 
 ### STEP 4: Test the Connection
+
 ```bash
+
 # Activate virtual environment
+
 source venv/bin/activate
 
 # Test connection
+
 python main.py test
 
 # Run ORIC demo
+
 python main.py demo
+
 ```text
 
 ### STEP 5: For Google Sheets (Later - After 5 PM)
+
 1. Create a Google Sheet
 2. Note the Sheet ID from URL
 3. Set up service account (instructions in README)
@@ -56,15 +68,19 @@ python main.py demo
    ```
 
 ### IMMEDIATE PRIORITIES:
+
 1. ✅ Build survey in Qualtrics (30 mins)
 2. ✅ Test both program paths (10 mins)
 3. ✅ Get anonymous survey link
 4. ✅ Send email to Donna by 5 PM
 
 ### WEBHOOK SETUP (Optional - Can do tomorrow)
+
 Once survey is live, set up automatic syncing:
+
 ```bash
 python main.py webhook https://your-dashboard-url.com/api/qualtrics
+
 ```text
 
 ### TROUBLESHOOTING:
@@ -85,6 +101,7 @@ python main.py webhook https://your-dashboard-url.com/api/qualtrics
 - Verify all blocks are in survey flow
 
 ### CRITICAL TIMELINE:
+
 - 3:15 PM - Start building survey
 - 3:45 PM - Test both paths
 - 4:00 PM - Get survey link

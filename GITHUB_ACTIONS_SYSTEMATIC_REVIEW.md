@@ -9,14 +9,19 @@ When reviewing GitHub Actions workflows, I follow this systematic approach:
 #### A. Secret Reference Analysis
 
 ```yaml
+
 # ❌ BAD: Direct secret reference without existence check
+
 token: ${{ secrets.CODECOV_TOKEN }}
 
 # ✅ GOOD: Conditional secret usage
+
 token: ${{ secrets.CODECOV_TOKEN || '' }}
 
 # ✅ BETTER: Remove if not required (like Codecov for public repos)
+
 # Simply omit the token line
+
 ```text
 
 #### B. Common Warning Patterns I Check For
@@ -73,6 +78,7 @@ I automatically check for these issues in every workflow:
 
    ```yaml
    # Always make secrets optional or check existence
+
    - name: Step with optional secret
      env:
        TOKEN: ${{ secrets.OPTIONAL_TOKEN || '' }}
@@ -83,14 +89,18 @@ I automatically check for these issues in every workflow:
 
    ```yaml
    # Use major version tags for stability
+
    uses: actions/checkout@v4  # ✅ Good
+
    # Not: actions/checkout@main or @latest
+
    ```
 
 3. **Error Handling**
 
    ```yaml
    # Allow non-critical steps to fail
+
    - name: Optional step
      continue-on-error: true
    ```
@@ -99,6 +109,7 @@ I automatically check for these issues in every workflow:
 
    ```yaml
    # Explicitly define only needed permissions
+
    permissions:
      contents: read
      issues: write
@@ -126,6 +137,7 @@ on:
     branches: [ main ]
 
 # Explicit permissions
+
 permissions:
   contents: read
 
@@ -150,6 +162,7 @@ jobs:
     - name: Non-critical upload
       continue-on-error: true
       run: npm run upload-metrics
+
 ```text
 
 ## Assurance

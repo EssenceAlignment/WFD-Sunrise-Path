@@ -48,6 +48,7 @@
 2. **Update Email Signatures**
 
    ```
+
    Recovery Compass | 501(c)(3) Nonprofit
    EIN: 33-3213246 | UEI: Y4L3SDVAD8Z8
    ```
@@ -103,14 +104,17 @@
 ## 💰 FUNDRAISING POWER LANGUAGE
 
 ### For Donors
+
 >
 > "Recovery Compass is a 501(c)(3) tax-exempt nonprofit organization (EIN: 33-3213246). Your donation is tax-deductible to the fullest extent allowed by law."
 
 ### For Grants
+
 >
 > "Recovery Compass is an IRS-approved 501(c)(3) public charity (EIN: 33-3213246) with active SAM.gov registration (UEI: Y4L3SDVAD8Z8), combining proven pilot outcomes with innovative edge AI technology."
 
 ### For Partners
+
 >
 > "As a 501(c)(3) nonprofit with federal registration, Recovery Compass offers tax-deductible giving opportunities and full grant compliance for institutional funders."
 

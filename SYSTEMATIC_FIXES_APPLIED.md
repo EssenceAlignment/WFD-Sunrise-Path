@@ -17,12 +17,16 @@
 **Solution**: Fixed quote escaping for shell variables
 
 ```bash
+
 # Before:
+
 find .github/workflows -name "*.yml" -exec sed -i "" "s/: 'true'/: true/g" {} +
 
 # After:
+
 find .github/workflows -name "*.yml" -exec sed -i "" 's/: '\''true'\''/: true/g' {} +
-```
+
+```text
 
 ### 3. Markdown Line Length (MD013)
 
@@ -33,7 +37,8 @@ find .github/workflows -name "*.yml" -exec sed -i "" 's/: '\''true'\''/: true/g'
 "MD013": {
   "line_length": 250,
 }
-```
+
+```text
 
 ### 4. cSpell Dictionary Updates
 
@@ -68,16 +73,21 @@ find .github/workflows -name "*.yml" -exec sed -i "" 's/: '\''true'\''/: true/g'
 ### Quick Commands
 
 ```bash
+
 # Fix all issues at once
+
 ./scripts/fix_all_issues.sh
 
 # Skip pre-commit checks when needed
+
 git commit --no-verify -m "your message"
 
 # Check specific files
+
 npx markdownlint "README.md" --fix
 npx cspell "*.md"
-```
+
+```text
 
 ### VS Code Settings
 

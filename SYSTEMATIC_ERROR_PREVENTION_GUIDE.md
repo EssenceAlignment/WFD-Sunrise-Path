@@ -11,6 +11,7 @@ This guide demonstrates how I systematically prevent and fix common development 
 **Prevention Strategy:**
 
 ```markdown
+
 # Good Example
 
 ## Heading with proper spacing
@@ -23,12 +24,14 @@ This paragraph has a blank line above and below.
 - Second item
 
 ```bash
+
 # Code fence with blank lines around it
+
 echo "Proper spacing"
-```
+
+```text
 
 ### More content here
-```
 
 **Automatic Fix Implementation:**
 
@@ -49,7 +52,8 @@ const fixBlanksAroundElements = (content) => {
 
   return content;
 };
-```
+
+```text
 
 ### MD040: Fenced Code Language
 
@@ -60,17 +64,24 @@ Always specify language for code blocks:
 ```javascript
 // JavaScript code with language specified
 const example = "Always specify language";
-```
 
 ```bash
+
+```bash
+
 # Bash code with language specified
+
 echo "This helps with syntax highlighting"
-```
+
+```text
 
 ```yaml
+
 # YAML with language specified
+
 key: value
-```
+
+```javascript
 
 **Automatic Fix:**
 
@@ -92,7 +103,8 @@ const detectLanguage = (code) => {
   if (code.includes('import ') && code.includes('from ')) return 'python';
   return 'text';
 };
-```
+
+```text
 
 ## 2. Spell Check Issues
 
@@ -128,7 +140,8 @@ Maintain a comprehensive dictionary:
     "package-lock.json"
   ]
 }
-```
+
+```javascript
 
 **Automatic Dictionary Update:**
 
@@ -144,7 +157,8 @@ const updateSpellCheckDictionary = async (unknownWords) => {
 
   await writeFile('.cspell.json', JSON.stringify(cspellConfig, null, 2));
 };
-```
+
+```text
 
 ## 3. YAML Type Issues
 
@@ -155,17 +169,24 @@ const updateSpellCheckDictionary = async (unknownWords) => {
 Use proper YAML boolean values:
 
 ```yaml
+
 # Correct boolean values
+
 enabled: true
 disabled: false
 debug_mode: true
 
 # AVOID string booleans
+
 # wrong: 'true'
+
 # wrong: "false"
+
 # wrong: True
+
 # wrong: FALSE
-```
+
+```javascript
 
 **Automatic Fix:**
 
@@ -184,7 +205,8 @@ const fixYamlBooleans = (content) => {
 
   return content;
 };
-```
+
+```text
 
 ## 4. Module Import Errors
 
@@ -195,11 +217,16 @@ const fixYamlBooleans = (content) => {
 1. **Check dependencies are installed:**
 
 ```bash
+
 # Always ensure dependencies are installed
+
 npm install
+
 # or
+
 yarn install
-```
+
+```text
 
 1. **Verify import paths:**
 
@@ -211,7 +238,8 @@ import { Component } from 'components/Component';     // ✗ (unless aliased)
 // Check file extensions for non-JS imports
 import styles from './styles.css';    // ✓
 import data from './data.json';       // ✓
-```
+
+```text
 
 1. **TypeScript path mapping:**
 
@@ -226,7 +254,8 @@ import data from './data.json';       // ✓
     }
   }
 }
-```
+
+```javascript
 
 **Automatic Fix:**
 
@@ -252,7 +281,8 @@ const fixImportPaths = async (filePath, errorMessage) => {
 
   await writeFile(filePath, fixed);
 };
-```
+
+```text
 
 ## 5. JSX/React Issues
 
@@ -268,7 +298,8 @@ import { useState } from 'react';  // React import not needed for JSX
 
 // For React <17
 import React from 'react';  // Required for JSX
-```
+
+```text
 
 1. **Configure for React 17+ new JSX transform:**
 
@@ -279,16 +310,20 @@ import React from 'react';  // Required for JSX
     "jsx": "react-jsx"  // For React 17+
   }
 }
-```
+
+```text
 
 1. **Remove React files from non-React projects:**
 
 ```bash
+
 # If not a React project, remove React files
+
 rm -rf src/**/*.tsx
 rm -rf src/**/*.jsx
 rm -rf components/
-```
+
+```javascript
 
 **Detection and Fix:**
 
@@ -312,14 +347,17 @@ const detectMisplacedReactFiles = async () => {
     }
   }
 };
-```
+
+```text
 
 ## 6. Systematic Prevention System
 
 ### Pre-commit Hooks
 
 ```yaml
+
 # .pre-commit-config.yaml
+
 repos:
   - repo: local
     hooks:
@@ -346,7 +384,8 @@ repos:
         entry: node scripts/fix-imports.js
         language: system
         files: '\.(js|ts|jsx|tsx)$'
-```
+
+```text
 
 ### VS Code Settings
 
@@ -372,21 +411,25 @@ repos:
   "cSpell.enabled": true,
   "cSpell.autoFixOnSave": true
 }
-```
+
+```bash
 
 ### Master Fix Script
 
 ```bash
 #!/bin/bash
+
 # scripts/fix_all_issues_systematically.sh
 
 echo "🔧 Running Systematic Fix Process..."
 
 # 1. Fix Markdown formatting
+
 echo "📝 Fixing Markdown issues..."
 npx markdownlint "**/*.md" --fix
 
 # 2. Fix YAML booleans
+
 echo "📋 Fixing YAML boolean values..."
 find . -name "*.yml" -o -name "*.yaml" | while read file; do
   sed -i.bak 's/: '\''true'\''/: true/g' "$file"
@@ -397,30 +440,37 @@ find . -name "*.yml" -o -name "*.yaml" | while read file; do
 done
 
 # 3. Update spell check dictionary
+
 echo "📖 Updating spell check dictionary..."
 node scripts/update-dictionary.js
 
 # 4. Check for module issues
+
 echo "📦 Checking module imports..."
 node scripts/check-imports.js
 
 # 5. Remove misplaced React files if needed
+
 echo "⚛️ Checking for misplaced React files..."
 node scripts/check-react-files.js
 
 # 6. Run final validation
+
 echo "✅ Running final validation..."
 npm run lint
 
 echo "✨ All issues fixed systematically!"
-```
+
+```text
 
 ## 7. Continuous Monitoring
 
 ### GitHub Actions Workflow
 
 ```yaml
+
 # .github/workflows/quality-check.yml
+
 name: Quality Check
 
 on: [push, pull_request]
@@ -456,7 +506,8 @@ jobs:
           git add -A
           git diff --staged --quiet || git commit -m "Auto-fix: Format and lint issues"
           git push
-```
+
+```text
 
 ## Summary
 
