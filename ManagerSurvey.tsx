@@ -13,15 +13,15 @@ const ManagerSurvey = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Collect all form data
     const form = e.target as HTMLFormElement;
     const formDataObj = new FormData(form);
     const responses: Record<string, any> = {};
-    
+
     // Add program type
     responses['program-type'] = programType;
-    
+
     // Convert FormData to object
     for (const [key, value] of formDataObj.entries()) {
       if (responses[key]) {
@@ -35,17 +35,17 @@ const ManagerSurvey = () => {
         responses[key] = value;
       }
     }
-    
+
     // Format email body
     const emailBody = Object.entries(responses)
       .map(([key, value]) => `${key}: ${Array.isArray(value) ? value.join(', ') : value}`)
       .join('\n');
-    
+
     // Create mailto link
     const subject = encodeURIComponent('WFD Manager Survey Response - ORIC-12 Baseline');
     const body = encodeURIComponent(`WFD Manager Survey Response (ORIC-12 Baseline):\n\n${emailBody}`);
     const mailtoLink = `mailto:eric@recovery-compass.org?subject=${subject}&body=${body}`;
-    
+
     // Open email client
     window.location.href = mailtoLink;
   };
@@ -76,9 +76,9 @@ const ManagerSurvey = () => {
       <header className="bg-card border-b border-border">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center gap-3">
-            <img 
-              src="/lovable-uploads/99d2ad22-59f8-4c35-8f1b-8947ccf5657e.png" 
-              alt="Whittier First Day Logo" 
+            <img
+              src="/lovable-uploads/99d2ad22-59f8-4c35-8f1b-8947ccf5657e.png"
+              alt="Whittier First Day Logo"
               className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
             />
             <span className="text-lg sm:text-headline font-bold text-primary">Whittier First Day</span>
@@ -126,9 +126,9 @@ const ManagerSurvey = () => {
                 <Label className="text-body font-medium mb-4 block">
                   Which type of program do you manage? <span className="text-red-500">*</span>
                 </Label>
-                <RadioGroup 
-                  name="program-type" 
-                  value={programType} 
+                <RadioGroup
+                  name="program-type"
+                  value={programType}
                   onValueChange={setProgramType}
                   className="space-y-3"
                   required
@@ -153,7 +153,7 @@ const ManagerSurvey = () => {
               <p className="text-sm text-muted-foreground mb-6">
                 Please rate your agreement with each statement about implementing the new data dashboard system.
               </p>
-              
+
               {/* Efficacy Items */}
               <div className="mb-8">
                 <h3 className="text-base font-semibold mb-4">Change Efficacy</h3>
@@ -163,12 +163,12 @@ const ManagerSurvey = () => {
                     <RadioGroup name={`oric-e${index + 1}`} className="grid grid-cols-5 gap-2">
                       {[1, 2, 3, 4, 5].map((value) => (
                         <div key={value} className="text-center">
-                          <RadioGroupItem 
-                            value={value.toString()} 
+                          <RadioGroupItem
+                            value={value.toString()}
                             id={`oric-e${index + 1}-${value}`}
                             className="sr-only"
                           />
-                          <Label 
+                          <Label
                             htmlFor={`oric-e${index + 1}-${value}`}
                             className="block p-3 bg-muted/20 rounded-lg cursor-pointer transition-all hover:bg-primary hover:text-white font-medium"
                           >
@@ -194,12 +194,12 @@ const ManagerSurvey = () => {
                     <RadioGroup name={`oric-c${index + 1}`} className="grid grid-cols-5 gap-2">
                       {[1, 2, 3, 4, 5].map((value) => (
                         <div key={value} className="text-center">
-                          <RadioGroupItem 
-                            value={value.toString()} 
+                          <RadioGroupItem
+                            value={value.toString()}
                             id={`oric-c${index + 1}-${value}`}
                             className="sr-only"
                           />
-                          <Label 
+                          <Label
                             htmlFor={`oric-c${index + 1}-${value}`}
                             className="block p-3 bg-muted/20 rounded-lg cursor-pointer transition-all hover:bg-primary hover:text-white font-medium"
                           >
@@ -222,7 +222,7 @@ const ManagerSurvey = () => {
               <h2 className="text-lg sm:text-xl lg:text-headline text-primary mb-4 sm:mb-6">
                 Section 2: Your Current Data Practices
               </h2>
-              
+
               <div className="space-y-8">
                 <div>
                   <Label className="text-body font-medium mb-4 block">
@@ -256,8 +256,8 @@ const ManagerSurvey = () => {
                   <Label className="text-body font-medium mb-4 block">
                     Can you list your program's top 3 KPIs without looking them up?
                   </Label>
-                  <Textarea 
-                    className="min-h-[80px] sm:min-h-[100px] text-sm sm:text-base" 
+                  <Textarea
+                    className="min-h-[80px] sm:min-h-[100px] text-sm sm:text-base"
                     placeholder="1.&#10;2.&#10;3."
                     name="top-kpis"
                   />
@@ -292,7 +292,7 @@ const ManagerSurvey = () => {
                 <h2 className="text-lg sm:text-xl lg:text-headline text-primary mb-4 sm:mb-6">
                   Section 3: Interim Housing Specific
                 </h2>
-                
+
                 <div className="space-y-6 sm:space-y-8">
                   <div>
                     <Label className="text-sm sm:text-body font-medium mb-3 sm:mb-4 block">
@@ -342,7 +342,7 @@ const ManagerSurvey = () => {
                 <h2 className="text-lg sm:text-xl lg:text-headline text-primary mb-4 sm:mb-6">
                   Section 3: Community Services Specific
                 </h2>
-                
+
                 <div className="space-y-6 sm:space-y-8">
                   <div>
                     <Label className="text-sm sm:text-body font-medium mb-3 sm:mb-4 block">
@@ -392,7 +392,7 @@ const ManagerSurvey = () => {
               <h2 className="text-lg sm:text-xl lg:text-headline text-primary mb-4 sm:mb-6">
                 Section 4: Barriers & Future Vision
               </h2>
-              
+
               <div className="space-y-6 sm:space-y-8">
                 <div>
                   <Label className="text-sm sm:text-body font-medium mb-3 sm:mb-4 block">
@@ -422,9 +422,10 @@ const ManagerSurvey = () => {
                     If you had a magic dashboard, what would you see first each morning? <em>(Rank top 3)</em>
                   </Label>
                   <div className="bg-muted/20 p-4 sm:p-6 rounded-lg space-y-3">
-                    {programType === "interim-housing" ? [
-                      "Clients approaching 90-day limit",
+                    {(programType === "interim-housing" ? [
+                      "Clients approaching 90-day goal",
                       "Overdue 5×5 assessments",
+                      "Pending biopsychosocial assessments",
                       "My performance vs. goals",
                       "Available beds/resources",
                       "Housing placement opportunities",
@@ -436,7 +437,7 @@ const ManagerSurvey = () => {
                       "Community resources available",
                       "Follow-up reminders",
                       "Success stories/wins"
-                    ].map((item, index) => (
+                    ]).map((item, index) => (
                       <div key={index} className="flex items-center gap-3 py-2">
                         <Input className="w-10 sm:w-12 text-center font-medium text-sm sm:text-base" placeholder="#" name={`dashboard-rank-${index}`} />
                         <Label className="flex-1 text-sm sm:text-base">{item}</Label>
@@ -456,8 +457,8 @@ const ManagerSurvey = () => {
                   <Label className="text-sm sm:text-body font-medium mb-3 sm:mb-4 block">
                     Any other ideas for making data useful for you?
                   </Label>
-                  <Textarea 
-                    className="min-h-[80px] sm:min-h-[100px] text-sm sm:text-base" 
+                  <Textarea
+                    className="min-h-[80px] sm:min-h-[100px] text-sm sm:text-base"
                     placeholder="I wish we could..."
                     name="other-ideas"
                   />
@@ -490,8 +491,8 @@ const ManagerSurvey = () => {
             {/* Submit Button */}
             <div className="px-4 sm:px-8 py-6 sm:py-8 bg-muted/10 rounded-b-xl">
               <div className="text-center">
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   className="bg-primary hover:bg-primary-light text-white px-6 sm:px-8 py-3 text-sm sm:text-body font-medium w-full sm:w-auto"
                   disabled={!programType}
                 >

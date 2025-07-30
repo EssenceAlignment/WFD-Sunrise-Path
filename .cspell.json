@@ -288,7 +288,11 @@
     "numpydoc",
     "Bito",
     "SUBSCALES",
-    "autobuild"
+    "autobuild",
+    "kpis",
+    "hmis",
+    "HMIS",
+    "biopsychosocial"
   ],
   "dictionaries": ["en_US"],
   "import": ["cspell-dict-npm/cspell-ext.json"],
