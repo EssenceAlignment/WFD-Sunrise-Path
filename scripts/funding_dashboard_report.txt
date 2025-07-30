@@ -1,0 +1,39 @@
+
+📊 FUNDING DASHBOARD POPULATION SUMMARY
+Generated: 2025-07-30 02:48:29
+
+OVERVIEW:
+✅ Successfully Added: 12 opportunities
+💰 Total Potential Funding: $16,150,000
+📈 Average Grant Size: $1,345,833
+
+BREAKDOWN:
+📋 Traditional Funding: 12 opportunities ($16,150,000)
+🚀 Non-Traditional Funding: 5 opportunities ($8,600,000)
+
+⏰ URGENT DEADLINES (Next 30 days):
+   🔴 Gitcoin Grants Round 21 - Public Health - 13 days left ($100,000)
+   🔴 San Diego County Behavioral Health Services RFP - 20 days left ($500,000)
+   🔴 CDC Overdose Data to Action Cooperative Agreement - 29 days left ($800,000)
+
+💎 HIGHEST VALUE OPPORTUNITIES:
+   💰 Social Impact Bond - Recovery Housing Success - $5,000,000
+   💰 California Health Facilities Financing Authority Loan Program - $2,500,000
+   💰 Venture Philanthropy Partners Scale Fund - $2,000,000
+   💰 Conrad N. Hilton Foundation Recovery Housing Initiative - $1,500,000
+   💰 HRSA Rural Communities Opioid Response Program - $1,000,000
+
+📌 IMMEDIATE NEXT STEPS:
+1. Review all opportunities in Airtable dashboard
+2. Assign team members to top priority applications
+3. Create application timeline and task assignments
+4. Schedule grant writing sessions for urgent deadlines
+5. Reach out to contact persons for clarifications
+
+🔗 Dashboard Link: https://airtable.com/appNBesu9xYl5Mvm1/tblcfetlKrhMU4p5r
+
+💡 PRO TIPS:
+- Sort by Deadline to focus on urgent opportunities
+- Filter by Funding Amount to prioritize high-value grants
+- Use the Status field to track application progress
+- Add notes about application requirements and progress
