@@ -1,0 +1,76 @@
+name: Pre-Flight Check
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  pre-flight:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Detect language changes
+        id: changes
+        uses: dorny/paths-filter@v2
+        with:
+          filters: |
+            typescript:
+              - '**/*.ts'
+              - '**/*.tsx'
+            javascript:
+              - '**/*.js'
+              - '**/*.jsx'
+            config:
+              - 'jest.config.js'
+              - 'tsconfig.json'
+              - 'package.json'
+
+      - name: Validate TypeScript config
+        if: steps.changes.outputs.typescript == 'true'
+        run: |
+          if [ ! -f "tsconfig.json" ]; then
+            echo "❌ TypeScript files detected but tsconfig.json missing"
+            exit 1
+          fi
+
+          # Check Jest supports TypeScript
+          if ! grep -q "ts-jest" package.json; then
+            echo "❌ TypeScript files detected but ts-jest not configured"
+            exit 1
+          fi
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Dry-run tests
+        run: |
+          npm test -- --passWithNoTests --coverage=false
+
+      - name: Check for security patterns
+        run: |
+          echo "🔍 Checking for insecure patterns..."
+          if grep -r "Math\.random()" --include="*.ts" --include="*.js" src/; then
+            echo "❌ Found Math.random() - use crypto.getRandomValues() instead"
+            echo "📝 Run: npm run fix:security to auto-fix"
+            exit 1
+          fi
+          echo "✅ No insecure randomness patterns found"
+
+      - name: TypeScript compilation check
+        if: steps.changes.outputs.typescript == 'true'
+        run: npx tsc --noEmit
+
+      - name: Report status
+        if: always()
+        run: |
+          echo "## Pre-Flight Check Summary"
+          echo "- TypeScript changes: ${{ steps.changes.outputs.typescript }}"
+          echo "- JavaScript changes: ${{ steps.changes.outputs.javascript }}"
+          echo "- Config changes: ${{ steps.changes.outputs.config }}"
