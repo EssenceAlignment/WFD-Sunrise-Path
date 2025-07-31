@@ -1,0 +1,63 @@
+name: Platform Compliance Check
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Run security scans daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+jobs:
+  platform-compliance:
+    uses: EssenceAlignment/WFD-Sunrise-Path/.github/workflows/platform-slice.yml@main
+    with:
+      compose-file: './recovery-compass-docker/docker-compose.yml'
+      enable-kompose: true
+      enable-trivy: true
+      registry-mirror: 'ghcr.io/${{ github.repository_owner }}'
+    secrets:
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+      GRAFANA_ADMIN_PASSWORD: ${{ secrets.GRAFANA_ADMIN_PASSWORD }}
+
+  code-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run linters
+        run: |
+          # Add your language-specific linters here
+          echo "Running project linters..."
+
+          # Example for JavaScript/TypeScript projects:
+          # npm ci
+          # npm run lint
+
+          # Example for Python projects:
+          # pip install -r requirements-dev.txt
+          # flake8 .
+          # black --check .
+
+          # Example for Go projects:
+          # go fmt ./...
+          # go vet ./...
+
+      - name: Check markdown quality
+        uses: davidanson/markdownlint-cli2-action@v13
+        with:
+          globs: '**/*.md'
+
+      - name: Spell check
+        uses: streetsidesoftware/cspell-action@v5
+        with:
+          files: |
+            **/*.md
+            **/*.yml
+            **/*.yaml
+            **/*.js
+            **/*.ts
+            **/*.py
+            **/*.go

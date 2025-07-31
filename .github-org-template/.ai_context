@@ -1,0 +1,111 @@
+# Recovery Compass AI Context
+
+You are working on a Recovery Compass repository, part of a 501(c)(3) non-profit organization focused on addiction recovery support.
+
+## Organization Mission
+Recovery Compass provides technology-enabled support systems for individuals in addiction recovery, their families, and treatment providers. We prioritize privacy, security, and accessibility.
+
+## Technical Standards
+
+### Platform Requirements
+- **Docker Compose**: Use profile-aware configurations with health checks
+- **Registry Mirror**: Use GHCR (ghcr.io) to avoid Docker Hub rate limits
+- **Secrets Management**: Never hardcode secrets; use GitHub Secrets or Docker secrets
+- **Health Checks**: All services must define health checks
+- **Tag Pinning**: Pin all Docker images to specific versions
+
+### Security Requirements
+- **HIPAA Compliance**: Follow HIPAA guidelines for any health-related data
+- **Secret Scanning**: Use TruffleHog and push protection
+- **Dependency Management**: Keep dependencies updated via Dependabot
+- **Vulnerability Scanning**: Use Trivy for container scanning
+
+### Code Standards
+- **Clear Documentation**: Include README, inline comments, and API documentation
+- **Error Handling**: Implement comprehensive error handling with meaningful messages
+- **Logging**: Use structured logging with appropriate log levels
+- **Testing**: Maintain >80% code coverage with unit and integration tests
+
+### Git Workflow
+- **Branch Protection**: Main branch requires PR reviews
+- **Commit Messages**: Use conventional commits (feat:, fix:, docs:, etc.)
+- **CI/CD**: All PRs must pass platform-slice checks
+- **Documentation**: Update docs with code changes
+
+### Architecture Patterns
+- **Microservices**: Each service should be independently deployable
+- **API-First**: Design APIs before implementation
+- **Event-Driven**: Use message queues for async communication
+- **12-Factor App**: Follow 12-factor principles
+
+## Common Services
+
+### Core Infrastructure
+- **PostgreSQL**: Primary database (port 5432)
+- **Redis**: Caching and message broker (port 6379)
+- **Prometheus**: Metrics collection (port 9090)
+- **Grafana**: Metrics visualization (port 3000)
+- **Loki**: Log aggregation (port 3100)
+
+### Recovery Compass Services
+- **funding-engine**: Grant and funding discovery
+- **erd-platform**: Evidence-based recovery data
+- **metrics-relay**: Performance metrics collection
+- **partner-portal**: Partner organization interface
+- **pattern-engine**: Recovery pattern analysis
+
+## Compliance Considerations
+- **501(c)(3)**: Ensure all activities align with charitable purposes
+- **Grant Compliance**: Follow grant-specific requirements for funded features
+- **Data Privacy**: Implement data minimization and retention policies
+- **Accessibility**: Follow WCAG 2.1 AA standards
+
+## Development Guidelines
+
+### When Creating New Features
+1. Check existing patterns in the codebase
+2. Ensure compatibility with platform-slice requirements
+3. Add appropriate tests and documentation
+4. Consider security and privacy implications
+5. Validate against compliance requirements
+
+### When Fixing Issues
+1. Reproduce the issue locally first
+2. Add tests to prevent regression
+3. Update documentation if behavior changes
+4. Consider impact on dependent services
+5. Follow the principle of least privilege
+
+### When Reviewing Code
+1. Check for security vulnerabilities
+2. Verify health checks are implemented
+3. Ensure secrets are properly managed
+4. Validate Docker configurations
+5. Confirm documentation is updated
+
+## Useful Commands
+
+```bash
+# Run with specific profile
+COMPOSE_PROFILES=metrics docker compose up -d
+
+# Check service health
+docker compose ps
+
+# View logs
+docker compose logs -f [service-name]
+
+# Run security scan
+docker run -v $(pwd):/src trufflesecurity/trufflehog filesystem /src
+
+# Validate Kubernetes compatibility
+kompose convert -f docker-compose.yml
+```
+
+## Important Links
+- Main Repository: https://github.com/EssenceAlignment/WFD-Sunrise-Path
+- Documentation: /docs directory
+- Security Policy: SECURITY.md
+- Contributing Guide: CONTRIBUTING.md
+
+Remember: Every line of code can impact someone's recovery journey. Code with compassion and care.

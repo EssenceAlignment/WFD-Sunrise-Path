@@ -1,0 +1,307 @@
+version: "3.9"
+
+x-healthcheck-defaults: &healthcheck-defaults
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 40s
+
+x-restart-policy: &restart-policy
+  restart: unless-stopped
+
+x-registry-mirror: &registry-mirror
+  # Use GHCR or custom registry mirror to avoid Docker Hub rate limits
+  # Override with REGISTRY_MIRROR env var
+  registry: ${REGISTRY_MIRROR:-ghcr.io/essencealignment}
+
+services:
+  # ===== CORE SERVICES (Always run) =====
+  postgres:
+    # Tag-pinned to prevent drift
+    image: ${REGISTRY_MIRROR:-ghcr.io/essencealignment}/postgres:15.3-alpine
+    container_name: recovery-compass-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-recovery_compass}
+      POSTGRES_USER: ${POSTGRES_USER:-recovery_compass}
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+    secrets:
+      - postgres_password
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - core-net
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    healthcheck:
+      <<: *healthcheck-defaults
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-recovery_compass}"]
+    <<: *restart-policy
+
+  redis:
+    image: ${REGISTRY_MIRROR:-ghcr.io/essencealignment}/redis:7.2.3-alpine
+    container_name: recovery-compass-redis
+    command: redis-server --requirepass-file /run/secrets/redis_password
+    secrets:
+      - redis_password
+    volumes:
+      - redis-data:/data
+    networks:
+      - core-net
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    healthcheck:
+      <<: *healthcheck-defaults
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+    <<: *restart-policy
+
+  funding-engine:
+    image: ${REGISTRY_MIRROR:-ghcr.io/essencealignment}/funding-engine:${VERSION:-latest}
+    build:
+      context: ./services/funding-engine
+      dockerfile: Dockerfile
+      cache_from:
+        - ${REGISTRY_MIRROR:-ghcr.io/essencealignment}/funding-engine:cache
+    container_name: recovery-compass-funding-engine
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    secrets:
+      - postgres_password
+      - redis_password
+      - api_keys
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-recovery_compass}:${POSTGRES_PASSWORD_FILE}@postgres:5432/${POSTGRES_DB:-recovery_compass}
+      REDIS_URL: redis://:${REDIS_PASSWORD_FILE}@redis:6379
+    volumes:
+      - funding-data:/data
+      - ./scripts:/app/scripts:ro
+    networks:
+      - core-net
+      - external-apis
+    healthcheck:
+      <<: *healthcheck-defaults
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+    <<: *restart-policy
+
+  erd-platform:
+    image: ${REGISTRY_MIRROR:-ghcr.io/essencealignment}/erd-platform:${VERSION:-latest}
+    build:
+      context: ./services/erd-platform
+      dockerfile: Dockerfile
+      cache_from:
+        - ${REGISTRY_MIRROR:-ghcr.io/essencealignment}/erd-platform:cache
+    container_name: recovery-compass-erd-platform
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    secrets:
+      - postgres_password
+      - redis_password
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-recovery_compass}:${POSTGRES_PASSWORD_FILE}@postgres:5432/${POSTGRES_DB:-recovery_compass}
+      REDIS_URL: redis://:${REDIS_PASSWORD_FILE}@redis:6379
+      API_BASE: http://erd-platform:3000
+    volumes:
+      - erd-data:/app/data
+    networks:
+      - core-net
+    ports:
+      - "${ERD_PORT:-3000}:3000"
+    healthcheck:
+      <<: *healthcheck-defaults
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+    <<: *restart-policy
+
+  # ===== METRICS PROFILE (Optional) =====
+  metrics-relay:
+    profiles: ["metrics", "full"]
+    image: ${REGISTRY_MIRROR:-ghcr.io/essencealignment}/metrics-relay:${VERSION:-latest}
+    build:
+      context: ./services/metrics-relay
+      dockerfile: Dockerfile
+      cache_from:
+        - ${REGISTRY_MIRROR:-ghcr.io/essencealignment}/metrics-relay:cache
+    container_name: recovery-compass-metrics-relay
+    depends_on:
+      - redis
+      - postgres
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-recovery_compass}:${POSTGRES_PASSWORD_FILE}@postgres:5432/${POSTGRES_DB:-recovery_compass}
+      METRICS_CONFIG_PATH: /app/config/metrics.yml
+    volumes:
+      - metrics-data:/metrics
+      - ./metrics.yml:/app/config/metrics.yml:ro
+    networks:
+      - core-net
+      - monitoring
+    expose:
+      - "9090"
+    healthcheck:
+      <<: *healthcheck-defaults
+      test: ["CMD", "curl", "-f", "http://localhost:9090/metrics/health"]
+    <<: *restart-policy
+
+  prometheus:
+    profiles: ["metrics", "full"]
+    image: ${REGISTRY_MIRROR:-ghcr.io/essencealignment}/prometheus:v2.47.2
+    container_name: recovery-compass-prometheus
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    networks:
+      - monitoring
+    ports:
+      - "${PROMETHEUS_PORT:-9091}:9090"
+    healthcheck:
+      <<: *healthcheck-defaults
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:9090/-/healthy"]
+    <<: *restart-policy
+
+  grafana:
+    profiles: ["metrics", "full"]
+    image: ${REGISTRY_MIRROR:-ghcr.io/essencealignment}/grafana:10.2.2
+    container_name: recovery-compass-grafana
+    depends_on:
+      prometheus:
+        condition: service_healthy
+    secrets:
+      - grafana_admin_password
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD_FILE: /run/secrets/grafana_admin_password
+      GF_INSTALL_PLUGINS: grafana-piechart-panel
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - grafana-data:/var/lib/grafana
+    networks:
+      - monitoring
+    ports:
+      - "${GRAFANA_PORT:-3001}:3000"
+    healthcheck:
+      <<: *healthcheck-defaults
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/api/health || exit 1"]
+    <<: *restart-policy
+
+  # ===== LOGGING PROFILE (Optional) =====
+  loki:
+    profiles: ["logging", "full"]
+    image: ${REGISTRY_MIRROR:-ghcr.io/essencealignment}/grafana-loki:2.9.3
+    container_name: recovery-compass-loki
+    volumes:
+      - ./monitoring/loki-config.yml:/etc/loki/local-config.yaml:ro
+      - loki-data:/loki
+    networks:
+      - monitoring
+    ports:
+      - "${LOKI_PORT:-3100}:3100"
+    healthcheck:
+      <<: *healthcheck-defaults
+      test: ["CMD-SHELL", "wget --spider -q http://localhost:3100/ready || exit 1"]
+    <<: *restart-policy
+
+  promtail:
+    profiles: ["logging", "full"]
+    image: ${REGISTRY_MIRROR:-ghcr.io/essencealignment}/grafana-promtail:2.9.3
+    container_name: recovery-compass-promtail
+    depends_on:
+      loki:
+        condition: service_healthy
+    volumes:
+      - ./monitoring/promtail-config.yml:/etc/promtail/config.yml:ro
+      - /var/log:/var/log:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+    networks:
+      - monitoring
+    <<: *restart-policy
+
+  # ===== EXTRAS PROFILE (Development tools) =====
+  partner-portal:
+    profiles: ["extras", "full"]
+    image: ${REGISTRY_MIRROR:-ghcr.io/essencealignment}/partner-portal:${VERSION:-latest}
+    build:
+      context: ./services/partner-portal
+      dockerfile: Dockerfile
+      cache_from:
+        - ${REGISTRY_MIRROR:-ghcr.io/essencealignment}/partner-portal:cache
+    container_name: recovery-compass-partner-portal
+    depends_on:
+      - erd-platform
+    environment:
+      REACT_APP_API_URL: ${REACT_APP_API_URL:-http://localhost:3000}
+      REACT_APP_METRICS_URL: ${REACT_APP_METRICS_URL:-http://localhost:9090}
+    networks:
+      - core-net
+      - partner-access
+    ports:
+      - "${PORTAL_PORT:-8080}:80"
+    healthcheck:
+      <<: *healthcheck-defaults
+      test: ["CMD", "curl", "-f", "http://localhost:80/"]
+    <<: *restart-policy
+
+  pattern-engine:
+    profiles: ["extras", "full"]
+    image: ${REGISTRY_MIRROR:-ghcr.io/essencealignment}/pattern-engine:${VERSION:-latest}
+    build:
+      context: ./services/pattern-engine
+      dockerfile: Dockerfile
+      cache_from:
+        - ${REGISTRY_MIRROR:-ghcr.io/essencealignment}/pattern-engine:cache
+    container_name: recovery-compass-pattern-engine
+    depends_on:
+      - metrics-relay
+    volumes:
+      - ./scripts/pattern_collector.py:/app/pattern_collector.py:ro
+      - pattern-data:/app/patterns
+    networks:
+      - core-net
+    <<: *restart-policy
+
+networks:
+  core-net:
+    driver: bridge
+    name: recovery-compass-core
+  external-apis:
+    driver: bridge
+    name: recovery-compass-external
+  partner-access:
+    driver: bridge
+    name: recovery-compass-partner
+  monitoring:
+    driver: bridge
+    name: recovery-compass-monitoring
+
+volumes:
+  postgres-data:
+    name: recovery-compass-postgres-data
+  redis-data:
+    name: recovery-compass-redis-data
+  funding-data:
+    name: recovery-compass-funding-data
+  erd-data:
+    name: recovery-compass-erd-data
+  metrics-data:
+    name: recovery-compass-metrics-data
+  pattern-data:
+    name: recovery-compass-pattern-data
+  prometheus-data:
+    name: recovery-compass-prometheus-data
+  grafana-data:
+    name: recovery-compass-grafana-data
+  loki-data:
+    name: recovery-compass-loki-data
+
+# Docker Secrets for sensitive data
+secrets:
+  postgres_password:
+    file: ./secrets/postgres_password.txt
+  redis_password:
+    file: ./secrets/redis_password.txt
+  grafana_admin_password:
+    file: ./secrets/grafana_admin_password.txt
+  api_keys:
+    file: ./secrets/api_keys.json
