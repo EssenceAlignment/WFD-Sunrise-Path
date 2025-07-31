@@ -31,5 +31,8 @@
     "lint:fix": "markdownlint '**/*.md' --fix --ignore node_modules --ignore coverage",
     "pre-push": "npm run fix:all && npm test"
   },
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "dependencies": {
+    "dotenv": "^17.2.1"
+  }
 }
