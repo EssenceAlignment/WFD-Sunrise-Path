@@ -174,6 +174,40 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.redisinsight.rule=Host(`redis.recovery-compass.local`)"
 
+  # API Proxy with Rate Limiting and Cost Telemetry
+  api-proxy:
+    build:
+      context: ./api-proxy
+      dockerfile: Dockerfile
+    container_name: recovery-compass-api-proxy
+    ports:
+      - "8088:8080"
+      - "9901:9901"  # Admin interface
+    volumes:
+      - ./api-proxy/envoy.yaml:/etc/envoy/envoy.yaml:ro
+      - ./api-proxy/cost-calculator.lua:/etc/envoy/cost-calculator.lua:ro
+    environment:
+      - ENVOY_LOG_LEVEL=info
+      - CHARITY_API_MODE=${CHARITY_API_MODE:-test}
+    networks:
+      - monitoring
+      - default
+    platform: linux/arm64/v8
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.api-proxy.rule=Host(`api-proxy.recovery-compass.local`)"
+      - "traefik.http.services.api-proxy.loadbalancer.server.port=9901"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9901/ready"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
   # Reverse Proxy and Load Balancer
   traefik:
     image: traefik:v3.0
