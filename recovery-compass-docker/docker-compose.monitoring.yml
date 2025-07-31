@@ -1,0 +1,286 @@
+# Docker Compose Monitoring Stack for Recovery Compass
+# Optimized for Apple M3 Pro with MCP Integration
+
+services:
+  # Metrics Collection
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: recovery-compass-metrics
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.retention.time=30d'
+      - '--web.enable-lifecycle'
+    networks:
+      - monitoring
+    platform: linux/arm64/v8
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.prometheus.rule=Host(`metrics.recovery-compass.local`)"
+
+  # Node Metrics Exporter
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: recovery-compass-node-metrics
+    ports:
+      - "9100:9100"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    networks:
+      - monitoring
+    platform: linux/arm64/v8
+
+  # PostgreSQL Metrics Exporter
+  postgres-exporter:
+    image: prometheuscommunity/postgres-exporter:latest
+    container_name: recovery-compass-postgres-metrics
+    environment:
+      DATA_SOURCE_NAME: "postgresql://postgres:${DB_PASSWORD}@postgres:5432/recovery_compass?sslmode=disable"
+    ports:
+      - "9187:9187"
+    networks:
+      - default
+      - monitoring
+    platform: linux/arm64/v8
+
+  # Redis Metrics Exporter
+  redis-exporter:
+    image: oliver006/redis_exporter:latest
+    container_name: recovery-compass-redis-metrics
+    environment:
+      REDIS_ADDR: "redis://redis:6379"
+    ports:
+      - "9121:9121"
+    networks:
+      - default
+      - monitoring
+    platform: linux/arm64/v8
+
+  # Visualization and Dashboards
+  grafana:
+    image: grafana/grafana:latest
+    container_name: recovery-compass-monitoring
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD_FILE=/run/secrets/grafana_password
+      - GF_INSTALL_PLUGINS=redis-datasource,grafana-postgresql-datasource,grafana-clock-panel,grafana-simple-json-datasource
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SERVER_ROOT_URL=http://monitoring.recovery-compass.local
+    secrets:
+      - grafana_password
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/dashboards:/etc/grafana/provisioning/dashboards
+      - ./monitoring/datasources:/etc/grafana/provisioning/datasources
+    depends_on:
+      - prometheus
+    networks:
+      - monitoring
+    platform: linux/arm64/v8
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grafana.rule=Host(`monitoring.recovery-compass.local`)"
+
+  # Log Aggregation
+  loki:
+    image: grafana/loki:2.9.0
+    container_name: recovery-compass-logs
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - loki_data:/loki
+      - ./monitoring/loki/loki-config.yaml:/etc/loki/local-config.yaml
+    networks:
+      - monitoring
+    platform: linux/arm64/v8
+    profiles:
+      - logging
+
+  promtail:
+    image: grafana/promtail:2.9.0
+    container_name: recovery-compass-log-collector
+    volumes:
+      - /var/log:/var/log:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - ./monitoring/promtail/promtail-config.yml:/etc/promtail/config.yml
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - monitoring
+    platform: linux/arm64/v8
+    profiles:
+      - logging
+
+  # Database Management
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: recovery-compass-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@recovery-compass.org
+      PGADMIN_DEFAULT_PASSWORD_FILE: /run/secrets/pgadmin_password
+    secrets:
+      - pgadmin_password
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - postgres
+    networks:
+      - default
+      - monitoring
+    platform: linux/arm64/v8
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pgadmin.rule=Host(`pgadmin.recovery-compass.local`)"
+
+  # Redis Management
+  redisinsight:
+    image: redislabs/redisinsight:latest
+    container_name: recovery-compass-redis-ui
+    ports:
+      - "8001:8001"
+    volumes:
+      - redisinsight_data:/db
+    depends_on:
+      - redis
+    networks:
+      - default
+      - monitoring
+    platform: linux/arm64/v8
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.redisinsight.rule=Host(`redis.recovery-compass.local`)"
+
+  # Reverse Proxy and Load Balancer
+  traefik:
+    image: traefik:v3.0
+    container_name: recovery-compass-proxy
+    command:
+      - "--api.dashboard=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--metrics.prometheus=true"
+      - "--metrics.prometheus.buckets=0.1,0.3,1.2,5.0"
+      - "--log.level=INFO"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./monitoring/traefik/traefik.yml:/traefik.yml:ro
+      - ./monitoring/traefik/dynamic:/dynamic:ro
+    networks:
+      - default
+      - monitoring
+      - frontend
+    platform: linux/arm64/v8
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 512M
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.recovery-compass.local`)"
+      - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+
+  # Search Engine (optional, resource-intensive)
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.0
+    container_name: recovery-compass-search
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
+      - xpack.monitoring.collection.enabled=true
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    networks:
+      - default
+      - monitoring
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+    platform: linux/arm64/v8
+    profiles:
+      - search
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.12.0
+    container_name: recovery-compass-kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - SERVER_HOST=0.0.0.0
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    networks:
+      - default
+      - monitoring
+    platform: linux/arm64/v8
+    profiles:
+      - search
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.kibana.rule=Host(`kibana.recovery-compass.local`)"
+
+# Additional secrets
+secrets:
+  grafana_password:
+    file: .env.secrets.grafana
+  pgadmin_password:
+    file: .env.secrets.pgadmin
+
+# Volumes for persistent data
+volumes:
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+  loki_data:
+    driver: local
+  pgadmin_data:
+    driver: local
+  redisinsight_data:
+    driver: local
+  elasticsearch_data:
+    driver: local
+
+# Networks
+networks:
+  monitoring:
+    driver: bridge
+  frontend:
+    driver: bridge
