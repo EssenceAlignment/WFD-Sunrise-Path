@@ -1,0 +1,103 @@
+# Dependencies
+node_modules/
+vendor/
+venv/
+*.egg-info/
+__pycache__/
+*.pyc
+
+# Build artifacts
+dist/
+build/
+target/
+*.exe
+*.dll
+*.so
+*.dylib
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment files
+.env
+.env.local
+.env.*.local
+*.env
+
+# Secrets - NEVER commit these
+secrets/
+*.pem
+*.key
+*.cert
+*.crt
+*.p12
+*.pfx
+id_rsa
+id_rsa.pub
+*.secret
+*_password.txt
+*_password
+*_key.json
+
+# Docker
+recovery-compass-docker/secrets/
+docker-compose.override.yml
+.docker/
+
+# Logs
+*.log
+logs/
+*.log.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing
+coverage/
+.coverage
+*.cover
+.hypothesis/
+.pytest_cache/
+.phpunit.result.cache
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+*.swp
+tmp/
+temp/
+
+# OS files
+Thumbs.db
+Desktop.ini
+
+# Package files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Database
+*.sqlite
+*.sqlite3
+*.db
+
+# Monitoring data
+prometheus-data/
+grafana-data/
+loki-data/
+metrics-data/
+
+# Custom
+.local/
+.cache/
