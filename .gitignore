@@ -30,3 +30,8 @@ docker-compose.override.yml
 # Package lock files (optional - remove if you want to commit them)
 # package-lock.json
 # yarn.lock
+*.env.secrets*
+**/data/
+# Temporary files
+*.tmp
+*.log
