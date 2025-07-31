@@ -106,3 +106,78 @@ jobs:
           # Basic YAML validation
           python3 -c "import yaml; yaml.safe_load(open('$file'))"
         done
+
+  monitoring-stack-test:
+    name: Test Monitoring Stack with Profiles
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Network diagnostics
+      run: |
+        echo "=== Testing Docker Hub connectivity ==="
+        # Test with small Alpine image first
+        docker pull alpine:3.20
+
+        # Check Docker Hub status
+        curl -I https://hub.docker.com
+
+        echo "=== Network information ==="
+        curl -s https://ipinfo.io/json | jq .
+
+    - name: Create monitoring env files
+      run: |
+        cd recovery-compass-docker
+        echo "test_grafana_password" > .env.secrets.grafana
+        echo "test_pgadmin_password" > .env.secrets.pgadmin
+        echo "DB_PASSWORD=test_password" > .env
+
+    - name: Test metrics-only stack (without Loki)
+      run: |
+        cd recovery-compass-docker
+        # Start only metrics services (no logging profile)
+        COMPOSE_PROFILES=metrics docker compose -f docker-compose.monitoring.yml up -d --wait prometheus grafana node-exporter
+
+        # Wait for services to stabilize
+        sleep 20
+
+        # Check service status
+        docker compose -f docker-compose.monitoring.yml ps
+
+        # Verify Prometheus is healthy
+        curl -f http://localhost:9090/-/healthy || (docker compose -f docker-compose.monitoring.yml logs prometheus && exit 1)
+
+        # Verify Grafana is accessible
+        curl -f http://localhost:3001/api/health || (docker compose -f docker-compose.monitoring.yml logs grafana && exit 1)
+
+    - name: Diagnostic Loki pull test
+      id: loki_pull_test
+      continue-on-error: true
+      run: |
+        echo "=== Testing Loki 2.9.0 pull ==="
+        time docker pull grafana/loki:2.9.0 || echo "LOKI_PULL_FAILED=true" >> $GITHUB_OUTPUT
+
+    - name: Test with logging profile (if Loki pull succeeded)
+      if: steps.loki_pull_test.outputs.LOKI_PULL_FAILED != 'true'
+      run: |
+        cd recovery-compass-docker
+        # Add logging profile
+        COMPOSE_PROFILES=logging,metrics docker compose -f docker-compose.monitoring.yml up -d --wait loki promtail
+
+        # Wait for services
+        sleep 15
+
+        # Check all services
+        docker compose -f docker-compose.monitoring.yml ps
+
+        # Verify Loki is healthy
+        curl -f http://localhost:3100/ready || (docker compose -f docker-compose.monitoring.yml logs loki && exit 1)
+
+    - name: Clean up
+      if: always()
+      run: |
+        cd recovery-compass-docker
+        COMPOSE_PROFILES=logging,metrics docker compose -f docker-compose.monitoring.yml down -v
+        rm -f .env.secrets.grafana .env.secrets.pgadmin .env
