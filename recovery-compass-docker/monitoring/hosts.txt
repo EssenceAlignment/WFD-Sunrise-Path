@@ -1,0 +1,8 @@
+# Add these entries to your /etc/hosts file:
+127.0.0.1 recovery-compass.local
+127.0.0.1 monitoring.recovery-compass.local
+127.0.0.1 metrics.recovery-compass.local
+127.0.0.1 pgadmin.recovery-compass.local
+127.0.0.1 redis.recovery-compass.local
+127.0.0.1 traefik.recovery-compass.local
+127.0.0.1 kibana.recovery-compass.local
