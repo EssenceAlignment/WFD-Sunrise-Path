@@ -43,7 +43,7 @@ jobs:
         # Check PostgreSQL
         docker compose -f docker-compose.minimal.yml exec -T postgres pg_isready -U recovery_compass
         # Check Redis (with password)
-        docker compose -f docker-compose.minimal.yml exec -T redis redis-cli -a ${REDIS_PASSWORD:-test_redis} ping
+        docker compose -f docker-compose.minimal.yml exec -T redis redis-cli -a test_redis ping
 
     - name: Run health checks
       run: |
