@@ -1,0 +1,187 @@
+# Pattern Registry 2.0 - Unified Manifest
+# C-2 Caveat: Domain data-source scopes explicitly whitelisted
+# C-4 Caveat: Versioned for soft rollback capability
+
+version: "1.0.0"
+created_at: "2025-07-31T14:30:00Z"
+shadow_mode: true  # C-1: Default to shadow mode for 48h observation
+
+domains:
+  auth:
+    description: "Authentication and authorization patterns"
+    allowed_sources:
+      - cloudflare_mcp
+      - oauth_providers
+      - api_gateways
+    compliance_tags:
+      - no_pii
+      - public_logs
+    pattern_count: 6
+
+  funding:
+    description: "Grant discovery and funding opportunity patterns"
+    allowed_sources:
+      - grants.gov
+      - foundation_center
+      - sam.gov
+      - samhsa.gov
+      - candid.org
+      - agency_sites
+      - emergency_funders
+      - rapid_response_networks
+      - innovation_funders
+      - internal_scoring
+      - grant_analysis
+    compliance_tags:
+      - public_data
+      - no_pii
+      - mission_aligned
+      - federal_compliant
+    pattern_count: 10
+
+  donor:
+    description: "Donor behavior and predictive fundraising patterns"
+    allowed_sources:
+      - crm_export
+      - wealth_screening
+      - internal
+      - engagement_metrics
+      - payment_processor
+      - donation_platform
+      - donor_analytics
+      - predictive_model
+      - anniversary_tracker
+      - gift_processing
+      - donor_survey
+      - business_development
+      - linkedin_data
+      - donor_feedback
+    compliance_tags:
+      - pii_restricted
+      - hipaa_compliant
+      - confidential
+      - pci_compliant
+      - irs_compliant
+      - model_output
+      - celebration
+      - legacy
+      - business_data
+      - partnership
+      - preference_management
+    pattern_count: 10
+
+  ops:
+    description: "Operations automation and workflow patterns"
+    allowed_sources:
+      - donation_platform
+      - gift_processing
+      - volunteer_portal
+      - scheduling_system
+      - email_platform
+      - marketing_automation
+      - event_platform
+      - registration_system
+      - inventory_system
+      - procurement_portal
+      - compliance_calendar
+      - regulatory_tracker
+      - hr_system
+      - onboarding_portal
+      - facility_management
+      - maintenance_system
+      - accounting_system
+      - budget_tracker
+      - backup_system
+      - it_monitoring
+    compliance_tags:
+      - irs_compliant
+      - automated_ok
+      - no_pii
+      - can_spam_compliant
+      - scalable
+      - budget_approved
+      - regulatory
+      - critical_deadline
+      - pii_restricted
+      - hr_compliant
+      - safety_compliant
+      - financial_data
+      - board_visibility
+      - critical_infrastructure
+    pattern_count: 10
+
+pattern_loading:
+  auth:
+    module: "supervisor.patterns.oauth_errors"
+    loader: "OAuthErrorPatterns"
+  funding:
+    module: "supervisor.patterns.funder_keywords"
+    loader: "load_funder_patterns"
+  donor:
+    module: "supervisor.patterns.donor_signals"
+    loader: "load_donor_patterns"
+  ops:
+    module: "supervisor.patterns.ops_alerts"
+    loader: "load_ops_patterns"
+
+cascade_mapping:
+  funding:
+    module: "supervisor.patterns.funder_keywords"
+    getter: "get_funding_cascade"
+  donor:
+    module: "supervisor.patterns.donor_signals"
+    getter: "get_donor_cascade"
+  ops:
+    module: "supervisor.patterns.ops_alerts"
+    getter: "get_ops_cascade"
+
+metrics:
+  total_patterns: 36
+  coverage_by_domain:
+    auth: 6
+    funding: 10
+    donor: 10
+    ops: 10
+  estimated_blind_spot_reduction: "75%"
+  force_multiplication_average: 16.5
+
+governor_integration:
+  shadow_mode_duration_hours: 48
+  diff_size_limit:
+    max_files: 5
+    max_lines: 100
+  rollback_retention_days: 30
+  pattern_precision_threshold: 0.90
+
+compliance_validation:
+  required_tags_by_domain:
+    auth:
+      - no_pii
+    funding:
+      - public_data
+      - no_pii
+    donor:
+      - pii_restricted
+      - hipaa_compliant
+    ops:
+      - automated_ok
+
+  prohibited_combinations:
+    - ["public_data", "pii_restricted"]
+    - ["no_pii", "pii_restricted"]
+    - ["automated_ok", "manual_review_required"]
+
+pattern_discovery:
+  nightly_job:
+    enabled: true
+    schedule: "0 2 * * *"  # 2 AM daily
+    min_frequency_for_suggestion: 3
+    clustering_algorithm: "DBSCAN"
+    auto_pr_threshold: 0.80
+
+audit_trail:
+  provenance_required: true
+  signature_algorithm: "ED25519"
+  retention_days: 30
+  include_log_snippet: true
+  max_snippet_lines: 20
