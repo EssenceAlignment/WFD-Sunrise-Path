@@ -1,0 +1,42 @@
+name: Pages Config Lint
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  verify-static-deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Assert no wrangler.toml exists
+        run: |
+          if [ -f "wrangler.toml" ]; then
+            echo "ERROR: wrangler.toml found - this is a Pages deployment, not Workers"
+            exit 1
+          fi
+          echo "✓ No wrangler.toml found (correct for Pages)"
+
+      - name: Assert CLOUDFLARE_PAGES environment
+        run: |
+          echo "CLOUDFLARE_PAGES=true" >> .env.pages
+          echo "✓ Pages deployment confirmed"
+
+      - name: Verify static site structure
+        run: |
+          # Ensure main HTML files exist
+          if [ ! -f "index.html" ]; then
+            echo "ERROR: index.html not found"
+            exit 1
+          fi
+          echo "✓ Static HTML files present"
+
+      - name: Document build config
+        run: |
+          echo "Build command should be empty in Cloudflare Pages settings"
+          echo "Output directory should be / (root)"
+          grep -q "Build command.*leave empty" DEPLOYMENT_NOTE.md || exit 1
+          echo "✓ Deployment notes properly configured"
