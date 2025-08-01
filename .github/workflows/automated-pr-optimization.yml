@@ -1,0 +1,51 @@
+name: Automated PR Optimization
+
+on:
+  pull_request:
+    types: [opened, synchronize, ready_for_review]
+  schedule:
+    - cron: '*/5 * * * *'  # Run every 5 minutes to catch any PRs
+  workflow_dispatch:
+
+jobs:
+  auto-optimize:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      actions: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install @octokit/rest
+
+      - name: Run PR optimization
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+        run: node scripts/automated-pr-analyzer.js
+
+      - name: Setup continuous monitoring
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "✅ Continuous PR monitoring activated!"
+          echo "This workflow will run automatically every 5 minutes."
+          echo "It will:"
+          echo "- Detect PR #2 and all large PRs (>50 commits or >10k lines)"
+          echo "- Trigger Korbit AI description regeneration"
+          echo "- Post optimization analysis"
+          echo "- Flag PRs for splitting if needed"
+          echo ""
+          echo "To stop monitoring, disable this workflow in GitHub Actions settings."

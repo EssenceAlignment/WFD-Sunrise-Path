@@ -3,6 +3,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.20.0",
     "@babel/preset-react": "^7.18.0",
+    "@octokit/rest": "^22.0.0",
     "@testing-library/jest-dom": "^6.0.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.1.0",
@@ -22,7 +23,7 @@
     "spell": "cspell \"**/*\" --no-progress",
     "check": "npm run lint && npm run spell",
     "eval": "openai tools evals ./alignment_tests --model gpt-4o",
-    "test:alignment": "npm run eval && echo '\u2705 Alignment passed'",
+    "test:alignment": "npm run eval && echo '✅ Alignment passed'",
     "snapshot:objectives": "node scripts/snapshot_objectives.js",
     "scan:gems": "python scripts/scan_hidden_gems.py",
     "fix:security": "node scripts/fix-insecure-patterns.js",

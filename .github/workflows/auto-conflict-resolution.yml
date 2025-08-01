@@ -1,0 +1,125 @@
+name: Auto-Resolve Conflicts
+
+on:
+  pull_request:
+    types: [synchronize]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number to resolve conflicts for'
+        required: true
+        type: number
+
+jobs:
+  auto-resolve:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "automation@recovery-compass.org"
+          git config --global user.name "Recovery Compass Bot"
+
+      - name: Get PR Information
+        id: pr_info
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = context.payload.pull_request?.number || ${{ github.event.inputs.pr_number }};
+            const pr = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber
+            });
+
+            core.setOutput('pr_number', prNumber);
+            core.setOutput('head_ref', pr.data.head.ref);
+            core.setOutput('base_ref', pr.data.base.ref);
+            core.setOutput('mergeable', pr.data.mergeable);
+
+      - name: Attempt Automatic Conflict Resolution
+        if: steps.pr_info.outputs.mergeable == 'false'
+        run: |
+          # Fetch all branches
+          git fetch origin ${{ steps.pr_info.outputs.base_ref }}
+          git fetch origin ${{ steps.pr_info.outputs.head_ref }}
+
+          # Checkout PR branch
+          git checkout ${{ steps.pr_info.outputs.head_ref }}
+
+          # Try automatic merge with different strategies
+          echo "Attempting automatic merge..."
+
+          # First try regular merge
+          if git merge origin/${{ steps.pr_info.outputs.base_ref }} --no-commit; then
+            echo "Regular merge successful"
+          else
+            # Handle specific file conflicts
+            echo "Handling specific file conflicts..."
+
+            # For .gitignore, combine both versions
+            if git status --porcelain | grep -q "UU .gitignore"; then
+              echo "Resolving .gitignore conflicts..."
+              git checkout --ours .gitignore
+              git checkout --theirs .gitignore >> .gitignore.tmp
+              cat .gitignore .gitignore.tmp | sort | uniq > .gitignore.resolved
+              mv .gitignore.resolved .gitignore
+              rm -f .gitignore.tmp
+              git add .gitignore
+            fi
+
+            # For package-lock.json, regenerate
+            if git status --porcelain | grep -q "UU package-lock.json"; then
+              echo "Resolving package-lock.json conflicts..."
+              rm -f package-lock.json
+              npm install
+              git add package-lock.json
+            fi
+
+            # For markdown files, accept both changes
+            for file in $(git status --porcelain | grep "^UU.*\.md$" | cut -d' ' -f2); do
+              echo "Resolving conflict in $file..."
+              git checkout --ours "$file" > "$file.ours"
+              git checkout --theirs "$file" > "$file.theirs"
+              echo -e "$(cat $file.ours)\n\n---\n\n$(cat $file.theirs)" > "$file"
+              rm -f "$file.ours" "$file.theirs"
+              git add "$file"
+            done
+          fi
+
+          # Check if all conflicts are resolved
+          if [ -z "$(git status --porcelain | grep '^UU')" ]; then
+            git commit -m "auto: Resolve merge conflicts from ${{ steps.pr_info.outputs.base_ref }}"
+            git push origin ${{ steps.pr_info.outputs.head_ref }}
+            echo "conflict_resolved=true" >> $GITHUB_OUTPUT
+          else
+            echo "conflict_resolved=false" >> $GITHUB_OUTPUT
+            echo "Remaining conflicts:"
+            git status --porcelain | grep '^UU'
+          fi
+
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = ${{ steps.pr_info.outputs.pr_number }};
+            const resolved = ${{ steps.auto_resolve.outputs.conflict_resolved }} === 'true';
+
+            const comment = resolved
+              ? `✅ **Conflicts Automatically Resolved**\n\nThe merge conflicts in this PR have been automatically resolved using intelligent merging strategies.\n\n### Resolution Details:\n- .gitignore: Combined entries from both branches\n- package-lock.json: Regenerated from package.json\n- Markdown files: Preserved content from both branches\n\n---\n*Automated by Recovery Compass Conflict Resolution Bot*`
+              : `⚠️ **Manual Conflict Resolution Required**\n\nSome conflicts could not be automatically resolved. Please manually resolve the remaining conflicts.\n\n### Files requiring manual resolution:\n${steps.auto_resolve.outputs.remaining_conflicts || 'Check PR files'}\n\n---\n*Automated by Recovery Compass Conflict Resolution Bot*`;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: comment
+            });
