@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recovery Compass Strategic Funding Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Recovery Compass Brand Colors */
+            --rc-navy: #1a1f3a;
+            --rc-gold: #c1a537;
+            --rc-tree-copper: #b5651d;
+            --rc-cream: #faf8f3;
+            --rc-forest: #2d4a3e;
+
+            /* Spacing System (8-point grid) */
+            --space-1: 8px;
+            --space-2: 16px;
+            --space-3: 24px;
+            --space-4: 32px;
+            --space-5: 40px;
+            --space-6: 48px;
+            --space-8: 64px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--rc-cream);
+            color: var(--rc-navy);
+            font-size: 18px;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-3);
+        }
+
+        /* Header Section */
+        .header {
+            background: var(--rc-navy);
+            color: var(--rc-cream);
+            padding: var(--space-6) var(--space-5);
+            border-radius: 12px;
+            margin-bottom: var(--space-5);
+            box-shadow: 0 8px 24px rgba(26, 31, 58, 0.25);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top right, var(--rc-gold) 0%, transparent 50%);
+            opacity: 0.1;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-section {
+            margin-bottom: var(--space-3);
+        }
+
+        .logo {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto var(--space-2);
+            display: block;
+            background: var(--rc-gold);
+            border-radius: 50%;
+            padding: var(--space-2);
+        }
+
+        .header h1 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: var(--space-1);
+            letter-spacing: -0.02em;
+        }
+
+        .header .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.85;
+            font-weight: 300;
+            margin-bottom: var(--space-2);
+        }
+
+        .header .timestamp {
+            font-size: 0.95rem;
+            opacity: 0.7;
+            font-weight: 300;
+        }
+
+        /* Statistics Cards */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: var(--space-3);
+            margin-bottom: var(--space-5);
+        }
+
+        .stat-card {
+            background: white;
+            padding: var(--space-4);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(26, 31, 58, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(26, 31, 58, 0.05);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(26, 31, 58, 0.12);
+        }
+
+        .stat-card h3 {
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--rc-forest);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-1);
+        }
+
+        .stat-card .value {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--rc-navy);
+            line-height: 1.2;
+        }
+
+        .stat-card .subvalue {
+            font-size: 1rem;
+            color: var(--rc-forest);
+            margin-top: var(--space-1);
+        }
+
+        /* Navigation Filters */
+        .filters {
+            display: flex;
+            gap: var(--space-2);
+            margin-bottom: var(--space-4);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: var(--space-2) var(--space-3);
+            border: 2px solid var(--rc-navy);
+            background: white;
+            color: var(--rc-navy);
+            border-radius: 24px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            min-width: 140px;
+            text-align: center;
+        }
+
+        .filter-btn:hover {
+            background: var(--rc-navy);
+            color: var(--rc-cream);
+            transform: translateY(-1px);
+        }
+
+        .filter-btn.active {
+            background: var(--rc-navy);
+            color: var(--rc-cream);
+        }
+
+        /* Opportunities Grid */
+        .opportunities {
+            display: grid;
+            gap: var(--space-3);
+        }
+
+        .opportunity {
+            background: white;
+            padding: var(--space-4);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(26, 31, 58, 0.08);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--rc-tree-copper);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .opportunity::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--rc-gold));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .opportunity:hover {
+            transform: translateX(4px);
+            box-shadow: 0 4px 16px rgba(26, 31, 58, 0.12);
+        }
+
+        .opportunity:hover::after {
+            opacity: 0.05;
+        }
+
+        .opportunity.urgent {
+            border-left-color: var(--rc-gold);
+        }
+
+        .opportunity.soon {
+            border-left-color: var(--rc-tree-copper);
+        }
+
+        .opportunity.normal {
+            border-left-color: var(--rc-forest);
+        }
+
+        .opportunity-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-2);
+            gap: var(--space-3);
+        }
+
+        .opportunity-title {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--rc-navy);
+            line-height: 1.3;
+            flex: 1;
+        }
+
+        .score-badge {
+            background: var(--rc-gold);
+            color: var(--rc-navy);
+            padding: var(--space-1) var(--space-2);
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 1.125rem;
+            white-space: nowrap;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .opportunity-meta {
+            display: flex;
+            gap: var(--space-3);
+            margin-bottom: var(--space-2);
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+            color: var(--rc-forest);
+            font-size: 1rem;
+        }
+
+        .meta-item.amount {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--rc-navy);
+        }
+
+        .meta-item.deadline {
+            font-weight: 600;
+        }
+
+        .deadline.urgent {
+            color: var(--rc-gold);
+        }
+
+        .deadline.soon {
+            color: var(--rc-tree-copper);
+        }
+
+        .deadline.normal {
+            color: var(--rc-forest);
+        }
+
+        .type-badge {
+            background: var(--rc-forest);
+            color: var(--rc-cream);
+            padding: 6px 16px;
+            border-radius: 16px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .type-badge.innovation {
+            background: var(--rc-gold);
+            color: var(--rc-navy);
+        }
+
+        .keywords {
+            margin-top: var(--space-2);
+            display: flex;
+            gap: var(--space-1);
+            flex-wrap: wrap;
+        }
+
+        .keyword {
+            background: rgba(193, 165, 55, 0.1);
+            color: var(--rc-tree-copper);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .navigate-btn {
+            display: inline-block;
+            margin-top: var(--space-3);
+            padding: var(--space-2) var(--space-4);
+            background: var(--rc-navy);
+            color: var(--rc-cream);
+            text-decoration: none;
+            border-radius: 24px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .navigate-btn:hover {
+            background: var(--rc-forest);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(26, 31, 58, 0.2);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: var(--space-8);
+            color: var(--rc-forest);
+        }
+
+        .empty-state h3 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.75rem;
+            margin-bottom: var(--space-2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .stat-card .value {
+                font-size: 1.75rem;
+            }
+
+            .opportunity-header {
+                flex-direction: column;
+                gap: var(--space-2);
+            }
+
+            .filters {
+                justify-content: stretch;
+            }
+
+            .filter-btn {
+                flex: 1;
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <img src="file:///Users/ericjones/Projects/wfd-sunrise-path/WFD-Sunrise-Path/Recovery%20Compass%20Logos/Recovery%20Compass%20Official%20Logo%20July%2031%202025.png"
+                         alt="Recovery Compass - Tree of Life Compass Logo"
+                         class="logo"
+                         style="width: 180px; height: 180px; object-fit: contain;">
+                </div>
+                <h1>Recovery Compass Strategic Funding Intelligence</h1>
+                <div class="subtitle">Environmental Response Design™ funding insights for transformative care</div>
+                <div class="timestamp">Intelligence Updated: July 31, 2025 at 05:49 PM PST</div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <h3>Total Opportunities</h3>
+                <div class="value">61</div>
+                <div class="subvalue">Active funding pathways</div>
+            </div>
+            <div class="stat-card">
+                <h3>Total Potential</h3>
+                <div class="value">$30,040,000</div>
+                <div class="subvalue">Available funding</div>
+            </div>
+            <div class="stat-card">
+                <h3>Traditional Grants</h3>
+                <div class="value">59</div>
+                <div class="subvalue">$29,440,000 potential</div>
+            </div>
+            <div class="stat-card">
+                <h3>Innovation Funding</h3>
+                <div class="value">2</div>
+                <div class="subvalue">$600,000 potential</div>
+            </div>
+            <div class="stat-card">
+                <h3>Critical Deadlines</h3>
+                <div class="value">1</div>
+                <div class="subvalue">Within 14 days</div>
+            </div>
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active" onclick="filterOpportunities('all')">All Pathways</button>
+            <button class="filter-btn" onclick="filterOpportunities('urgent')">Critical Timing</button>
+            <button class="filter-btn" onclick="filterOpportunities('traditional')">Traditional</button>
+            <button class="filter-btn" onclick="filterOpportunities('innovation')">Innovation</button>
+            <button class="filter-btn" onclick="filterOpportunities('high-score')">High Alignment</button>
+        </div>
+
+        <div class="opportunities" id="opportunities">
+
+            <div class="opportunity urgent"
+                 data-type="innovation-funding"
+                 data-score="92.0"
+                 data-urgency="80">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Gitcoin Grants Round 21 - Public Health</h2>
+                    <div class="score-badge">92</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$100,000</div>
+                    <div class="meta-item deadline urgent">12 days remaining</div>
+                    <div class="meta-item">100% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge innovation">Innovation Funding</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Gitcoin DAO</div>
+                <div class="keywords"><span class="keyword">Recovery</span><span class="keyword">Community</span><span class="keyword">Web3</span><span class="keyword">Dao</span><span class="keyword">Gitcoin</span><span class="keyword">Quadratic</span></div>
+                <a href="https://gitcoin.co/grants" target="_blank" class="navigate-btn">Navigate to Opportunity</a>
+            </div>
+
+            <div class="opportunity soon"
+                 data-type="traditional-grant"
+                 data-score="84.0"
+                 data-urgency="60">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">San Diego County Behavioral Health Services RFP</h2>
+                    <div class="score-badge">84</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$500,000</div>
+                    <div class="meta-item deadline soon">19 days remaining</div>
+                    <div class="meta-item">100% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: San Diego County Health and Human Services</div>
+                <div class="keywords"><span class="keyword">Recovery</span><span class="keyword">Behavioral</span><span class="keyword">Housing</span><span class="keyword">Justice</span></div>
+                <a href="https://www.sandiegocounty.gov/content/sdc/hhsa/programs/bhs/rfp" target="_blank" class="navigate-btn">Navigate to Opportunity</a>
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="76.0"
+                 data-urgency="40">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">SAMHSA Recovery Community Services Program 2025</h2>
+                    <div class="score-badge">76</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$750,000</div>
+                    <div class="meta-item deadline normal">58 days remaining</div>
+                    <div class="meta-item">100% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: SAMHSA - Substance Abuse and Mental Health Services Administration</div>
+                <div class="keywords"><span class="keyword">Recovery</span><span class="keyword">Mental Health</span><span class="keyword">Substance</span><span class="keyword">Housing</span><span class="keyword">Community</span><span class="keyword">Peer</span></div>
+                <a href="https://www.samhsa.gov/grants/grant-announcements/ti-25-009" target="_blank" class="navigate-btn">Navigate to Opportunity</a>
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="76.0"
+                 data-urgency="40">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">HRSA Rural Communities Opioid Response Program</h2>
+                    <div class="score-badge">76</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$1,000,000</div>
+                    <div class="meta-item deadline normal">43 days remaining</div>
+                    <div class="meta-item">100% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: HRSA - Health Resources and Services Administration</div>
+                <div class="keywords"><span class="keyword">Recovery</span><span class="keyword">Substance</span><span class="keyword">Treatment</span><span class="keyword">Housing</span><span class="keyword">Rural</span></div>
+                <a href="https://www.hrsa.gov/grants/find-funding/HRSA-25-017" target="_blank" class="navigate-btn">Navigate to Opportunity</a>
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="62.0"
+                 data-urgency="20">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Substance Recovery Support Grant</h2>
+                    <div class="score-badge">62</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$300,000</div>
+                    <div class="meta-item deadline normal">92 days remaining</div>
+                    <div class="meta-item">90% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Recovery Alliance</div>
+                <div class="keywords"><span class="keyword">Recovery</span><span class="keyword">Substance</span><span class="keyword">Addiction</span></div>
+                <a href="https://example.org/apply/recovery-support" target="_blank" class="navigate-btn">Navigate to Opportunity</a>
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="62.0"
+                 data-urgency="20">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Google.org Impact Challenge - Health Equity</h2>
+                    <div class="score-badge">62</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$1,000,000</div>
+                    <div class="meta-item deadline normal">88 days remaining</div>
+                    <div class="meta-item">90% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Google.org</div>
+                <div class="keywords"><span class="keyword">Recovery</span><span class="keyword">Addiction</span><span class="keyword">Technology</span><span class="keyword">Impact</span></div>
+                <a href="https://impactchallenge.withgoogle.com" target="_blank" class="navigate-btn">Navigate to Opportunity</a>
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="57.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Substance Use Disorder Peer Recovery Specialists for Residential Treatment</h2>
+                    <div class="score-badge">57</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">95% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Recovery</span><span class="keyword">Substance</span><span class="keyword">Treatment</span><span class="keyword">Peer</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="56.0"
+                 data-urgency="20">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">California Health Facilities Financing Authority Loan Program</h2>
+                    <div class="score-badge">56</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$2,500,000</div>
+                    <div class="meta-item deadline normal">88 days remaining</div>
+                    <div class="meta-item">80% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: State of California Treasurer</div>
+                <div class="keywords"><span class="keyword">Recovery</span><span class="keyword">Treatment</span><span class="keyword">Housing</span></div>
+                <a href="https://www.treasurer.ca.gov/chffa/help-ii" target="_blank" class="navigate-btn">Navigate to Opportunity</a>
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="innovation-funding"
+                 data-score="55.0"
+                 data-urgency="40">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Optimism RetroPGF Round 4</h2>
+                    <div class="score-badge">55</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$500,000</div>
+                    <div class="meta-item deadline normal">58 days remaining</div>
+                    <div class="meta-item">65% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge innovation">Innovation Funding</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Optimism Collective</div>
+                <div class="keywords"><span class="keyword">Recovery</span><span class="keyword">Retroactive</span><span class="keyword">Impact</span></div>
+                <a href="https://app.optimism.io/retropgf" target="_blank" class="navigate-btn">Navigate to Opportunity</a>
+            </div>
+
+            <div class="opportunity soon"
+                 data-type="traditional-grant"
+                 data-score="54.0"
+                 data-urgency="60">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Mental Wellness Initiative</h2>
+                    <div class="score-badge">54</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$225,000</div>
+                    <div class="meta-item deadline soon">19 days remaining</div>
+                    <div class="meta-item">50% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Mindful Living Trust</div>
+                <div class="keywords"><span class="keyword">Mental Health</span><span class="keyword">Wellness</span></div>
+                <a href="https://example.org/apply/mental-wellness" target="_blank" class="navigate-btn">Navigate to Opportunity</a>
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="52.0"
+                 data-urgency="40">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Digital Recovery Tools Grant</h2>
+                    <div class="score-badge">52</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$160,000</div>
+                    <div class="meta-item deadline normal">50 days remaining</div>
+                    <div class="meta-item">60% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Tech4Recovery</div>
+                <div class="keywords"><span class="keyword">Recovery</span><span class="keyword">Technology</span><span class="keyword">Digital</span></div>
+                <a href="https://example.org/apply/digital-recovery" target="_blank" class="navigate-btn">Navigate to Opportunity</a>
+            </div>
+
+            <div class="opportunity soon"
+                 data-type="traditional-grant"
+                 data-score="51.0"
+                 data-urgency="60">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">CDC Overdose Data to Action Cooperative Agreement</h2>
+                    <div class="score-badge">51</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$800,000</div>
+                    <div class="meta-item deadline soon">28 days remaining</div>
+                    <div class="meta-item">45% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Centers for Disease Control and Prevention</div>
+                <div class="keywords"><span class="keyword">Recovery</span><span class="keyword">Data</span></div>
+                <a href="https://www.cdc.gov/drugoverdose/od2a/index.html" target="_blank" class="navigate-btn">Navigate to Opportunity</a>
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="50.0"
+                 data-urgency="20">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Social Impact Bond - Recovery Housing Success</h2>
+                    <div class="score-badge">50</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$5,000,000</div>
+                    <div class="meta-item deadline normal">178 days remaining</div>
+                    <div class="meta-item">70% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Third Sector Capital Partners</div>
+                <div class="keywords"><span class="keyword">Recovery</span><span class="keyword">Housing</span><span class="keyword">Impact</span></div>
+                <a href="https://www.thirdsectorcap.org/portfolio" target="_blank" class="navigate-btn">Navigate to Opportunity</a>
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="47.0"
+                 data-urgency="20">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Conrad N. Hilton Foundation Recovery Housing Initiative</h2>
+                    <div class="score-badge">47</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$1,500,000</div>
+                    <div class="meta-item deadline normal">73 days remaining</div>
+                    <div class="meta-item">65% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Conrad N. Hilton Foundation</div>
+                <div class="keywords"><span class="keyword">Recovery</span><span class="keyword">Housing</span><span class="keyword">Peer</span></div>
+                <a href="https://www.hiltonfoundation.org/programs/young-adult-recovery" target="_blank" class="navigate-btn">Navigate to Opportunity</a>
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="44.0"
+                 data-urgency="20">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Robert Wood Johnson Foundation Culture of Health</h2>
+                    <div class="score-badge">44</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$500,000</div>
+                    <div class="meta-item deadline normal">118 days remaining</div>
+                    <div class="meta-item">60% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Robert Wood Johnson Foundation</div>
+                <div class="keywords"><span class="keyword">Recovery</span><span class="keyword">Addiction</span></div>
+                <a href="https://www.rwjf.org/en/grants/what-we-fund" target="_blank" class="navigate-btn">Navigate to Opportunity</a>
+            </div>
+
+            <div class="opportunity soon"
+                 data-type="traditional-grant"
+                 data-score="42.0"
+                 data-urgency="60">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Peer Support Innovation Fund</h2>
+                    <div class="score-badge">42</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$120,000</div>
+                    <div class="meta-item deadline soon">30 days remaining</div>
+                    <div class="meta-item">30% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Peer Network</div>
+                <div class="keywords"><span class="keyword">Innovation</span><span class="keyword">Peer</span></div>
+                <a href="https://example.org/apply/peer-support" target="_blank" class="navigate-btn">Navigate to Opportunity</a>
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="41.0"
+                 data-urgency="20">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Community Resilience Award</h2>
+                    <div class="score-badge">41</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$170,000</div>
+                    <div class="meta-item deadline normal">106 days remaining</div>
+                    <div class="meta-item">55% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Resilience Partners</div>
+                <div class="keywords"><span class="keyword">Recovery</span><span class="keyword">Collaborative</span><span class="keyword">Community</span></div>
+                <a href="https://example.org/apply/community-resilience" target="_blank" class="navigate-btn">Navigate to Opportunity</a>
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="36.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Substance Abuse and Mental Health Services Administration (SAMHSA) Grants</h2>
+                    <div class="score-badge">36</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">60% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Mental Health</span><span class="keyword">Substance</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="36.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Addiction Recovery Support Grant</h2>
+                    <div class="score-badge">36</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$100,000</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">60% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Recovery</span><span class="keyword">Addiction</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="36.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">SAMHSA Grants for Mental Health and Substance Use</h2>
+                    <div class="score-badge">36</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">60% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Mental Health</span><span class="keyword">Substance</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="36.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">SAMHSA Notice of Funding Opportunities (NOFOs) for Mental Health and Substance Use</h2>
+                    <div class="score-badge">36</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">60% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Mental Health</span><span class="keyword">Substance</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="36.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Ohio Department of Mental Health and Addiction Services Grants</h2>
+                    <div class="score-badge">36</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">60% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Mental Health</span><span class="keyword">Addiction</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="33.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Florida Substance Abuse Treatment and Prevention Grants</h2>
+                    <div class="score-badge">33</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">55% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Substance</span><span class="keyword">Treatment</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="33.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Substance Abuse Prevention and Treatment Block Grant</h2>
+                    <div class="score-badge">33</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">55% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Substance</span><span class="keyword">Treatment</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="30.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Mental Health Innovation Fund</h2>
+                    <div class="score-badge">30</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$130,000</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">50% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Mental Health</span><span class="keyword">Innovation</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="27.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Behavioral Health Technology Fund</h2>
+                    <div class="score-badge">27</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$105,000</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">45% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Behavioral</span><span class="keyword">Technology</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="26.0"
+                 data-urgency="20">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Workforce Reentry Opportunity</h2>
+                    <div class="score-badge">26</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$200,000</div>
+                    <div class="meta-item deadline normal">126 days remaining</div>
+                    <div class="meta-item">30% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: WorkReady Foundation</div>
+                <div class="keywords"><span class="keyword">Recovery</span></div>
+                <a href="https://example.org/apply/workforce-reentry" target="_blank" class="navigate-btn">Navigate to Opportunity</a>
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="24.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Community Recovery Initiative</h2>
+                    <div class="score-badge">24</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$120,000</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">40% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Recovery</span><span class="keyword">Community</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="24.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Certified Community Behavioral Health Clinics (CCBHC) Expansion Grants</h2>
+                    <div class="score-badge">24</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">40% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Behavioral</span><span class="keyword">Community</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="24.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Community Mental Health Services Block Grant</h2>
+                    <div class="score-badge">24</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">40% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Mental Health</span><span class="keyword">Community</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="23.0"
+                 data-urgency="20">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Housing Access Grant</h2>
+                    <div class="score-badge">23</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$250,000</div>
+                    <div class="meta-item deadline normal">85 days remaining</div>
+                    <div class="meta-item">25% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Shelter Solutions</div>
+                <div class="keywords"><span class="keyword">Housing</span></div>
+                <a href="https://example.org/apply/housing-access" target="_blank" class="navigate-btn">Navigate to Opportunity</a>
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="22.0"
+                 data-urgency="40">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Community Health Grant</h2>
+                    <div class="score-badge">22</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$350,000</div>
+                    <div class="meta-item deadline normal">60 days remaining</div>
+                    <div class="meta-item">10% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Health Foundation</div>
+                <div class="keywords"><span class="keyword">Community</span></div>
+                <a href="https://example.org/apply/health-grant" target="_blank" class="navigate-btn">Navigate to Opportunity</a>
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="20.0"
+                 data-urgency="20">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Youth Empowerment Fund</h2>
+                    <div class="score-badge">20</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$275,000</div>
+                    <div class="meta-item deadline normal">75 days remaining</div>
+                    <div class="meta-item">20% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Youth Forward</div>
+                <div class="keywords"><span class="keyword">Youth</span></div>
+                <a href="https://example.org/apply/youth-empower" target="_blank" class="navigate-btn">Navigate to Opportunity</a>
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="18.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">National Institute of Mental Health (NIMH) Funding Opportunities</h2>
+                    <div class="score-badge">18</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">30% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Mental Health</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="18.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Mental Health Grants for Ohio - GrantWatch</h2>
+                    <div class="score-badge">18</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">30% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Mental Health</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="18.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Recovery Events Funding Request</h2>
+                    <div class="score-badge">18</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">30% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Recovery</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="18.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Recovery Events Funding Request for Expression of Interest (EOI #61)</h2>
+                    <div class="score-badge">18</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">30% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Recovery</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="18.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Health Resources and Services Administration (HRSA) Behavioral Health Workforce Grants</h2>
+                    <div class="score-badge">18</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">30% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Behavioral</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="18.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Ohio Mental Health Grants</h2>
+                    <div class="score-badge">18</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">30% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Mental Health</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="18.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Behavioral Health Workforce Education and Training (BHWET) Program</h2>
+                    <div class="score-badge">18</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">30% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Behavioral</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="18.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">HRSA Behavioral Health Workforce Grants</h2>
+                    <div class="score-badge">18</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">30% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Behavioral</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="18.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Substance Abuse Prevention Grants</h2>
+                    <div class="score-badge">18</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$150,000</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">30% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Substance</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="17.0"
+                 data-urgency="20">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Venture Philanthropy Partners Scale Fund</h2>
+                    <div class="score-badge">17</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$2,000,000</div>
+                    <div class="meta-item deadline normal">118 days remaining</div>
+                    <div class="meta-item">15% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: VPP</div>
+                <div class="keywords"><span class="keyword">Impact</span></div>
+                <a href="https://www.vppartners.org/investments" target="_blank" class="navigate-btn">Navigate to Opportunity</a>
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="16.0"
+                 data-urgency="40">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Family Stability Grant</h2>
+                    <div class="score-badge">16</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$180,000</div>
+                    <div class="meta-item deadline normal">40 days remaining</div>
+                    <div class="meta-item">0% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Family First Fund</div>
+                
+                <a href="https://example.org/apply/family-stability" target="_blank" class="navigate-btn">Navigate to Opportunity</a>
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="15.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">KS Strategic Prevention Framework (SPF) - Partnerships for Success (PFS) for States Community Organizations Grant</h2>
+                    <div class="score-badge">15</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">25% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Partnership</span><span class="keyword">Community</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="12.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Projects for Assistance in Transition from Homelessness (PATH)</h2>
+                    <div class="score-badge">12</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">20% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Homeless</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="12.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Gates Foundation - Homelessness Systems Change</h2>
+                    <div class="score-badge">12</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$10,000,000</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">20% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Homeless</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="9.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Google.org AI for Social Impact</h2>
+                    <div class="score-badge">9</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$200,000</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">15% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Impact</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="9.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Digital Health Solutions Grant</h2>
+                    <div class="score-badge">9</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$110,000</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">15% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                <div class="keywords"><span class="keyword">Digital</span></div>
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="0.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">988 Lifeline Crisis Center Expansion</h2>
+                    <div class="score-badge">0</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">0% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="0.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Centene Charitable Foundation Grants</h2>
+                    <div class="score-badge">0</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">0% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="0.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Robert Wood Johnson Foundation</h2>
+                    <div class="score-badge">0</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$175,000</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">0% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="0.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">NIMH Funding Opportunities for Clinical Research and Training</h2>
+                    <div class="score-badge">0</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">0% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="0.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Cigna Foundation Grants</h2>
+                    <div class="score-badge">0</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$320,000</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">0% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="0.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Cigna Group Foundation Grants</h2>
+                    <div class="score-badge">0</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">0% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="0.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Bank of America Charitable Foundation Grants</h2>
+                    <div class="score-badge">0</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">0% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="0.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Turn.io Accelerator Program</h2>
+                    <div class="score-badge">0</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$250,000</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">0% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="0.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">State Opioid Response Grant III (SOR III)</h2>
+                    <div class="score-badge">0</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">0% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="0.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">988 Mobile Crisis Outreach Response Teams (MCORT) Region 9 RFP</h2>
+                    <div class="score-badge">0</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">0% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="0.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Wisconsin Department of Health Services Current Grant Funding Opportunities</h2>
+                    <div class="score-badge">0</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">0% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                
+                
+            </div>
+
+            <div class="opportunity normal"
+                 data-type="traditional-grant"
+                 data-score="0.0"
+                 data-urgency="0">
+                <div class="opportunity-header">
+                    <h2 class="opportunity-title">Gupta Family Foundation Grants</h2>
+                    <div class="score-badge">0</div>
+                </div>
+                <div class="opportunity-meta">
+                    <div class="meta-item amount">$0</div>
+                    <div class="meta-item deadline normal">Timeline unavailable</div>
+                    <div class="meta-item">0% strategic alignment</div>
+                    <div class="meta-item"><span class="type-badge ">Traditional Grant</span></div>
+                </div>
+                <div class="meta-item">Funding Source: Unknown</div>
+                
+                
+            </div>
+
+        </div>
+
+        <div class="empty-state" id="empty-state" style="display: none;">
+            <h3>No opportunities match your current navigation criteria</h3>
+            <p>Adjust your filters to explore different funding pathways</p>
+        </div>
+    </div>
+
+    <script>
+        function filterOpportunities(filter) {
+            const opportunities = document.querySelectorAll('.opportunity');
+            const buttons = document.querySelectorAll('.filter-btn');
+            const emptyState = document.getElementById('empty-state');
+            let visibleCount = 0;
+
+            // Update active button
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Find and activate the correct button
+            buttons.forEach(btn => {
+                const btnText = btn.textContent.toLowerCase();
+                if ((filter === 'all' && btnText.includes('all')) ||
+                    (filter === 'urgent' && btnText.includes('critical')) ||
+                    (filter === 'traditional' && btnText.includes('traditional')) ||
+                    (filter === 'innovation' && btnText.includes('innovation')) ||
+                    (filter === 'high-score' && btnText.includes('high'))) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Filter opportunities
+            opportunities.forEach(opp => {
+                const type = opp.dataset.type;
+                const score = parseFloat(opp.dataset.score);
+                const urgency = parseFloat(opp.dataset.urgency);
+
+                let show = false;
+
+                switch(filter) {
+                    case 'all':
+                        show = true;
+                        break;
+                    case 'urgent':
+                        show = urgency >= 80;
+                        break;
+                    case 'traditional':
+                        show = type === 'traditional-grant';
+                        break;
+                    case 'innovation':
+                        show = type === 'innovation-funding';
+                        break;
+                    case 'high-score':
+                        show = score >= 80;
+                        break;
+                }
+
+                opp.style.display = show ? 'block' : 'none';
+                if (show) visibleCount++;
+            });
+
+            // Show/hide empty state
+            emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>
