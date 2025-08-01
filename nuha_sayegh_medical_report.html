@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keck Medicine USC - Patient Report</title>
+    <style>
+        @page {
+            size: letter;
+            margin: 0.5in;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: white;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid #990000;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .keck-logo {
+            width: 60px;
+            height: 60px;
+            background: #990000;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+            margin-right: 15px;
+        }
+
+        .hospital-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #990000;
+        }
+
+        .report-date {
+            text-align: right;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .patient-info {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .patient-info h2 {
+            margin: 0 0 10px 0;
+            color: #990000;
+            font-size: 18px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .info-item {
+            display: flex;
+        }
+
+        .info-label {
+            font-weight: bold;
+            margin-right: 8px;
+            color: #666;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            background: #990000;
+            color: white;
+            padding: 8px 15px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+
+        .results-table th,
+        .results-table td {
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .results-table th {
+            background: #f8f8f8;
+            font-weight: bold;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .results-table tr:hover {
+            background: #f9f9f9;
+        }
+
+        .result-value {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .abnormal {
+            color: #d9534f;
+            font-weight: bold;
+        }
+
+        .normal {
+            color: #5cb85c;
+        }
+
+        .flag {
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        .high {
+            color: #d9534f;
+        }
+
+        .low {
+            color: #f0ad4e;
+        }
+
+        .clinical-notes {
+            background: #fffbf0;
+            border-left: 4px solid #f0ad4e;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .clinical-notes h3 {
+            margin: 0 0 10px 0;
+            color: #990000;
+            font-size: 16px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #ddd;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-section">
+            <div class="keck-logo">K</div>
+            <div class="hospital-name">Keck Medicine of USC</div>
+        </div>
+                <div class="report-date">
+                    <strong>Report Date:</strong> 24/07/2025<br>
+                    <strong>Collection Date:</strong> 22/07/2025
+                </div>
+    </div>
+
+    <div class="patient-info">
+        <h2>Patient Information</h2>
+        <div class="info-grid">
+            <div class="info-item">
+                <span class="info-label">Name:</span>
+                <span>Sayegh, Nuha</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">MRN:</span>
+                <span>KM-2024-0823</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">DOB:</span>
+                <span>03/15/1985</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Age:</span>
+                <span>39 years</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Physician:</span>
+                <span>Dr. Sarah Chen, MD</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Diagnosis:</span>
+                <span>Stage IV Ovarian CA w/ Lymphangitic Carcinomatosis</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Tumor Markers</div>
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th>Test</th>
+                    <th>Result</th>
+                    <th>Reference Range</th>
+                    <th>Flag</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>CA-125</td>
+                    <td class="result-value abnormal">1,847 U/mL</td>
+                    <td>0-35 U/mL</td>
+                    <td class="flag high">H</td>
+                </tr>
+                <tr>
+                    <td>HE4</td>
+                    <td class="result-value abnormal">892 pmol/L</td>
+                    <td>0-140 pmol/L</td>
+                    <td class="flag high">H</td>
+                </tr>
+                <tr>
+                    <td>CEA</td>
+                    <td class="result-value abnormal">28.4 ng/mL</td>
+                    <td>0-3.0 ng/mL</td>
+                    <td class="flag high">H</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Complete Blood Count (CBC)</div>
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th>Test</th>
+                    <th>Result</th>
+                    <th>Reference Range</th>
+                    <th>Flag</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>WBC</td>
+                    <td class="result-value abnormal">14.2 K/uL</td>
+                    <td>4.5-11.0 K/uL</td>
+                    <td class="flag high">H</td>
+                </tr>
+                <tr>
+                    <td>RBC</td>
+                    <td class="result-value abnormal">3.2 M/uL</td>
+                    <td>4.2-5.4 M/uL</td>
+                    <td class="flag low">L</td>
+                </tr>
+                <tr>
+                    <td>Hemoglobin</td>
+                    <td class="result-value abnormal">8.9 g/dL</td>
+                    <td>12.0-16.0 g/dL</td>
+                    <td class="flag low">L</td>
+                </tr>
+                <tr>
+                    <td>Hematocrit</td>
+                    <td class="result-value abnormal">26.8%</td>
+                    <td>36.0-46.0%</td>
+                    <td class="flag low">L</td>
+                </tr>
+                <tr>
+                    <td>Platelets</td>
+                    <td class="result-value">187 K/uL</td>
+                    <td>150-400 K/uL</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Neutrophils %</td>
+                    <td class="result-value abnormal">78%</td>
+                    <td>50-70%</td>
+                    <td class="flag high">H</td>
+                </tr>
+                <tr>
+                    <td>Lymphocytes %</td>
+                    <td class="result-value abnormal">12%</td>
+                    <td>20-40%</td>
+                    <td class="flag low">L</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Comprehensive Metabolic Panel</div>
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th>Test</th>
+                    <th>Result</th>
+                    <th>Reference Range</th>
+                    <th>Flag</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Glucose</td>
+                    <td class="result-value">98 mg/dL</td>
+                    <td>70-99 mg/dL</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>BUN</td>
+                    <td class="result-value abnormal">28 mg/dL</td>
+                    <td>7-20 mg/dL</td>
+                    <td class="flag high">H</td>
+                </tr>
+                <tr>
+                    <td>Creatinine</td>
+                    <td class="result-value abnormal">1.4 mg/dL</td>
+                    <td>0.6-1.2 mg/dL</td>
+                    <td class="flag high">H</td>
+                </tr>
+                <tr>
+                    <td>eGFR</td>
+                    <td class="result-value abnormal">48 mL/min</td>
+                    <td>>60 mL/min</td>
+                    <td class="flag low">L</td>
+                </tr>
+                <tr>
+                    <td>Sodium</td>
+                    <td class="result-value">138 mmol/L</td>
+                    <td>136-145 mmol/L</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Potassium</td>
+                    <td class="result-value">4.2 mmol/L</td>
+                    <td>3.5-5.1 mmol/L</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Chloride</td>
+                    <td class="result-value">102 mmol/L</td>
+                    <td>98-107 mmol/L</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>CO2</td>
+                    <td class="result-value">24 mmol/L</td>
+                    <td>22-29 mmol/L</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Calcium</td>
+                    <td class="result-value abnormal">11.2 mg/dL</td>
+                    <td>8.5-10.2 mg/dL</td>
+                    <td class="flag high">H</td>
+                </tr>
+                <tr>
+                    <td>Total Protein</td>
+                    <td class="result-value abnormal">5.8 g/dL</td>
+                    <td>6.3-8.2 g/dL</td>
+                    <td class="flag low">L</td>
+                </tr>
+                <tr>
+                    <td>Albumin</td>
+                    <td class="result-value abnormal">2.9 g/dL</td>
+                    <td>3.5-5.0 g/dL</td>
+                    <td class="flag low">L</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Liver Function Tests</div>
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th>Test</th>
+                    <th>Result</th>
+                    <th>Reference Range</th>
+                    <th>Flag</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ALT</td>
+                    <td class="result-value abnormal">68 U/L</td>
+                    <td>7-56 U/L</td>
+                    <td class="flag high">H</td>
+                </tr>
+                <tr>
+                    <td>AST</td>
+                    <td class="result-value abnormal">82 U/L</td>
+                    <td>10-40 U/L</td>
+                    <td class="flag high">H</td>
+                </tr>
+                <tr>
+                    <td>Alkaline Phosphatase</td>
+                    <td class="result-value abnormal">178 U/L</td>
+                    <td>44-147 U/L</td>
+                    <td class="flag high">H</td>
+                </tr>
+                <tr>
+                    <td>Total Bilirubin</td>
+                    <td class="result-value">1.1 mg/dL</td>
+                    <td>0.1-1.2 mg/dL</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Pulmonary Function Indicators</div>
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th>Test</th>
+                    <th>Result</th>
+                    <th>Reference Range</th>
+                    <th>Flag</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>D-Dimer</td>
+                    <td class="result-value abnormal">2.8 μg/mL</td>
+                    <td><0.5 μg/mL</td>
+                    <td class="flag high">H</td>
+                </tr>
+                <tr>
+                    <td>LDH</td>
+                    <td class="result-value abnormal">412 U/L</td>
+                    <td>140-280 U/L</td>
+                    <td class="flag high">H</td>
+                </tr>
+                <tr>
+                    <td>Arterial pH</td>
+                    <td class="result-value">7.38</td>
+                    <td>7.35-7.45</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>pO2</td>
+                    <td class="result-value abnormal">68 mmHg</td>
+                    <td>80-100 mmHg</td>
+                    <td class="flag low">L</td>
+                </tr>
+                <tr>
+                    <td>pCO2</td>
+                    <td class="result-value">38 mmHg</td>
+                    <td>35-45 mmHg</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>O2 Saturation</td>
+                    <td class="result-value abnormal">91%</td>
+                    <td>95-100%</td>
+                    <td class="flag low">L</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="clinical-notes">
+        <h3>Clinical Notes</h3>
+        <p><strong>Summary:</strong> 39-year-old female with Stage IV ovarian adenocarcinoma diagnosed August 2024, now with progression to lymphangitic carcinomatosis. Laboratory findings consistent with advanced malignancy including marked elevation of tumor markers (CA-125: 1,847 U/mL), moderate anemia (Hgb: 8.9 g/dL), mild renal insufficiency, and hypoxemia. Mild hypercalcemia and hypoalbuminemia noted.</p>
+
+        <p><strong>Interpretation:</strong> Results indicate disease progression with multisystem involvement. Elevated CA-125 and HE4 consistent with active ovarian malignancy. CBC shows anemia of chronic disease with mild leukocytosis. Metabolic panel reveals mild renal dysfunction and hypercalcemia. Pulmonary parameters suggest impaired gas exchange consistent with lymphangitic spread.</p>
+
+        <p><strong>Recommendations:</strong> Continue current chemotherapy regimen. Consider palliative radiotherapy for symptom control. Monitor renal function and calcium levels closely. Supportive care with oxygen therapy as needed. Nutritional support for hypoalbuminemia. Follow-up in 2 weeks or sooner if symptoms worsen.</p>
+    </div>
+
+    <div class="footer">
+        <p>Keck Medicine of USC | 1975 Zonal Avenue, Los Angeles, CA 90033<br>
+        Phone: (323) 442-8000 | Lab Results Hotline: (323) 442-8100<br>
+        This report is confidential and intended solely for the use of the patient and authorized healthcare providers.</p>
+    </div>
+</body>
+</html>
