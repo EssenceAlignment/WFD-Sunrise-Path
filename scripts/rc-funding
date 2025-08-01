@@ -1,0 +1,14 @@
+#!/bin/bash
+# Recovery Compass Funding Dashboard
+
+# Get the directory where this script is located
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Check if --terminal flag is passed
+if [[ " $@ " =~ " --terminal " ]]; then
+    # Run terminal version
+    python3 "$SCRIPT_DIR/rc_funding_dashboard.py" "$@"
+else
+    # Run web version (default)
+    python3 "$SCRIPT_DIR/rc_funding_dashboard_web.py" "$@"
+fi
