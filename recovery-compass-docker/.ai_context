@@ -1,0 +1,50 @@
+# 🚨 AI CONTEXT BEACON - CLAUDE CODE AGENTS ACTIVE 🚨
+## Project: recovery-compass-docker
+
+You are in: /Users/ericjones/Projects/wfd-sunrise-path/WFD-Sunrise-Path/recovery-compass-docker
+
+**CLAUDE CODE AGENTS STATUS**: ✅ ACTIVATED
+**PRIMARY FOCUS**: Infrastructure & Deployment
+
+CRITICAL CONTEXT FILES (READ IN ORDER):
+1. ./AI_CONTEXT_CLAUDE_AGENTS.md (agent team configuration)
+2. ./AGENT_TEAM_TEMPLATE.md (implementation patterns)
+3. ~/Projects/AI_CONTEXT_ALIGNMENT.md (master context)
+4. ~/Projects/REPOSITORY_ORGANIZATION_GUIDE.md (structure)
+
+CURRENT SYSTEM STATUS:
+✅ Claude Code Agents: CONFIGURED
+✅ MCP Integration: READY
+✅ Force Multiplication: ENABLED
+✅ Multi-Stakeholder: ACTIVE
+
+AGENT TEAM SPECIALIZED FOR THIS PROJECT:
+
+- Infrastructure Automation Agent (Priority)
+- Security Compliance Agent
+- Performance Optimization Agent
+- Monitoring Integration Agent
+- Disaster Recovery Agent
+
+FORCE MULTIPLICATION PATTERNS:
+- One code change → 10+ synchronized outputs
+- Every action serves 3+ stakeholder groups
+- All outputs are deployment-ready
+- Patterns documented for reuse
+
+ACTIVATE AGENTS:
+/agents (in VS Code with Cline)
+
+QUICK ACTIONS:
+```bash
+# Run force multiplication
+python scripts/force_multiplication_engine.py
+
+# Check cascade status
+python scripts/pattern_collector.py
+
+# Deploy to stakeholders
+python scripts/cascade_deployment.py
+```
+
+Remember: **Abundance, not urgency. Every action compounds.**
