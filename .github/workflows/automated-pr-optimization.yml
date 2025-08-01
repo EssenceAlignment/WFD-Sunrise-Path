@@ -1,10 +1,12 @@
-name: Automated PR Optimization
+name: Automated PR Optimization (Free Tier)
 
 on:
   pull_request:
     types: [opened, synchronize, ready_for_review]
   schedule:
-    - cron: '*/5 * * * *'  # Run every 5 minutes to catch any PRs
+    # Runs every 15 minutes during business hours (8am-8pm daily)
+    # This uses ~720 minutes/month - well within GitHub's 2,000 minute free tier
+    - cron: '*/15 8-20 * * *'
   workflow_dispatch:
 
 jobs:
@@ -37,15 +39,15 @@ jobs:
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
         run: node scripts/automated-pr-analyzer.js
 
-      - name: Setup continuous monitoring
-        if: github.event_name == 'workflow_dispatch'
+      - name: Usage report
         run: |
-          echo "✅ Continuous PR monitoring activated!"
-          echo "This workflow will run automatically every 5 minutes."
-          echo "It will:"
-          echo "- Detect PR #2 and all large PRs (>50 commits or >10k lines)"
-          echo "- Trigger Korbit AI description regeneration"
-          echo "- Post optimization analysis"
-          echo "- Flag PRs for splitting if needed"
+          echo "📊 GitHub Actions Usage Report"
+          echo "This workflow runs:"
+          echo "- Every 15 minutes from 8am-8pm (48 runs/day)"
+          echo "- On every PR event"
           echo ""
-          echo "To stop monitoring, disable this workflow in GitHub Actions settings."
+          echo "Estimated monthly usage: ~720 minutes"
+          echo "GitHub Free tier: 2,000 minutes/month"
+          echo "Cost: $0 (well within free tier!)"
+          echo ""
+          echo "To run more frequently, upgrade to GitHub Pro ($4/month)"
