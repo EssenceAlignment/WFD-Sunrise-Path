@@ -1,0 +1,19 @@
+{
+  "enabled": true,
+  "autoSplitThresholds": {
+    "commits": 50,
+    "additions": 10000,
+    "files": 100
+  },
+  "splitStrategy": {
+    "security": ["**/.env*", "**/*secret*", ".gitignore", "SECURITY*.md"],
+    "docker": ["**/docker*", "**/Dockerfile*", "docker-compose*.yml"],
+    "ci-cd": [".github/workflows/*", "**/*ci*", "**/*cd*"],
+    "monitoring": ["**/monitor*", "**/grafana*", "**/loki*"],
+    "docs": ["**/*.md", "docs/**"],
+    "scripts": ["scripts/**", "**/*.sh"],
+    "config": ["**/*.json", "**/*.yaml", "**/*.yml"]
+  },
+  "korbitIntegration": true,
+  "autoConflictResolution": true
+}

@@ -1,0 +1,40 @@
+name: Immediate PR Scan
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - '.github/workflows/**'
+      - 'scripts/automated-pr-analyzer.js'
+
+jobs:
+  immediate-scan:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install @octokit/rest
+
+      - name: Run immediate PR scan
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+        run: |
+          echo "🚀 Immediate scan triggered by push to main branch"
+          echo "Scanning all open PRs for optimization..."
+          node scripts/automated-pr-analyzer.js
+          echo "✅ Scan complete. Regular monitoring will continue every 5 minutes."
