@@ -1,0 +1,51 @@
+{
+  "project": "recovery-compass-docker",
+  "path": "/Users/ericjones/Projects/wfd-sunrise-path/WFD-Sunrise-Path/recovery-compass-docker",
+  "agents": {
+    "compliance_automation": {
+      "enabled": true,
+      "tools": [
+        "generate_audit_package",
+        "validate_compliance"
+      ]
+    },
+    "pilot_integration": {
+      "enabled": true,
+      "tools": [
+        "bridge_dashboards",
+        "sync_metrics"
+      ]
+    },
+    "review_refactor": {
+      "enabled": true,
+      "tools": [
+        "optimize_code",
+        "generate_docs"
+      ]
+    },
+    "force_multiplier": {
+      "enabled": true,
+      "tools": [
+        "cascade_deployment",
+        "multiply_outputs"
+      ]
+    },
+    "dashboard_population": {
+      "enabled": true,
+      "tools": [
+        "populate_funding_dashboard",
+        "sync_airtable"
+      ]
+    }
+  },
+  "cascades": {
+    "funding_discovery": {
+      "pattern": "discover \u2192 validate \u2192 populate \u2192 notify \u2192 analyze",
+      "auto_trigger": true
+    },
+    "compliance": {
+      "pattern": "audit \u2192 document \u2192 validate \u2192 distribute \u2192 archive",
+      "auto_trigger": false
+    }
+  }
+}
