@@ -8,20 +8,20 @@ import json
 import time
 import hashlib
 import csv
-import numpy as np
 from pathlib import Path
 from datetime import datetime
 from typing import List, Dict, Any
 
-# Import ML libraries (will need to be installed)
+# ML imports are conditional - only loaded when needed
+ML_AVAILABLE = False
 try:
+    import numpy as np
     from sentence_transformers import SentenceTransformer
     from sklearn.cluster import DBSCAN
     from sklearn.metrics import silhouette_score
+    ML_AVAILABLE = True
 except ImportError:
-    print("⚠️ ML libraries not installed. Run:")
-    print("pip install sentence-transformers scikit-learn")
-    exit(1)
+    pass
 
 class PatternInsightEngine:
     """Discovers patterns and surfaces hidden opportunities"""
@@ -239,6 +239,16 @@ class PatternInsightEngine:
 
         print(f"💾 Saved {len(opportunities)} opportunities to opportunities.md")
 
+    def measure_current_coverage_baseline(self):
+        """Measure current pattern coverage baseline"""
+        # Scan existing patterns (3 LOC)
+        total_logs = len(self.collect_texts())
+        matched_logs = sum(1 for t in self.collect_texts() if "[oauth]" in t.lower())
+
+        # Calculate coverage percentage (2 LOC)
+        baseline_coverage = (matched_logs / total_logs * 100) if total_logs > 0 else 0
+        return {"baseline_coverage": baseline_coverage, "total_logs": total_logs}
+
     def run(self):
         """Main execution flow"""
         print("🧠 Pattern-Insight Engine v1.0")
@@ -276,8 +286,32 @@ class PatternInsightEngine:
 
 def main():
     """Main entry point"""
-    engine = PatternInsightEngine()
-    engine.run()
+    import sys
+
+    if "--baseline" in sys.argv:
+        # Simple baseline without ML dependencies
+        from pathlib import Path
+        texts = []
+
+        # Count files for simple baseline
+        if Path(".git/logs").exists():
+            log_file = Path(".git/logs/HEAD")
+            if log_file.exists():
+                texts = log_file.read_text().split('\n')[-50:]
+
+        total_logs = len(texts)
+        matched_logs = sum(1 for t in texts if "oauth" in t.lower())
+        baseline_coverage = (matched_logs / total_logs * 100) if total_logs > 0 else 0
+
+        baseline = {
+            "baseline_coverage": round(baseline_coverage, 2),
+            "total_logs": total_logs,
+            "measurement": "simplified (ML libs not available)"
+        }
+        print(json.dumps(baseline, indent=2))
+    else:
+        engine = PatternInsightEngine()
+        engine.run()
 
 if __name__ == "__main__":
     main()

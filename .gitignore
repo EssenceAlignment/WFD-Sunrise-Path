@@ -35,3 +35,7 @@ docker-compose.override.yml
 # Temporary files
 *.tmp
 *.log
+
+# Supervisor provenance keys and logs
+supervisor/.keys/
+supervisor/logs/snippets/*.json
