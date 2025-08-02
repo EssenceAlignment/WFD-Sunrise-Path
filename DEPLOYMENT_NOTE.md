@@ -56,3 +56,28 @@ Since this is a static site requiring no build process, the npm install step sho
 4. Save changes and trigger redeploy
 
 This prevents npm from running during deployment, eliminating lockfile issues for this static site.
+
+## 2025-08-01: Nameserver Realignment
+
+### Current Status:
+- Domain: recovery-compass.org
+- Registration: Cloudflare Registrar
+- Zone Status: Pending Nameserver Update
+
+### Required Nameservers:
+- desi.ns.cloudflare.com
+- fred.ns.cloudflare.com
+
+### Legacy Nameservers to Remove:
+- becky.ns.cloudflare.com (currently active)
+- joel.ns.cloudflare.com (currently active)
+
+### DNS Check Command:
+```bash
+dig +short NS recovery-compass.org
+```
+
+### Progress:
+- Initial check at 5:30 PM PST: Still showing legacy nameservers
+- Awaiting propagation after manual update in Cloudflare Registrar panel
+- DNSSEC: Should be disabled
