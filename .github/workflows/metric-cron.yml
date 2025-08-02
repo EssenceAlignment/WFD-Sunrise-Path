@@ -1,0 +1,46 @@
+name: Daily Cleanup Metrics
+on:
+  schedule:
+    - cron: '0 2 * * *'  # 02:00 UTC daily
+  workflow_dispatch:
+
+jobs:
+  collect-metrics:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run cleanup and collect metrics
+        run: |
+          START_TIME=$SECONDS
+          ./execute_systematic_cleanup.sh || true
+          RUNTIME=$((SECONDS - START_TIME))
+
+          FILES_LEFT=$(git ls-files --others --exclude-standard | wc -l | tr -d ' ')
+          TSC_PROBLEMS=$(npx --yes tsc --noEmit 2>&1 | grep -E "[Ee]rror|[Ww]arning" | wc -l | tr -d ' ')
+          ESLINT_PROBLEMS=$(npx --yes eslint "src/**/*.{js,jsx}" 2>&1 | grep -E "[Ee]rror|[Ww]arning" | wc -l | tr -d ' ')
+          PROBLEMS=$((TSC_PROBLEMS + ESLINT_PROBLEMS))
+
+          echo "$(date -u +%FT%TZ) | pending:$FILES_LEFT | problems:$PROBLEMS | runtime_s:$RUNTIME" >> metrics/cleanup.log
+
+          if [ "$FILES_LEFT" -gt 0 ] || [ "$PROBLEMS" -gt 0 ]; then
+            echo "::error::Red alert - non-zero metrics detected"
+            echo "::error::Pending files: $FILES_LEFT, Problems: $PROBLEMS"
+            exit 1
+          fi
+
+      - name: Commit metrics
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add -f metrics/cleanup.log
+          git commit -m "chore(metrics): daily cleanup metrics" || true
+          git push
