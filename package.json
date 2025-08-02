@@ -1,5 +1,6 @@
 {
   "description": "Recovery Compass WFD Sunrise Path",
+  "type": "module",
   "devDependencies": {
     "@babel/preset-env": "^7.20.0",
     "@babel/preset-react": "^7.18.0",

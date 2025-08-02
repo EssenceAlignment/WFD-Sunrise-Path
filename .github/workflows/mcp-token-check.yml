@@ -1,0 +1,12 @@
+name: mcp token check
+on: [push, pull_request]
+jobs:
+  validate-env:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: ensure token secret
+        run: |
+          if [[ -z "${{ secrets.CF_API_TOKEN_PROD }}" ]]; then
+            echo "Missing CF_API_TOKEN_PROD secret"; exit 1;
+          fi

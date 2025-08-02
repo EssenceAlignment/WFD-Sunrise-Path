@@ -1,0 +1,18 @@
+[Unit]
+Description=Recovery Compass MCP Launcher
+After=network.target
+StartLimitBurst=3
+StartLimitIntervalSec=60
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/recovery-compass/env
+WorkingDirectory=/opt/recovery-compass/mcp-launcher
+ExecStart=/usr/bin/node index.js
+Restart=on-failure
+RestartSec=5
+User=recovery
+CapabilityBoundingSet=
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,1 @@
+{ "name":"mcp-launcher","type":"module","scripts":{"start":"node index.js"} }
