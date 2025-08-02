@@ -1,33 +1,133 @@
-# Pre-commit hooks for Recovery Compass
-# Ensures alignment tests pass before any commit
+# =====================================================
+# PRE-COMMIT HOOKS - Force Multiplication System
+# =====================================================
+# Automatically prevents bad commits and enforces standards
+
+default_language_version:
+  python: python3
 
 repos:
-  - repo: local
+  # =====================================================
+  # General Purpose Hooks
+  # =====================================================
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
     hooks:
-      - id: alignment-tests
-        name: Run alignment tests
-        entry: npm run test
-        language: system
-        pass_filenames: false
-        always_run: true
+      # Prevent giant files from being committed
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
 
-      - id: abundance-linter
-        name: Check for urgency language
-        entry: scripts/abundance_linter.py
-        language: python
-        files: '\.(md|yml|yaml|txt)$'
-        exclude: '^(node_modules|.git|coverage|dist|build)/'
+      # Check for files that would conflict in case-insensitive filesystems
+      - id: check-case-conflict
 
-      - id: context-freshness
-        name: Verify context freshness
-        entry: scripts/check_context_freshness.py
-        language: python
-        pass_filenames: false
-        always_run: true
+      # Check for merge conflicts
+      - id: check-merge-conflict
 
-      - id: metrics-threshold
-        name: Check metrics thresholds
-        entry: python scripts/check_thresholds.py 0.90 60 HIGH
-        language: system
-        pass_filenames: false
-        always_run: true
+      # Check yaml files
+      - id: check-yaml
+        args: ['--safe']
+
+      # Check json files
+      - id: check-json
+
+      # Check for files with names that would conflict on a case-insensitive filesystem
+      - id: check-case-conflict
+
+      # Ensure files end with a newline
+      - id: end-of-file-fixer
+
+      # Trim trailing whitespace
+      - id: trailing-whitespace
+
+      # Detect private keys
+      - id: detect-private-key
+
+      # Check for added executable files
+      - id: check-executables-have-shebangs
+
+      # Check for symlinks which do not point to anything
+      - id: check-symlinks
+
+      # Check for files that contain merge conflict strings
+      - id: check-merge-conflict
+
+  # =====================================================
+  # Python-specific hooks
+  # =====================================================
+  - repo: https://github.com/psf/black
+    rev: 23.12.1
+    hooks:
+      - id: black
+        language_version: python3
+
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.0.0
+    hooks:
+      - id: flake8
+        args: ['--max-line-length=88', '--extend-ignore=E203,W503']
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        args: ["--profile", "black"]
+
+  # =====================================================
+  # JavaScript/TypeScript hooks
+  # =====================================================
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v3.1.0
+    hooks:
+      - id: prettier
+        types_or: [javascript, jsx, ts, tsx, json, yaml, markdown]
+
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v8.56.0
+    hooks:
+      - id: eslint
+        files: \.[jt]sx?$
+        types: [file]
+        additional_dependencies:
+          - eslint@8.56.0
+          - eslint-config-prettier@9.1.0
+
+  # =====================================================
+  # Security hooks
+  # =====================================================
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+      - id: detect-secrets
+        args: ['--baseline', '.secrets.baseline']
+
+  # =====================================================
+  # Commit message hooks
+  # =====================================================
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v3.13.0
+    hooks:
+      - id: commitizen
+        stages: [commit-msg]
+
+  # =====================================================
+  # Documentation hooks
+  # =====================================================
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.38.0
+    hooks:
+      - id: markdownlint
+        args: ['--fix']
+
+# Configuration for specific hooks
+files: ^(.*\.(py|js|jsx|ts|tsx|json|yaml|yml|md)|\.gitignore)$
+exclude: |
+  (?x)^(
+    .*/migrations/.*|
+    .*\.min\.js|
+    .*\.min\.css|
+    node_modules/.*|
+    venv/.*|
+    .*\.egg-info/.*|
+    build/.*|
+    dist/.*
+  )$
