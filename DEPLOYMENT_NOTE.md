@@ -81,3 +81,20 @@ dig +short NS recovery-compass.org
 - Initial check at 5:30 PM PST: Still showing legacy nameservers
 - Awaiting propagation after manual update in Cloudflare Registrar panel
 - DNSSEC: Should be disabled
+
+## 2025-08-01: Qualtrics Survey Integration
+
+### Status: ✅ Complete
+- Live survey embedded at: `https://qualtricsxmnl72x43l7.qualtrics.com/jfe/form/SV_9GH8KCnqcJYdVZA`
+- Survey title: WFD Manager Pre-Assessment Survey
+- Embedded in: `/wfd-survey.html`
+- Implementation: Iframe with fallback direct link
+
+### CI Guardrail:
+- Added `.github/workflows/embed-check.yml`
+- Blocks PRs if placeholder text reappears
+- Verifies Qualtrics iframe presence
+
+### Smoke Test:
+- Target: `https://wfd-sunrise-path.pages.dev/wfd-survey.html`
+- Expected: HTTP 200 and contains `qualtrics.com/jfe/form`

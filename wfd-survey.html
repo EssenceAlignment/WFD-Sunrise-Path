@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WFD Manager Survey - Building Better Together</title>
+    <title>WFD Manager Pre-Assessment Survey</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -12,37 +12,25 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --purple: #4A148C;
-            --purple-light: #7B1FA2;
-            --blue: #1976D2;
-            --gold: #FFB300;
-            --gray-900: #212121;
-            --gray-700: #616161;
-            --gray-500: #9E9E9E;
-            --gray-300: #E0E0E0;
-            --gray-100: #F5F5F5;
-            --white: #FFFFFF;
-        }
-
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--gray-100);
-            color: var(--gray-900);
+            background-color: #f5f5f5;
+            color: #212121;
             line-height: 1.6;
         }
 
         .survey-container {
-            max-width: 720px;
-            margin: 0 auto;
-            background: var(--white);
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
             box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
-        /* Header */
         .survey-header {
-            background: var(--purple);
-            color: var(--white);
+            background: #4A148C;
+            color: white;
             padding: 48px 40px;
             text-align: center;
         }
@@ -58,277 +46,43 @@
             opacity: 0.9;
         }
 
-        /* Introduction */
-        .survey-intro {
-            background: var(--gray-100);
-            padding: 32px 40px;
-            border-bottom: 1px solid var(--gray-300);
-        }
-
-        .survey-intro p {
-            font-size: 16px;
-            line-height: 1.8;
-        }
-
-        .survey-intro strong {
-            display: block;
-            margin-bottom: 16px;
-        }
-
-        /* Sections */
-        .survey-section {
+        .survey-content {
             padding: 40px;
-            border-bottom: 1px solid var(--gray-300);
         }
 
-        .survey-section:last-child {
-            border-bottom: none;
-        }
-
-        .section-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: var(--purple);
-            margin-bottom: 24px;
-        }
-
-        /* Questions */
-        .question {
-            margin-bottom: 32px;
-        }
-
-        .question:last-child {
-            margin-bottom: 0;
-        }
-
-        .question-label {
-            font-size: 16px;
-            font-weight: 500;
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        /* Radio and Checkbox Groups */
-        .option-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .option-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 16px;
-            background: var(--gray-100);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .option-item:hover {
-            background: var(--gray-300);
-        }
-
-        .option-item input[type="radio"],
-        .option-item input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            margin-right: 12px;
-            cursor: pointer;
-        }
-
-        .option-item label {
-            cursor: pointer;
-            flex: 1;
-        }
-
-        /* Scale Options */
-        .scale-group {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            margin-top: 12px;
-        }
-
-        .scale-option {
-            flex: 1;
-            text-align: center;
-        }
-
-        .scale-option input[type="radio"] {
-            display: none;
-        }
-
-        .scale-option label {
-            display: block;
-            padding: 16px 8px;
-            background: var(--gray-100);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-weight: 500;
-        }
-
-        .scale-option input[type="radio"]:checked + label {
-            background: var(--purple);
-            color: var(--white);
-        }
-
-        .scale-option:hover label {
-            background: var(--gray-300);
-        }
-
-        .scale-option input[type="radio"]:checked:hover + label {
-            background: var(--purple-light);
-        }
-
-        .scale-labels {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 8px;
-            font-size: 12px;
-            color: var(--gray-500);
-        }
-
-        /* Text Inputs */
-        .text-input,
-        .textarea-input {
+        .iframe-container {
             width: 100%;
-            padding: 12px 16px;
-            border: 1px solid var(--gray-300);
-            border-radius: 8px;
-            font-family: 'Inter', sans-serif;
-            font-size: 16px;
-            transition: all 0.2s ease;
-        }
-
-        .text-input:focus,
-        .textarea-input:focus {
-            outline: none;
-            border-color: var(--purple);
-            box-shadow: 0 0 0 3px rgba(74, 20, 140, 0.1);
-        }
-
-        .textarea-input {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        /* Ranking List */
-        .ranking-list {
-            background: var(--gray-100);
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 12px;
-        }
-
-        .ranking-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 0;
-        }
-
-        .ranking-input {
-            width: 40px;
-            padding: 4px 8px;
-            border: 1px solid var(--gray-300);
-            border-radius: 4px;
-            text-align: center;
-            font-weight: 500;
-        }
-
-        /* Baseline Metrics */
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-top: 12px;
-        }
-
-        .metric-input {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .metric-input label {
-            flex: 1;
-        }
-
-        .metric-input input {
-            width: 80px;
-            padding: 8px 12px;
-            border: 1px solid var(--gray-300);
-            border-radius: 6px;
-            text-align: center;
-            font-weight: 500;
-        }
-
-        /* Warning Box */
-        .warning-box {
-            background: rgba(255, 179, 0, 0.1);
-            border: 1px solid var(--gold);
-            padding: 24px;
-            border-radius: 8px;
-            margin-bottom: 24px;
-        }
-
-        .warning-box p {
-            font-weight: 500;
-            margin-bottom: 16px;
-        }
-
-        /* Footer */
-        .survey-footer {
-            background: var(--purple);
-            color: var(--white);
-            padding: 32px 40px;
-            text-align: center;
-        }
-
-        .survey-footer h3 {
-            font-size: 24px;
-            margin-bottom: 8px;
-        }
-
-        /* Submit Button */
-        .submit-button {
-            background: var(--blue);
-            color: var(--white);
-            padding: 16px 48px;
+            min-height: 800px;
             border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            margin: 40px auto;
-            display: block;
-            transition: all 0.2s ease;
+            margin-bottom: 20px;
         }
 
-        .submit-button:hover {
-            background: #1565C0;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+        .fallback-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
         }
 
-        /* Responsive */
+        .fallback-link a {
+            color: #1976D2;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .fallback-link a:hover {
+            text-decoration: underline;
+        }
+
         @media (max-width: 768px) {
             .survey-container {
                 margin: 0;
+                border-radius: 0;
             }
-            
+
             .survey-header,
-            .survey-intro,
-            .survey-section,
-            .survey-footer {
+            .survey-content {
                 padding-left: 24px;
                 padding-right: 24px;
-            }
-            
-            .metrics-grid {
-                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -337,373 +91,32 @@
     <div class="survey-container">
         <!-- Header -->
         <div class="survey-header">
-            <h1>Building Better Together</h1>
-            <p>Your Input Shapes Our Future</p>
+            <h1>WFD Manager Pre-Assessment Survey</h1>
+            <p>Building Better Together</p>
         </div>
 
-        <!-- Introduction -->
-        <div class="survey-intro">
-            <p>
-                <strong>Dear WFD Manager,</strong>
-                As we implement our new compliance dashboard, we need your honest feedback about current data practices and challenges. This 5-minute survey will help us build tools that actually support your daily work.
-            </p>
-        </div>
+        <!-- Survey Content -->
+        <div class="survey-content">
+            <!-- Qualtrics Iframe Embed -->
+            <iframe
+                src="https://qualtricsxmnl72x43l7.qualtrics.com/jfe/form/SV_9GH8KCnqcJYdVZA"
+                class="iframe-container"
+                height="800"
+                width="100%"
+                frameborder="0"
+                loading="lazy">
+            </iframe>
 
-        <!-- Section 1: Current Reality -->
-        <div class="survey-section">
-            <h2 class="section-title">Section 1: Your Current Reality</h2>
-            
-            <div class="question">
-                <label class="question-label">1. How often do you currently track or review program data?</label>
-                <div class="option-group">
-                    <div class="option-item">
-                        <input type="radio" id="freq1" name="frequency" value="multiple-daily">
-                        <label for="freq1">Multiple times daily</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="radio" id="freq2" name="frequency" value="once-daily">
-                        <label for="freq2">Once daily</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="radio" id="freq3" name="frequency" value="few-weekly">
-                        <label for="freq3">Few times per week</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="radio" id="freq4" name="frequency" value="weekly">
-                        <label for="freq4">Weekly</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="radio" id="freq5" name="frequency" value="less">
-                        <label for="freq5">Less than weekly</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="question">
-                <label class="question-label">2. Where do you currently keep track of client information? <em>(Check all that apply)</em></label>
-                <div class="option-group">
-                    <div class="option-item">
-                        <input type="checkbox" id="track1" name="tracking" value="paper">
-                        <label for="track1">Paper files/notebooks</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="checkbox" id="track2" name="tracking" value="excel-personal">
-                        <label for="track2">Excel spreadsheets I created</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="checkbox" id="track3" name="tracking" value="excel-shared">
-                        <label for="track3">Shared Excel files</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="checkbox" id="track4" name="tracking" value="memory">
-                        <label for="track4">Memory/mental notes</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="checkbox" id="track5" name="tracking" value="sticky">
-                        <label for="track5">Sticky notes/whiteboards</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="checkbox" id="track6" name="tracking" value="none">
-                        <label for="track6">No systematic tracking</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="checkbox" id="track7" name="tracking" value="other">
-                        <label for="track7">Other: <input type="text" class="text-input" style="width: 200px; margin-left: 8px;" placeholder="Please specify"></label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="question">
-                <label class="question-label">3. Rate your current confidence level (1-5 scale):</label>
-                
-                <div style="margin-bottom: 24px;">
-                    <p style="margin-bottom: 8px;">Interpreting program data</p>
-                    <div class="scale-group">
-                        <div class="scale-option">
-                            <input type="radio" id="conf1-1" name="conf-interpret" value="1">
-                            <label for="conf1-1">1</label>
-                        </div>
-                        <div class="scale-option">
-                            <input type="radio" id="conf1-2" name="conf-interpret" value="2">
-                            <label for="conf1-2">2</label>
-                        </div>
-                        <div class="scale-option">
-                            <input type="radio" id="conf1-3" name="conf-interpret" value="3">
-                            <label for="conf1-3">3</label>
-                        </div>
-                        <div class="scale-option">
-                            <input type="radio" id="conf1-4" name="conf-interpret" value="4">
-                            <label for="conf1-4">4</label>
-                        </div>
-                        <div class="scale-option">
-                            <input type="radio" id="conf1-5" name="conf-interpret" value="5">
-                            <label for="conf1-5">5</label>
-                        </div>
-                    </div>
-                    <div class="scale-labels">
-                        <span>Not Confident</span>
-                        <span>Very Confident</span>
-                    </div>
-                </div>
-
-                <div style="margin-bottom: 24px;">
-                    <p style="margin-bottom: 8px;">Meeting compliance requirements</p>
-                    <div class="scale-group">
-                        <div class="scale-option">
-                            <input type="radio" id="conf2-1" name="conf-compliance" value="1">
-                            <label for="conf2-1">1</label>
-                        </div>
-                        <div class="scale-option">
-                            <input type="radio" id="conf2-2" name="conf-compliance" value="2">
-                            <label for="conf2-2">2</label>
-                        </div>
-                        <div class="scale-option">
-                            <input type="radio" id="conf2-3" name="conf-compliance" value="3">
-                            <label for="conf2-3">3</label>
-                        </div>
-                        <div class="scale-option">
-                            <input type="radio" id="conf2-4" name="conf-compliance" value="4">
-                            <label for="conf2-4">4</label>
-                        </div>
-                        <div class="scale-option">
-                            <input type="radio" id="conf2-5" name="conf-compliance" value="5">
-                            <label for="conf2-5">5</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="margin-bottom: 24px;">
-                    <p style="margin-bottom: 8px;">Using data to improve outcomes</p>
-                    <div class="scale-group">
-                        <div class="scale-option">
-                            <input type="radio" id="conf3-1" name="conf-improve" value="1">
-                            <label for="conf3-1">1</label>
-                        </div>
-                        <div class="scale-option">
-                            <input type="radio" id="conf3-2" name="conf-improve" value="2">
-                            <label for="conf3-2">2</label>
-                        </div>
-                        <div class="scale-option">
-                            <input type="radio" id="conf3-3" name="conf-improve" value="3">
-                            <label for="conf3-3">3</label>
-                        </div>
-                        <div class="scale-option">
-                            <input type="radio" id="conf3-4" name="conf-improve" value="4">
-                            <label for="conf3-4">4</label>
-                        </div>
-                        <div class="scale-option">
-                            <input type="radio" id="conf3-5" name="conf-improve" value="5">
-                            <label for="conf3-5">5</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <p style="margin-bottom: 8px;">Explaining our impact to others</p>
-                    <div class="scale-group">
-                        <div class="scale-option">
-                            <input type="radio" id="conf4-1" name="conf-explain" value="1">
-                            <label for="conf4-1">1</label>
-                        </div>
-                        <div class="scale-option">
-                            <input type="radio" id="conf4-2" name="conf-explain" value="2">
-                            <label for="conf4-2">2</label>
-                        </div>
-                        <div class="scale-option">
-                            <input type="radio" id="conf4-3" name="conf-explain" value="3">
-                            <label for="conf4-3">3</label>
-                        </div>
-                        <div class="scale-option">
-                            <input type="radio" id="conf4-4" name="conf-explain" value="4">
-                            <label for="conf4-4">4</label>
-                        </div>
-                        <div class="scale-option">
-                            <input type="radio" id="conf4-5" name="conf-explain" value="5">
-                            <label for="conf4-5">5</label>
-                        </div>
-                    </div>
-                </div>
+            <!-- Fallback Link -->
+            <div class="fallback-link">
+                <p>Having trouble viewing the survey?
+                <a href="https://qualtricsxmnl72x43l7.qualtrics.com/jfe/form/SV_9GH8KCnqcJYdVZA"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                   Open survey in a new tab
+                </a></p>
             </div>
         </div>
-
-        <!-- Section 2: Understanding Requirements -->
-        <div class="survey-section">
-            <h2 class="section-title">Section 2: Understanding Requirements</h2>
-            
-            <div class="question">
-                <label class="question-label">4. Can you list your program's top 3 KPIs without looking them up?</label>
-                <textarea class="textarea-input" rows="3" placeholder="1.&#10;2.&#10;3."></textarea>
-            </div>
-
-            <div class="question">
-                <label class="question-label">5. The 90-day shelter limit - how do you currently track it?</label>
-                <div class="option-group">
-                    <div class="option-item">
-                        <input type="radio" id="shelter1" name="shelter" value="system">
-                        <label for="shelter1">I have a system that alerts me before limits</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="radio" id="shelter2" name="shelter" value="periodic">
-                        <label for="shelter2">I check periodically but not systematically</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="radio" id="shelter3" name="shelter" value="client">
-                        <label for="shelter3">I rely on clients to tell me</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="radio" id="shelter4" name="shelter" value="aware">
-                        <label for="shelter4">I'm aware but don't actively track</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="radio" id="shelter5" name="shelter" value="unaware">
-                        <label for="shelter5">I wasn't fully aware of this requirement</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="question">
-                <label class="question-label">6. 5×5 Acuity Assessments - what's your current process?</label>
-                <div class="option-group">
-                    <div class="option-item">
-                        <input type="radio" id="acuity1" name="acuity" value="scheduled">
-                        <label for="acuity1">I complete them on schedule with reminders</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="radio" id="acuity2" name="acuity" value="sometimes">
-                        <label for="acuity2">I do them but sometimes miss deadlines</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="radio" id="acuity3" name="acuity" value="unsure">
-                        <label for="acuity3">I'm unsure about timing requirements</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="radio" id="acuity4" name="acuity" value="training">
-                        <label for="acuity4">I need more training on these</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="radio" id="acuity5" name="acuity" value="unaware">
-                        <label for="acuity5">I wasn't aware these were required</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 3: Barriers & Pain Points -->
-        <div class="survey-section">
-            <h2 class="section-title">Section 3: Barriers & Pain Points</h2>
-            
-            <div class="question">
-                <label class="question-label">7. What stops you from using data more effectively? <em>(Check top 3)</em></label>
-                <div class="option-group">
-                    <div class="option-item">
-                        <input type="checkbox" id="barrier1" name="barriers" value="time">
-                        <label for="barrier1">Too time-consuming to collect/enter</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="checkbox" id="barrier2" name="barriers" value="tools">
-                        <label for="barrier2">Don't have the right tools</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="checkbox" id="barrier3" name="barriers" value="unclear">
-                        <label for="barrier3">Unclear which metrics matter most</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="checkbox" id="barrier4" name="barriers" value="confidence">
-                        <label for="barrier4">Not confident analyzing data</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="checkbox" id="barrier5" name="barriers" value="feedback">
-                        <label for="barrier5">No regular feedback on my performance</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="checkbox" id="barrier6" name="barriers" value="changes">
-                        <label for="barrier6">System changes too frequently</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="checkbox" id="barrier7" name="barriers" value="training">
-                        <label for="barrier7">Not enough training</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="checkbox" id="barrier8" name="barriers" value="priorities">
-                        <label for="barrier8">Other priorities take precedence</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="question">
-                <label class="question-label">8. Describe your biggest data-related frustration in one sentence:</label>
-                <input type="text" class="text-input" placeholder="My biggest frustration is...">
-            </div>
-        </div>
-
-        <!-- Section 4: Looking Forward -->
-        <div class="survey-section">
-            <h2 class="section-title">Section 4: Looking Forward</h2>
-            
-            <div class="question">
-                <label class="question-label">9. If you had a magic dashboard, what would you see first each morning? <em>(Rank top 3)</em></label>
-                <div class="ranking-list">
-                    <div class="ranking-item">
-                        <input type="text" class="ranking-input" placeholder="#">
-                        <label>Clients approaching 90-day limit</label>
-                    </div>
-                    <div class="ranking-item">
-                        <input type="text" class="ranking-input" placeholder="#">
-                        <label>Overdue assessments</label>
-                    </div>
-                    <div class="ranking-item">
-                        <input type="text" class="ranking-input" placeholder="#">
-                        <label>My performance vs. goals</label>
-                    </div>
-                    <div class="ranking-item">
-                        <input type="text" class="ranking-input" placeholder="#">
-                        <label>Team comparison/rankings</label>
-                    </div>
-                    <div class="ranking-item">
-                        <input type="text" class="ranking-input" placeholder="#">
-                        <label>Today's priority tasks</label>
-                    </div>
-                    <div class="ranking-item">
-                        <input type="text" class="ranking-input" placeholder="#">
-                        <label>Success stories/wins</label>
-                    </div>
-                    <div class="ranking-item">
-                        <input type="text" class="ranking-input" placeholder="#">
-                        <label>Available beds/resources</label>
-                    </div>
-                    <div class="ranking-item">
-                        <input type="text" class="ranking-input" placeholder="#">
-                        <label>Other: <input type="text" class="text-input" style="width: 200px; margin-left: 8px;"></label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="question">
-                <label class="question-label">10. How could better data access change your work?</label>
-                <div class="option-group">
-                    <div class="option-item">
-                        <input type="checkbox" id="change1" name="changes" value="prevent">
-                        <label for="change1">Help me prevent problems before they happen</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="checkbox" id="change2" name="changes" value="focus">
-                        <label for="change2">Show me where to focus my limited time</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="checkbox" id="change3" name="changes" value="confident">
-                        <label for="change3">Make me more confident in decisions</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="checkbox" id="change4" name="changes" value="celebrate">
-                        <label for="change4">Help me celebrate successes</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="checkbox" id="change5" name="changes" value="stress">
-                        <label for="change5">Reduce my stress/uncertainty</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="checkbox" id="change6" name="changes" value="outcomes">
-                        <label for="change6">Improve client outcomes</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="
+    </div>
+</body>
+</html>
