@@ -1,45 +1,52 @@
-name: Markdown Lint & Spell Check
-
+name: markdown-lint-full
 on:
-  push:
-    paths:
-      - '**.md'
-  pull_request:
-    paths:
-      - '**.md'
-  workflow_dispatch:
+  schedule:
+    # Run every Sunday at 4 AM UTC
+    - cron: "0 4 * * 0"
+  workflow_dispatch: # Allow manual trigger
 
 jobs:
-  markdown-lint:
+  md-lint:
     runs-on: ubuntu-latest
-    
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        
-    - name: Install dependencies
-      run: |
-        npm install -D markdownlint-cli cspell
-        
-    - name: Run markdownlint
-      run: npx markdownlint "**/*.md" --config .markdownlint.json --ignore node_modules
-      
-    - name: Run spell check
-      run: npx cspell "**/*.md" --config .cspell.json --no-progress
-      continue-on-error: true
-      
-    - name: Comment PR with issues (if any)
-      if: github.event_name == 'pull_request' && failure()
-      uses: actions/github-script@v7
-      with:
-        script: |
-          github.rest.issues.createComment({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: '⚠️ Markdown linting issues detected. Please run `npm run fix:markdown` locally to fix them.'
-          })
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Cache npm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json', '**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - name: Install markdownlint-cli
+        run: npm install -g markdownlint-cli
+
+      - name: Run full repository markdown lint
+        run: |
+          echo "📋 Running full repository markdown lint..."
+          npx markdownlint "**/*.md" --config .markdownlint.json --ignore node_modules --ignore venv
+
+      - name: Create issue on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = 'Weekly Markdown Lint Check Failed';
+            const body = `The weekly full-repository markdown lint check has failed.
+
+            Please review the [workflow run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details.
+
+            This is an automated issue created by the scheduled markdown lint workflow.`;
+
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: title,
+              body: body,
+              labels: ['documentation', 'automated']
+            });
