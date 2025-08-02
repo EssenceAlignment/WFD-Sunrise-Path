@@ -1,0 +1,49 @@
+name: Nameserver Configuration Check
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  schedule:
+    # Run daily at 9 AM UTC
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+
+jobs:
+  check-nameservers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check recovery-compass.org nameservers
+        run: |
+          echo "Checking nameservers for recovery-compass.org..."
+          NS_RESULT=$(dig +short NS recovery-compass.org | sort)
+          NS_COUNT=$(echo "$NS_RESULT" | grep -c "cloudflare.com")
+
+          echo "Current nameservers:"
+          echo "$NS_RESULT"
+
+          # Verify exactly 2 Cloudflare nameservers
+          if [ "$NS_COUNT" -ne 2 ]; then
+            echo "❌ ERROR: Expected 2 Cloudflare nameservers, found $NS_COUNT"
+            exit 1
+          fi
+
+          # Check for the correct nameservers
+          if echo "$NS_RESULT" | grep -q "desi.ns.cloudflare.com" && \
+             echo "$NS_RESULT" | grep -q "fred.ns.cloudflare.com"; then
+            echo "✅ Correct nameservers configured"
+          else
+            echo "⚠️ WARNING: Nameservers don't match expected (desi/fred)"
+            echo "This may indicate a configuration drift"
+            # Don't fail the build, just warn
+          fi
+
+          # Fail if old nameservers are still present
+          if echo "$NS_RESULT" | grep -q "becky.ns.cloudflare.com" || \
+             echo "$NS_RESULT" | grep -q "joel.ns.cloudflare.com"; then
+            echo "❌ ERROR: Legacy nameservers (becky/joel) still present"
+            exit 1
+          fi
