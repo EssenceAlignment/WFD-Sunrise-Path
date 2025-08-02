@@ -1,0 +1,42 @@
+name: Qualtrics Embed Check
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  placeholder-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for placeholder text in survey page
+        run: |
+          echo "Checking for placeholder text in wfd-survey.html..."
+
+          # Check for various placeholder patterns
+          if grep -i "Enter Qualtrics survey URL" wfd-survey.html; then
+            echo "❌ ERROR: Placeholder text 'Enter Qualtrics survey URL' found"
+            exit 1
+          fi
+
+          if grep -i "survey needs to be created manually" wfd-survey.html; then
+            echo "❌ ERROR: Placeholder text about manual creation found"
+            exit 1
+          fi
+
+          if grep -i "API access limitations" wfd-survey.html; then
+            echo "❌ ERROR: API limitation text found"
+            exit 1
+          fi
+
+          # Verify Qualtrics iframe is present
+          if ! grep -q "qualtrics.com/jfe/form" wfd-survey.html; then
+            echo "❌ ERROR: No Qualtrics iframe embed found"
+            exit 1
+          fi
+
+          echo "✅ Qualtrics survey properly embedded"
