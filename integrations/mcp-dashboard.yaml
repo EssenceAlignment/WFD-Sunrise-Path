@@ -1,0 +1,24 @@
+component_id: mcp-dashboard
+domain: mcp
+owner: '@platform-team'
+inputs:
+  - pattern_events
+  - mcp_metrics
+  - server_status
+outputs:
+  - dashboard_ui
+  - real_time_visualizations
+  - alert_notifications
+docs: docs/mcp-dashboard.md
+tags:
+  - ui
+  - monitoring
+  - v0.1
+  - real-time
+version: 0.1.0
+dependencies:
+  - component_id: mcp-launcher
+    version: ^0.1.0
+metrics_namespace: mcp_dashboard
+data_classification: internal
+status: development

@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# CIA Registry Pre-commit Hook
+# Ensures new components have corresponding integration manifests
+
+echo "🔍 CIA Registry: Checking for missing manifests..."
+
+# Get list of added/modified directories
+CHANGED_DIRS=$(git diff --cached --name-only --diff-filter=AM | xargs -I {} dirname {} | sort -u)
+
+# Check each directory to see if it's a component that needs a manifest
+MISSING_MANIFESTS=()
+for dir in $CHANGED_DIRS; do
+  # Skip non-component directories
+  if [[ ! "$dir" =~ ^(src|app|scripts|mobile|mcp-launcher|cline-ai-orchestration)/ ]]; then
+    continue
+  fi
+
+  # Extract component name (first level under component directory)
+  component=$(echo "$dir" | cut -d'/' -f1)
+
+  # Check if manifest exists
+  if [ ! -f "integrations/${component}.yaml" ]; then
+    MISSING_MANIFESTS+=("$component")
+  fi
+done
+
+# If missing manifests found, fail the commit
+if [ ${#MISSING_MANIFESTS[@]} -ne 0 ]; then
+  echo "❌ Missing integration manifests for:"
+  for comp in "${MISSING_MANIFESTS[@]}"; do
+    echo "   - $comp"
+  done
+  echo ""
+  echo "Please create manifests using:"
+  echo "  bun scripts/ci-registry.ts generate <component-id>"
+  echo ""
+  echo "Or auto-generate all missing manifests:"
+  echo "  bun scripts/ci-registry.ts scan --auto"
+  exit 1
+fi
+
+# Validate all existing manifests
+echo "🔍 Validating integration manifests..."
+if ! bun scripts/ci-registry.ts validate > /dev/null 2>&1; then
+  echo "❌ Manifest validation failed!"
+  echo "Run 'bun scripts/ci-registry.ts validate' for details"
+  exit 1
+fi
+
+echo "✅ CIA Registry checks passed"
