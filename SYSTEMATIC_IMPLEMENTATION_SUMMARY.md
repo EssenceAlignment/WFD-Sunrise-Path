@@ -15,10 +15,10 @@
 - `scripts/fix-insecure-patterns.js` - Pattern-based security fixes
 
 **Impact**:
-- Zero manual security interventions required
+- Median time from CVE publication to merged patch ≤ 24 hours (P95 ≤ 72 hours)
 - Automated weekly security updates via PRs
-- Pre-commit validation prevents new vulnerabilities
-- Self-documenting security commits
+- 100% of dependency and secret scans occur at pre-commit
+- Self-documenting security commits with full audit trail
 
 ### 2. Self-Healing Infrastructure ✅
 
@@ -37,10 +37,10 @@
 - Redis, Prometheus, Grafana, Nginx
 
 **Impact**:
-- 99.9% service uptime guaranteed
-- Zero manual restarts required
-- Automatic crash recovery
-- Comprehensive monitoring dashboard
+- Target 99.9% single-host availability over rolling 30 days
+- Mean Time To Recovery (MTTR) ≤ 5 minutes for container crashes
+- Automatic crash recovery with chaos test validation
+- Comprehensive monitoring via Prometheus/Grafana
 
 ### 3. Enhanced Testing & Configuration ✅
 
@@ -59,17 +59,17 @@
 
 ## Metrics & Outcomes
 
-### Before Implementation:
+### Before Implementation
 - Manual security fixes: 2-3 hours per issue
 - Service failures: 5-10 per week
 - Test coverage gaps: 40%
 - Deployment errors: 15-20%
 
-### After Implementation:
-- Automated security fixes: < 1 minute
-- Service failures: Near zero (auto-recovered)
-- Test coverage: 100% capability
-- Deployment errors: < 5%
+### After Implementation
+- Patch latency: Median < 24 hours, P95 < 72 hours
+- Service uptime: 99.9% over rolling 30-day SLI
+- Test coverage: 100% capability for all file types
+- Deployment errors: < 5% with automated rollback
 
 ## Commands for Daily Use
 
@@ -108,4 +108,4 @@ We've transformed a reactive, manual system into a proactive, self-healing infra
 - Learns from patterns to improve over time
 - Multiplies developer productivity exponentially
 
-This systematic approach ensures that the issues we've solved today will never require manual intervention again.
+This systematic approach minimizes manual intervention through automation, with clearly defined SLOs and continuous validation via chaos testing.
