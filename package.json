@@ -36,6 +36,7 @@
     "services:stop": "./scripts/service-manager.sh stop",
     "services:status": "./scripts/service-manager.sh status",
     "services:health": "./scripts/service-manager.sh health-check",
+    "services:chaos": "./scripts/kill-random-service.sh",
     "security:scan": "python3 scripts/security/security_orchestrator.py --scan-only",
     "security:fix": "python3 scripts/security/security_orchestrator.py --fix-all",
     "build": "./build-mobile.sh",
