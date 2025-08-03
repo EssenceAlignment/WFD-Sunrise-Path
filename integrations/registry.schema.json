@@ -93,6 +93,12 @@
       "pattern": "^[a-z_]+$",
       "description": "Prometheus metrics namespace for observability"
     },
+    "metrics_port": {
+      "type": "integer",
+      "minimum": 9100,
+      "maximum": 9150,
+      "description": "Port for Prometheus metrics endpoint (9100-9150 range)"
+    },
     "data_classification": {
       "type": "string",
       "enum": ["public", "internal", "pii", "secret"],

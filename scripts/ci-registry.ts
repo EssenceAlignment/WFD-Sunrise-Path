@@ -5,8 +5,8 @@
  * Generates and validates integration manifests for Recovery Compass components
  */
 
-import { readdir, stat, writeFile, readFile, access } from 'fs/promises';
-import { join, basename } from 'path';
+import { readdir, stat, writeFile, readFile, access, mkdir } from 'fs/promises';
+import { join, basename, dirname } from 'path';
 import { parse as parseYaml, stringify as stringifyYaml } from 'yaml';
 
 // Type-only import for Ajv to avoid runtime dependency for now
@@ -16,6 +16,7 @@ const Ajv = {} as any; // Will be replaced when ajv is installed
 // Load schema
 const SCHEMA_PATH = join(process.cwd(), 'integrations', 'registry.schema.json');
 const INTEGRATIONS_DIR = join(process.cwd(), 'integrations');
+const EXPORTERS_DIR = join(process.cwd(), 'packages', 'obs-exporters');
 
 interface IntegrationManifest {
   component_id: string;
@@ -28,6 +29,7 @@ interface IntegrationManifest {
   version?: string;
   dependencies?: Array<{ component_id: string; version: string }>;
   metrics_namespace?: string;
+  metrics_port?: number;
   data_classification?: 'public' | 'internal' | 'pii' | 'secret';
   status?: 'planning' | 'development' | 'alpha' | 'beta' | 'stable' | 'deprecated';
 }
@@ -257,8 +259,311 @@ const commands = {
     };
 
     await writeManifest(componentId, manifest);
+  },
+
+  async exporters() {
+    console.log('🚀 Generating Prometheus exporters...\n');
+
+    // Ensure exporters directory exists
+    await mkdir(EXPORTERS_DIR, { recursive: true });
+
+    const files = await readdir(INTEGRATIONS_DIR);
+    const yamlFiles = files.filter(f => f.endsWith('.yaml') || f.endsWith('.yml'));
+    let generatedCount = 0;
+
+    for (const file of yamlFiles) {
+      const filePath = join(INTEGRATIONS_DIR, file);
+      const content = await readFile(filePath, 'utf-8');
+
+      try {
+        const manifest = parseYaml(content) as IntegrationManifest;
+
+        if (manifest.metrics_namespace) {
+          const exporterPath = join(EXPORTERS_DIR, `exporter_${manifest.component_id}.ts`);
+
+          // Check if exporter already exists
+          try {
+            await access(exporterPath);
+            console.log(`✓ Exporter already exists for ${manifest.component_id}`);
+            continue;
+          } catch {
+            // File doesn't exist, generate it
+          }
+
+          const exporterContent = generatePrometheusExporter(manifest);
+          await writeFile(exporterPath, exporterContent);
+          console.log(`📊 Generated exporter: ${exporterPath}`);
+          generatedCount++;
+        }
+      } catch (e: any) {
+        console.log(`❌ Error processing ${file}: ${e.message}`);
+      }
+    }
+
+    if (generatedCount === 0) {
+      console.log('✨ No new exporters needed');
+    } else {
+      console.log(`\n✅ Generated ${generatedCount} Prometheus exporters`);
+    }
+  },
+
+  async doc() {
+    const outputDir = process.argv.includes('--out')
+      ? process.argv[process.argv.indexOf('--out') + 1]
+      : 'docs/integrations';
+
+    console.log(`📚 Generating documentation to ${outputDir}...\n`);
+
+    // Ensure output directory exists
+    await mkdir(outputDir, { recursive: true });
+
+    const files = await readdir(INTEGRATIONS_DIR);
+    const yamlFiles = files.filter(f => f.endsWith('.yaml') || f.endsWith('.yml'));
+    const manifests: IntegrationManifest[] = [];
+
+    // Load all manifests
+    for (const file of yamlFiles) {
+      const filePath = join(INTEGRATIONS_DIR, file);
+      const content = await readFile(filePath, 'utf-8');
+
+      try {
+        const manifest = parseYaml(content) as IntegrationManifest;
+        manifests.push(manifest);
+      } catch (e: any) {
+        console.log(`❌ Error loading ${file}: ${e.message}`);
+      }
+    }
+
+    // Generate dependency graph
+    const depGraph = generateDependencyGraph(manifests);
+
+    // Generate docs for each component
+    for (const manifest of manifests) {
+      const docPath = join(outputDir, `${manifest.component_id}.md`);
+      const docContent = generateComponentDoc(manifest, depGraph);
+
+      await writeFile(docPath, docContent);
+      console.log(`📝 Generated: ${docPath}`);
+    }
+
+    // Generate index page
+    const indexPath = join(outputDir, 'index.md');
+    const indexContent = generateIndexDoc(manifests, depGraph);
+    await writeFile(indexPath, indexContent);
+    console.log(`📝 Generated: ${indexPath}`);
+
+    console.log(`\n✅ Generated documentation for ${manifests.length} components`);
   }
 };
+
+function generateDependencyGraph(manifests: IntegrationManifest[]): Map<string, Set<string>> {
+  const graph = new Map<string, Set<string>>();
+
+  for (const manifest of manifests) {
+    if (!graph.has(manifest.component_id)) {
+      graph.set(manifest.component_id, new Set());
+    }
+
+    if (manifest.dependencies) {
+      for (const dep of manifest.dependencies) {
+        graph.get(manifest.component_id)!.add(dep.component_id);
+      }
+    }
+  }
+
+  return graph;
+}
+
+function generateComponentDoc(manifest: IntegrationManifest, depGraph: Map<string, Set<string>>): string {
+  const deps = depGraph.get(manifest.component_id) || new Set();
+  const reverseDeps = new Set<string>();
+
+  // Find components that depend on this one
+  for (const [comp, compDeps] of depGraph.entries()) {
+    if (compDeps.has(manifest.component_id)) {
+      reverseDeps.add(comp);
+    }
+  }
+
+  return `# ${manifest.component_id}
+
+## Overview
+
+**Domain**: ${manifest.domain}
+**Owner**: ${manifest.owner}
+**Version**: ${manifest.version || 'N/A'}
+**Status**: ${manifest.status || 'N/A'}
+**Data Classification**: ${manifest.data_classification || 'N/A'}
+
+## Inputs/Outputs
+
+### Inputs
+${manifest.inputs.map(i => `- ${i}`).join('\n')}
+
+### Outputs
+${manifest.outputs.map(o => `- ${o}`).join('\n')}
+
+## Dependencies
+
+${deps.size > 0 ? '### Direct Dependencies' : '*No direct dependencies*'}
+${Array.from(deps).map(d => `- ${d}`).join('\n')}
+
+${reverseDeps.size > 0 ? '### Used By' : ''}
+${Array.from(reverseDeps).map(d => `- ${d}`).join('\n')}
+
+## Dependency Graph
+
+\`\`\`mermaid
+graph TD
+    ${manifest.component_id}[${manifest.component_id}]
+    ${Array.from(deps).map(d => `${d}[${d}] --> ${manifest.component_id}`).join('\n    ')}
+    ${Array.from(reverseDeps).map(d => `${manifest.component_id} --> ${d}[${d}]`).join('\n    ')}
+\`\`\`
+
+## Metrics
+
+${manifest.metrics_namespace ? `
+- **Namespace**: ${manifest.metrics_namespace}
+- **Port**: ${manifest.metrics_port || 'N/A'}
+- **Endpoint**: http://localhost:${manifest.metrics_port || 9100}/metrics
+` : '*No metrics configured*'}
+
+## Tags
+
+${manifest.tags ? manifest.tags.map(t => `\`${t}\``).join(' ') : '*No tags*'}
+
+---
+*Generated by CIA Registry*
+`;
+}
+
+function generateIndexDoc(manifests: IntegrationManifest[], depGraph: Map<string, Set<string>>): string {
+  const byDomain = new Map<string, IntegrationManifest[]>();
+
+  // Group by domain
+  for (const manifest of manifests) {
+    if (!byDomain.has(manifest.domain)) {
+      byDomain.set(manifest.domain, []);
+    }
+    byDomain.get(manifest.domain)!.push(manifest);
+  }
+
+  return `# Recovery Compass Integration Registry
+
+## Overview
+
+Total Components: **${manifests.length}**
+
+## Components by Domain
+
+${Array.from(byDomain.entries()).map(([domain, components]) => `
+### ${domain} (${components.length})
+${components.map(c => `- [${c.component_id}](./${c.component_id}.md) - ${c.status || 'development'}`).join('\n')}
+`).join('\n')}
+
+## Full Dependency Graph
+
+\`\`\`mermaid
+graph TD
+${manifests.map(m => {
+  const deps = depGraph.get(m.component_id) || new Set();
+  return Array.from(deps).map(d => `    ${d} --> ${m.component_id}`).join('\n');
+}).filter(Boolean).join('\n')}
+\`\`\`
+
+## Metrics Overview
+
+| Component | Namespace | Port |
+|-----------|-----------|------|
+${manifests.filter(m => m.metrics_namespace).map(m =>
+  `| ${m.component_id} | ${m.metrics_namespace} | ${m.metrics_port || 'N/A'} |`
+).join('\n')}
+
+---
+*Generated by CIA Registry*
+`;
+}
+
+function generatePrometheusExporter(manifest: IntegrationManifest): string {
+  const port = manifest.metrics_port || 9100;
+  const namespace = manifest.metrics_namespace || manifest.component_id.replace(/-/g, '_');
+
+  return `/**
+ * Prometheus Exporter for ${manifest.component_id}
+ * Auto-generated by CIA Registry
+ */
+
+import express from 'express';
+import { register, Counter, Histogram, Gauge } from 'prom-client';
+
+// Component metadata
+const COMPONENT_ID = '${manifest.component_id}';
+const METRICS_PORT = ${port};
+const NAMESPACE = '${namespace}';
+
+// Default metrics
+const httpRequestsTotal = new Counter({
+  name: \`\${NAMESPACE}_http_requests_total\`,
+  help: 'Total number of HTTP requests',
+  labelNames: ['method', 'path', 'status']
+});
+
+const requestDuration = new Histogram({
+  name: \`\${NAMESPACE}_http_request_duration_seconds\`,
+  help: 'HTTP request latency',
+  labelNames: ['method', 'path'],
+  buckets: [0.1, 0.5, 1, 2.5, 5, 10]
+});
+
+const activeConnections = new Gauge({
+  name: \`\${NAMESPACE}_active_connections\`,
+  help: 'Number of active connections'
+});
+
+const componentInfo = new Gauge({
+  name: \`\${NAMESPACE}_info\`,
+  help: 'Component information',
+  labelNames: ['version', 'status', 'domain']
+});
+
+// Set component info
+componentInfo.set({
+  version: '${manifest.version || '0.1.0'}',
+  status: '${manifest.status || 'development'}',
+  domain: '${manifest.domain}'
+}, 1);
+
+// Express server for metrics endpoint
+const app = express();
+
+app.get('/metrics', async (req, res) => {
+  res.set('Content-Type', register.contentType);
+  res.end(await register.metrics());
+});
+
+app.get('/healthz', (req, res) => {
+  res.json({
+    status: 'healthy',
+    component: COMPONENT_ID,
+    uptime: process.uptime()
+  });
+});
+
+// Start server
+app.listen(METRICS_PORT, () => {
+  console.log(\`🚀 Prometheus exporter for \${COMPONENT_ID} running on port \${METRICS_PORT}\`);
+  console.log(\`📊 Metrics available at http://localhost:\${METRICS_PORT}/metrics\`);
+});
+
+// Export metrics for use in application
+export {
+  httpRequestsTotal,
+  requestDuration,
+  activeConnections,
+  componentInfo
+};
+`;
+}
 
 // Main CLI
 async function main() {
@@ -279,6 +584,14 @@ async function main() {
         await commands.generate(args[0]);
         break;
 
+      case 'exporters':
+        await commands.exporters();
+        break;
+
+      case 'doc':
+        await commands.doc();
+        break;
+
       default:
         console.log(`
 Recovery Compass CIA Registry CLI
@@ -287,14 +600,19 @@ Commands:
   scan              Scan for components without manifests
   validate          Validate all existing manifests
   generate <id>     Generate a new manifest for component
+  exporters         Generate Prometheus exporters for components with metrics
+  doc               Generate documentation from manifests
 
 Options:
   --auto           Auto-create manifests in scan mode
+  --out <dir>      Output directory for doc command
 
 Examples:
   bun scripts/ci-registry.ts scan
   bun scripts/ci-registry.ts validate
   bun scripts/ci-registry.ts generate my-new-component
+  bun scripts/ci-registry.ts exporters
+  bun scripts/ci-registry.ts doc --out docs/integrations
         `);
     }
   } catch (error: any) {
