@@ -1,0 +1,46 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Security Pre-commit Hook
+echo "🔍 Running security checks..."
+
+# Check for insecure patterns
+echo "  Checking for insecure patterns..."
+if grep -r "Math\.random()" --include="*.ts" --include="*.js" src/ 2>/dev/null; then
+  echo "❌ Found Math.random() - use crypto.getRandomValues() instead"
+  echo "Run: npm run fix:security"
+  exit 1
+fi
+
+# Check for hardcoded secrets
+echo "  Checking for hardcoded secrets..."
+if grep -rE "(api_key|apikey|password|secret|token)\s*=\s*['\"][^'\"]+['\"]" --include="*.js" --include="*.ts" --include="*.py" . 2>/dev/null | grep -v ".env.example"; then
+  echo "❌ Found potential hardcoded secrets"
+  exit 1
+fi
+
+# Run security orchestrator scan
+echo "  Running vulnerability scan..."
+if command -v python3 &> /dev/null; then
+  python3 scripts/security/security_orchestrator.py --scan-only
+  if [ $? -ne 0 ]; then
+    echo "❌ Security vulnerabilities detected"
+    echo "Run: python3 scripts/security/security_orchestrator.py --fix-all"
+    exit 1
+  fi
+fi
+
+# Validate TypeScript if files changed
+if git diff --cached --name-only | grep -q "\.ts$"; then
+  echo "  Validating TypeScript..."
+  npx tsc --noEmit || exit 1
+fi
+
+# Run tests for changed files
+echo "  Running tests for changed files..."
+changed_files=$(git diff --cached --name-only | grep -E "\.(js|ts|jsx|tsx)$" | tr '\n' ' ')
+if [ -n "$changed_files" ]; then
+  npx jest --bail --findRelatedTests $changed_files || exit 1
+fi
+
+echo "✅ All security checks passed"

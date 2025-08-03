@@ -1,106 +1,98 @@
-name: ASVS Security Scan
+name: Security Scan & Auto-Fix
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, feat/*]
   pull_request:
-    branches: [ main ]
+    branches: [main]
   schedule:
-    # Run daily at 2 AM UTC
-    - cron: '0 2 * * *'
+    - cron: '0 0 * * 0'  # Weekly scan on Sundays
 
 jobs:
-  semgrep:
-    name: Semgrep ASVS L2 Scan
+  python-security:
     runs-on: ubuntu-latest
-    permissions:
-      security-events: write
-      actions: read
-      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install security tools
+        run: |
+          pip install pip-audit safety bandit
+
+      - name: Run pip-audit
+        run: |
+          for req in $(find . -name requirements.txt -not -path "./Manus/*"); do
+            echo "Scanning $req"
+            pip-audit --requirement "$req" --desc || true
+          done
+
+      - name: Run safety check
+        run: |
+          for req in $(find . -name requirements.txt -not -path "./Manus/*"); do
+            echo "Safety check $req"
+            safety check --file "$req" || true
+          done
+
+      - name: Run security orchestrator
+        run: |
+          python scripts/security/security_orchestrator.py --scan-only
+
+  npm-security:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Run Semgrep
-        run: |
-          pip install semgrep
-          semgrep --config=.semgrep/ --sarif --output=semgrep.sarif . || true
-
-      - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v3
-        if: always()
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          sarif_file: semgrep.sarif
+          node-version: '18'
 
-      - name: Generate HTML Report
-        if: always()
+      - name: Run npm audit
         run: |
-          mkdir -p artifacts
-          echo "<html><head><title>ASVS Security Report</title></head><body>" > artifacts/asvs.html
-          echo "<h1>ASVS Level 2 Security Scan Report</h1>" >> artifacts/asvs.html
-          echo "<p>Generated: $(date)</p>" >> artifacts/asvs.html
-          echo "<h2>Summary</h2>" >> artifacts/asvs.html
+          for pkg in $(find . -name package.json -not -path "*/node_modules/*" -not -path "./Manus/*"); do
+            dir=$(dirname "$pkg")
+            echo "Auditing $dir"
+            (cd "$dir" && npm audit || true)
+          done
 
-          if [ -f semgrep.sarif ]; then
-            # Extract findings count from SARIF
-            FINDINGS=$(cat semgrep.sarif | jq '.runs[0].results | length')
-            echo "<p>Total findings: $FINDINGS</p>" >> artifacts/asvs.html
-
-            # Parse SARIF and generate HTML table
-            echo "<h2>Findings</h2><table border='1'>" >> artifacts/asvs.html
-            echo "<tr><th>Rule</th><th>Severity</th><th>File</th><th>Message</th></tr>" >> artifacts/asvs.html
-
-            cat semgrep.sarif | jq -r '.runs[0].results[] |
-              "<tr><td>\(.ruleId)</td><td>\(.level)</td><td>\(.locations[0].physicalLocation.artifactLocation.uri)</td><td>\(.message.text)</td></tr>"' >> artifacts/asvs.html
-
-            echo "</table>" >> artifacts/asvs.html
-          else
-            echo "<p>No security findings detected!</p>" >> artifacts/asvs.html
-          fi
-
-          echo "</body></html>" >> artifacts/asvs.html
-
-      - name: Upload HTML Report
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: asvs-report
-          path: artifacts/asvs.html
-          retention-days: 30
-
-  zaproxy:
-    name: OWASP ZAP Dynamic Scan
+  create-fix-pr:
+    needs: [python-security, npm-security]
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-
+    if: github.event_name == 'schedule'
     steps:
       - uses: actions/checkout@v4
-
-      - name: ZAP Baseline Scan
-        uses: zaproxy/action-baseline@v0.10.0
         with:
-          target: 'http://localhost:3000'
-          rules_file_name: '.zap/rules.tsv'
-          cmd_options: '-a -j -l WARN'
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload ZAP Report
-        uses: actions/upload-artifact@v4
-        if: always()
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          name: zap-report
-          path: report_html.html
-          retention-days: 30
+          python-version: '3.x'
 
-  security-review:
-    name: Security Review Status
-    runs-on: ubuntu-latest
-    needs: [semgrep, zaproxy]
-    if: always()
-
-    steps:
-      - name: Update manifest security status
+      - name: Run security fixes
         run: |
-          echo "Security scan completed"
-          echo "Results available in artifacts"
-          # In a real implementation, this would update the registry manifests
-          # with security_review_status field
+          python scripts/security/security_orchestrator.py --fix-all --no-commit
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: 'fix: automated security updates'
+          title: '🔒 Automated Security Updates'
+          body: |
+            ## Automated Security Fixes
+
+            This PR contains automated security updates generated by the Security Orchestrator.
+
+            ### Changes:
+            - Updated vulnerable dependencies
+            - Applied security patches
+
+            Please review the changes before merging.
+          branch: automated-security-updates
+          delete-branch: true
