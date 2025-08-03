@@ -20,5 +20,6 @@ dependencies:
   - component_id: mcp-launcher
     version: ^0.1.0
 metrics_namespace: mcp_dashboard
+metrics_port: 9101
 data_classification: internal
 status: development
