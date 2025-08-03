@@ -1,0 +1,15 @@
+name: lockfile‑guard
+on: [push, pull_request]
+jobs:
+  ensure-single-lockfile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: verify lockfile policy
+        run: |
+          files=$(git ls-files)
+          n_bun=$(echo "$files" | grep -c '^bun.lock$' || true)
+          n_others=$(echo "$files" | grep -E -c '^(package-lock.json|yarn.lock|pnpm-lock.yaml)$')
+          if [ "$n_bun" -ne 1 ] || [ "$n_others" -ne 0 ]; then
+            echo "❌ Lockfile policy violated"; exit 1
+          fi
