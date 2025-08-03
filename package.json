@@ -31,10 +31,23 @@
     "fix:typescript": "tsc --noEmit && eslint --fix 'src/**/*.ts' || true",
     "fix:all": "npm run fix:security && npm run fix:typescript && npm run lint:fix || true",
     "lint:fix": "markdownlint '**/*.md' --fix --ignore node_modules --ignore coverage",
-    "pre-push": "npm run fix:all && npm test"
+    "pre-push": "npm run fix:all && npm test",
+    "build": "./build-mobile.sh",
+    "cap:sync": "npx cap sync",
+    "cap:add:ios": "npx cap add ios",
+    "cap:add:android": "npx cap add android",
+    "cap:run:ios": "npm run build && npx cap sync && npx cap run ios",
+    "cap:run:android": "npm run build && npx cap sync && npx cap run android",
+    "cap:open:ios": "npx cap open ios",
+    "cap:open:android": "npx cap open android"
   },
   "version": "1.0.0",
   "dependencies": {
+    "@capacitor/android": "^7.4.2",
+    "@capacitor/cli": "^7.4.2",
+    "@capacitor/core": "^7.4.2",
+    "@capacitor/ios": "^7.4.2",
+    "@capacitor/splash-screen": "^7.0.1",
     "dotenv": "^17.2.1",
     "puppeteer": "^24.15.0"
   },
