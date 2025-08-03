@@ -89,3 +89,46 @@ npm run cap:run:android
 - [ ] Submit to app stores
 
 Your WFD Dashboard mobile deployment infrastructure is **95% complete** and ready for platform initialization!
+
+## 🔧 Validation Results (Updated: 8/2/2025)
+
+### Smoke Test Status
+```bash
+# iOS Platform
+npm run cap:open:ios     # ⏳ Pending - Requires macOS with Xcode
+                        # Status: Platform files added (ios/)
+
+# Android Platform
+npm run cap:open:android # ⏳ Pending - Requires Android Studio
+                        # Status: Ready for platform addition
+```
+
+### Telemetry Verification
+- [ ] Native `fetch /metrics` returns `200` with `app_platform` label
+- [ ] Capacitor bridge exposes native lifecycle hooks
+
+### Deep Link Configuration
+- [ ] `wfd://dashboard` URL scheme registered
+- [ ] App-specific deep links configured in capacitor.config.ts
+
+### Store Assets Status
+- [ ] 512×512 icon generated
+- [ ] 1024×500 feature graphic created
+- [ ] `scripts/gen-icons.sh` stub ready for implementation
+
+## 📈 Week 3 Integration Readiness
+
+### Pre-scaffolded Hooks
+- **OpenTelemetry**: `App.addListener('appStateChange', ...)` ready for implementation
+- **Prometheus Bridge**: `/_mobile/healthz` endpoint spec defined
+- **CI/CD**: `mobile-build.yml` template available
+
+### GitHub Issues to Create
+1. [ ] `mobile/observability-hook` - OpenTelemetry integration
+2. [ ] `mobile/prometheus-bridge` - Health check endpoint
+3. [ ] `mobile/ci-automation` - Automated build pipeline
+
+### Next Actions
+1. Complete platform-specific builds (iOS/Android)
+2. Run verification checklist on physical devices
+3. Tag @Ops-Bridge for staged rollout planning
