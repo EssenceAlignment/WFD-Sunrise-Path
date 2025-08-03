@@ -1,0 +1,24 @@
+# Cline AI Orchestration Layer Dependencies
+# Python 3.8+
+
+# Async HTTP client for API communication
+aiohttp>=3.8.0,<4.0.0
+
+# Optional: For enhanced async performance
+aiodns>=3.0.0
+cchardet>=2.1.7
+
+# Machine Learning dependencies (Week 3)
+numpy>=1.24.0,<2.0.0
+scikit-learn>=1.3.0,<2.0.0
+joblib>=1.3.0,<2.0.0
+
+# Monitoring and metrics
+prometheus-client>=0.19.0,<1.0.0
+
+# Data processing
+pandas>=2.0.0,<3.0.0
+
+# Testing
+pytest>=7.4.0,<8.0.0
+pytest-asyncio>=0.21.0,<1.0.0

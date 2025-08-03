@@ -1,0 +1,120 @@
+{
+  "name": "Cline AI Orchestration Layer",
+  "version": "1.0.0",
+  "description": "Central orchestration layer for Recovery Compass MCP integration",
+  "servers": {
+    "filesystem": {
+      "name": "github.com/modelcontextprotocol/servers/tree/main/src/filesystem",
+      "enabled": true,
+      "priority": 1,
+      "capabilities": ["read_file", "write_file", "list_directory", "search_files"],
+      "config": {
+        "allowed_directories": [
+          "/Users/ericjones/Library/CloudStorage/GoogleDrive-eric@recovery-compass.org/My Drive/MCP Automated Funding Tasks",
+          "/Users/ericjones/Documents/Cline/MCP",
+          "/Users/ericjones/Documents",
+          "/Users/ericjones/Desktop"
+        ]
+      }
+    },
+    "perplexity": {
+      "name": "perplexity-mcp-server",
+      "enabled": true,
+      "priority": 2,
+      "capabilities": ["external_research", "fact_checking", "real_time_data"],
+      "config": {
+        "api_key_env": "PERPLEXITY_API_KEY",
+        "model": "llama-3.1-sonar-small-128k-online",
+        "max_tokens": 1000
+      }
+    },
+    "airtable": {
+      "name": "airtable-mcp-server",
+      "enabled": true,
+      "priority": 3,
+      "capabilities": ["data_storage", "metrics_tracking", "funding_opportunities"],
+      "config": {
+        "api_key_env": "AIRTABLE_API_KEY",
+        "base_id": "RC_FUNDING_BASE",
+        "tables": ["Opportunities", "Metrics", "Feedback", "Interventions"]
+      }
+    },
+    "context7": {
+      "name": "context7-mcp-server",
+      "enabled": true,
+      "priority": 4,
+      "capabilities": ["documentation_refresh", "api_specs", "research_papers"],
+      "config": {
+        "refresh_interval": 86400,
+        "priority_sources": ["ERD_methodology", "insurance_compliance"]
+      }
+    },
+    "exa": {
+      "name": "exa-mcp-server",
+      "enabled": true,
+      "priority": 5,
+      "capabilities": ["fact_verification", "citation_generation"],
+      "config": {
+        "verification_threshold": 0.95,
+        "citation_format": "APA"
+      }
+    }
+  },
+  "orchestration": {
+    "routing_strategy": "capability_based",
+    "fallback_enabled": true,
+    "timeout_seconds": 30,
+    "max_retries": 3,
+    "error_handling": "graceful_degradation"
+  },
+  "workflows": {
+    "pattern_recognition": {
+      "description": "Analyze B2B/B2C interaction logs for burnout precursors",
+      "priority": "high",
+      "servers": ["filesystem", "airtable"],
+      "schedule": "*/15 * * * *"
+    },
+    "external_enrichment": {
+      "description": "Enhance internal insights with external data",
+      "priority": "medium",
+      "servers": ["perplexity", "exa"],
+      "trigger": "on_pattern_detection"
+    },
+    "intervention_generation": {
+      "description": "Generate ERD-based micro-interventions",
+      "priority": "high",
+      "servers": ["filesystem", "context7", "airtable"],
+      "trigger": "on_risk_detection"
+    },
+    "feedback_collection": {
+      "description": "Collect and analyze user feedback",
+      "priority": "medium",
+      "servers": ["airtable", "filesystem"],
+      "schedule": "0 */4 * * *"
+    }
+  },
+  "metrics": {
+    "kpi_tracking": {
+      "crisis_prevention_rate": {
+        "target": 0.85,
+        "current": 0.40,
+        "measurement": "weekly"
+      },
+      "ai_accuracy_score": {
+        "target": 0.965,
+        "current": 0.87,
+        "measurement": "daily"
+      },
+      "automation_coverage": {
+        "target": 0.95,
+        "current": 0.60,
+        "measurement": "weekly"
+      },
+      "user_satisfaction": {
+        "target": 0.91,
+        "current": 0.60,
+        "measurement": "monthly"
+      }
+    }
+  }
+}
