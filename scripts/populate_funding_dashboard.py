@@ -17,9 +17,15 @@ import time
 class FundingDashboardPopulator:
     def __init__(self):
         # Get API keys
-        self.airtable_api_key = 'AIRTABLE_API_KEY_REDACTED'
-        self.perplexity_api_key = 'PERPLEXITY_API_KEY_REDACTED'
+        self.airtable_api_key = os.getenv('AIRTABLE_API_KEY')
+        self.perplexity_api_key = os.getenv('PERPLEXITY_API_KEY')
         self.airtable_base_id = 'appNBesu9xYl5Mvm1'
+
+        # Validate environment variables
+        if not self.airtable_api_key:
+            raise ValueError("AIRTABLE_API_KEY environment variable not set")
+        if not self.perplexity_api_key:
+            raise ValueError("PERPLEXITY_API_KEY environment variable not set")
 
         # Airtable configuration
         self.funding_table = 'Funding Opportunities'

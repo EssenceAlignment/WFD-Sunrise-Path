@@ -3,6 +3,7 @@
 Populate Airtable with funding opportunities using correct field names
 """
 
+import os
 import requests
 import json
 from datetime import datetime, timedelta
@@ -11,13 +12,17 @@ import time
 
 class FundingPopulator:
     def __init__(self):
-        self.api_key = 'AIRTABLE_API_KEY_REDACTED'
+        self.api_key = os.getenv('AIRTABLE_API_KEY')
         self.base_id = 'appNBesu9xYl5Mvm1'
         self.table_id = 'tblcfetlKrhMU4p5r'  # Funding Opportunities table ID
         self.headers = {
             'Authorization': f'Bearer {self.api_key}',
             'Content-Type': 'application/json'
         }
+
+        # Validate environment variables
+        if not self.airtable_api_key:
+            raise ValueError("AIRTABLE_API_KEY environment variable not set")
 
     def get_existing_statuses(self):
         """Get existing records to see what Status values are valid"""

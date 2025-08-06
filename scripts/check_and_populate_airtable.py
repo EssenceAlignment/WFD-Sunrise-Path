@@ -3,6 +3,7 @@
 Check Airtable structure and populate with funding opportunities
 """
 
+import os
 import requests
 import json
 from datetime import datetime, timedelta
@@ -10,12 +11,16 @@ from datetime import datetime, timedelta
 
 class AirtableChecker:
     def __init__(self):
-        self.api_key = 'AIRTABLE_API_KEY_REDACTED'
+        self.api_key = os.getenv('AIRTABLE_API_KEY')
         self.base_id = 'appNBesu9xYl5Mvm1'
         self.headers = {
             'Authorization': f'Bearer {self.api_key}',
             'Content-Type': 'application/json'
         }
+
+        # Validate environment variables
+        if not self.airtable_api_key:
+            raise ValueError("AIRTABLE_API_KEY environment variable not set")
 
     def list_tables(self):
         """List all tables in the base"""

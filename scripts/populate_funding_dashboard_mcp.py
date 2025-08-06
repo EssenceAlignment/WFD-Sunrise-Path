@@ -4,6 +4,7 @@ Recovery Compass Funding Dashboard Populator using MCP
 Uses MCP servers to discover and populate funding opportunities
 """
 
+import os
 import json
 import requests
 from datetime import datetime, timedelta
@@ -14,10 +15,14 @@ import time
 class MCPFundingPopulator:
     def __init__(self):
         # Airtable configuration
-        self.airtable_api_key = 'AIRTABLE_API_KEY_REDACTED'
+        self.airtable_api_key = os.getenv('AIRTABLE_API_KEY')
         self.airtable_base_id = 'appNBesu9xYl5Mvm1'
         self.funding_table = 'Funding Opportunities'
         self.airtable_endpoint = f'https://api.airtable.com/v0/{self.airtable_base_id}'
+
+        # Validate environment variables
+        if not self.airtable_api_key:
+            raise ValueError("AIRTABLE_API_KEY environment variable not set")
 
     def create_sample_opportunities(self):
         """Create sample funding opportunities for immediate population"""
