@@ -122,7 +122,7 @@ jobs:
         env:
           COSIGN_EXPERIMENTAL: "true"
         run: |
-          cosign sign-blob --yes sbom.json > sbom.json.sig
+          cosign sign-blob --yes --bundle sbom.json.bundle sbom.json
 
       - name: Verify signature (self-test)
         if: github.event_name != 'pull_request'
@@ -131,7 +131,7 @@ jobs:
         run: |
           cosign verify-blob --certificate-identity-regexp "https://github.com/${GITHUB_REPOSITORY}/.github/workflows/security-scan.yml@refs/heads/.*" \
                --certificate-oidc-issuer https://token.actions.githubusercontent.com \
-               --signature sbom.json.sig sbom.json
+               --bundle sbom.json.bundle sbom.json
 
   secret-scanning:
     runs-on: ubuntu-latest
