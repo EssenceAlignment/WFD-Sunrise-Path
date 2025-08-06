@@ -1,0 +1,59 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Cache pip dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Install dependencies
+      run: pip install -r app/requirements.txt
+
+    - name: Run Ruff Linting
+      run: pip install ruff && ruff check app/
+
+    - name: Run MyPy Type Checking
+      run: pip install mypy && mypy app/
+
+    - name: Run Pytest Smoke Tests (CI Gate)
+      run: PYTHONPATH=$PYTHONPATH:./app pytest -m ci_gate app/tests/
+
+    - name: Run Full Pytest Suite
+      run: PYTHONPATH=$PYTHONPATH:./app pytest app/tests/
+
+    - name: Build Docker Image
+      run: docker build -t pattern-recognition-service:latest .
+
+    # Add steps for pushing to container registry if REGISTRY_TOKEN is provided
+    # - name: Log in to Container Registry
+    #   uses: docker/login-action@v3
+    #   with:
+    #     registry: your-registry.com
+    #     username: ${{ github.actor }}
+    #     password: ${{ secrets.REGISTRY_TOKEN }}
+    # - name: Push Docker Image
+    #   run: docker push your-registry.com/pattern-recognition-service:latest
+
+

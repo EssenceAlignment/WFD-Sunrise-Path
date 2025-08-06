@@ -1,0 +1,44 @@
+Proceed with the development of the Cline AI Service API Context Management Endpoints. Implement the following:
+
+1.  **`POST /context/create` endpoint:**
+    *   **Description:** Creates a new operational or user-specific context.
+    *   **Request Body:** Use the `ContextCreationRequest` schema from `app/schemas.py`.
+    *   **Response Body:** Use the `ContextCreationResponse` schema from `app/schemas.py`.
+    *   **Key Feature:** Ensure the `environmentDefinition` field within the `ContextCreationRequest` is fully supported and can store structured definitions of systemic environments, as detailed in `ClineAIServiceAPISpecification(Revised).md` (Section 2.2, `POST /context/create`).
+
+2.  **`PUT /context/{contextId}` endpoint:**
+    *   **Description:** Updates an existing context.
+    *   **Request Body:** Use the `ContextUpdateRequest` schema from `app/schemas.py`.
+    *   **Response Body:** Use the `ContextUpdateResponse` schema from `app/schemas.py`.
+    *   **Key Feature:** Allow for dynamic adjustments to `environmentDefinition` and other context parameters.
+
+3.  **`GET /context/{contextId}` endpoint:**
+    *   **Description:** Retrieves the details of a specific context.
+    *   **Response Body:** Use the `ContextDetailsResponse` schema from `app/schemas.py`.
+    *   **Key Feature:** Ensure the response includes the `environmentDefinition`.
+
+**Technical Implementation Details:**
+*   **Main Application File:** Integrate these new endpoints into `app/main.py`.
+*   **Schema Definitions:** Ensure all relevant schemas (`ContextCreationRequest`, `ContextCreationResponse`, `ContextUpdateRequest`, `ContextUpdateResponse`, `ContextDetailsResponse`) are correctly defined and imported from `app/schemas.py`.
+*   **Dependencies:** Add any new Python dependencies to `app/requirements.txt`.
+*   **Testing:** Create new test files in `app/tests/` (e.g., `app/tests/test_context_management.py`) to cover the new endpoints. Include tests for successful creation, update, retrieval, and edge cases. Mark these tests with `@pytest.mark.ci_gate` where appropriate for fast CI runs.
+*   **Documentation:** Update `README_PATTERNS.md` (or create a new `README_CONTEXT.md` if more appropriate) with examples for `httpie`/`Postman`/`cURL` for each new endpoint.
+*   **Adherence:** Maintain strict adherence to Gold-Plated IPE standards for integrity, transparency, and strategic alignment throughout the implementation.
+
+**Relevant Files and Directories:**
+*   `/home/ubuntu/app/main.py`
+*   `/home/ubuntu/app/schemas.py`
+*   `/home/ubuntu/app/requirements.txt`
+*   `/home/ubuntu/app/tests/` (new test files will be created here)
+*   `/home/ubuntu/upload/ClineAIServiceAPISpecification(Revised).md` (for API specification details)
+*   `/home/ubuntu/README_PATTERNS.md` (or new `README_CONTEXT.md`)
+
+**Expected Deliverables:**
+*   Updated `app/main.py` with new endpoints.
+*   Updated `app/schemas.py` with new context-related Pydantic models.
+*   Updated `app/requirements.txt` if new libraries are needed.
+*   New test files in `app/tests/`.
+*   Updated documentation with API examples.
+
+Proceed with this development. Once complete, provide a summary of the implemented features and any new deliverables.
+

@@ -1,0 +1,149 @@
+name: mobile-e2e
+on:
+  pull_request:
+    paths:
+      - 'frontend/**'
+      - 'scripts/mobile-testing/**'
+      - 'tests/mobile/**'
+      - 'src/**'
+      - 'packages/**'
+jobs:
+  ios:
+    runs-on: macos-14
+    timeout-minutes: 30
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Cache Playwright binaries
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/Library/Caches/ms-playwright
+            ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Setup mobile testing environment
+        run: |
+          chmod +x ./scripts/mobile-testing/setup-iphone-testing.sh
+          ./scripts/mobile-testing/setup-iphone-testing.sh --ci
+
+      - name: Run mobile tests
+        run: |
+          node scripts/mobile-testing/run-recovery-compass-tests.js
+        env:
+          CI: true
+          RECOVERY_COMPASS_URL: ${{ secrets.RECOVERY_COMPASS_URL || 'https://recovery-compass.org' }}
+
+      - name: Upload test artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mobile-test-results-${{ github.run_id }}
+          path: |
+            playwright-report/
+            screenshots/
+            videos/
+            iphone_logs.txt
+            test-results/
+          retention-days: 30
+
+      - name: Upload performance metrics
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: performance-metrics-${{ github.run_id }}
+          path: |
+            performance-metrics.json
+            edge-storage-latency.json
+          retention-days: 90
+
+      - name: Upload QC artifacts bundle
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qc-artifacts_${{ github.run_number }}
+          path: |
+            playwright-report/**
+            screenshots/**
+            videos/**
+            iphone_logs.txt
+            performance-metrics.json
+            edge-storage-latency.json
+          retention-days: 30
+
+      - name: Check performance budgets
+        if: always()
+        run: |
+          if [ -f performance-metrics.json ]; then
+            FCP=$(jq -r '.fcp' performance-metrics.json)
+            TTI=$(jq -r '.tti' performance-metrics.json)
+            ACCESSIBILITY_ISSUES=$(jq -r '.accessibilityIssues | length' performance-metrics.json)
+
+            echo "📊 Performance Metrics:"
+            echo "FCP: ${FCP}ms (budget: <3000ms)"
+            echo "TTI: ${TTI}ms (budget: <5000ms)"
+            echo "Accessibility Issues: ${ACCESSIBILITY_ISSUES}"
+
+            if (( $(echo "$FCP > 3000" | bc -l) )); then
+              echo "❌ FCP exceeds budget!"
+              exit 1
+            fi
+
+            if (( $(echo "$TTI > 5000" | bc -l) )); then
+              echo "❌ TTI exceeds budget!"
+              exit 1
+            fi
+
+            if (( $ACCESSIBILITY_ISSUES > 0 )); then
+              echo "⚠️ Accessibility issues found!"
+              # Warning only for now, can be changed to exit 1
+            fi
+          fi
+
+      - name: Comment PR with results
+        uses: actions/github-script@v7
+        if: always() && github.event_name == 'pull_request'
+        with:
+          script: |
+            const fs = require('fs');
+            let comment = '## 📱 Mobile E2E Test Results\n\n';
+
+            // Read test results if available
+            try {
+              const results = fs.readFileSync('test-results/summary.json', 'utf8');
+              const data = JSON.parse(results);
+              comment += `✅ **Passed**: ${data.passed}\n`;
+              comment += `❌ **Failed**: ${data.failed}\n`;
+              comment += `⏩ **Skipped**: ${data.skipped}\n\n`;
+
+              // Add performance metrics if available
+              if (fs.existsSync('performance-metrics.json')) {
+                const perf = JSON.parse(fs.readFileSync('performance-metrics.json', 'utf8'));
+                comment += '### 📊 Performance Metrics (3G Lossy)\n';
+                comment += `- First Contentful Paint: ${perf.fcp}ms ${perf.fcp < 3000 ? '✅' : '❌'} (budget: <3s)\n`;
+                comment += `- Time to Interactive: ${perf.tti}ms ${perf.tti < 5000 ? '✅' : '❌'} (budget: <5s)\n`;
+              }
+            } catch (e) {
+              comment += '⚠️ Test results not available\n';
+            }
+
+            comment += `\n[View full report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });

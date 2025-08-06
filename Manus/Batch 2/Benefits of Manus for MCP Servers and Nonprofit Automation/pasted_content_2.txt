@@ -1,0 +1,95 @@
+Based on the successful implementation of Pattern Recognition and Context Management endpoints, and considering Recovery Compass's strategic goals, I propose the next phase should focus on **Context-Aware Pattern Analysis and MCP Orchestration**.
+
+## Next Phase: Context-Aware Pattern Analysis & MCP Integration
+
+### Strategic Rationale
+The current implementation has:
+- Pattern recognition capabilities (isolated analysis)
+- Context management (environment definitions)
+
+The missing link is **connecting contexts to pattern analysis** to enable:
+- Context-specific pattern detection
+- MCP server orchestration based on detected patterns
+- Force multiplication through context-pattern relationships
+- Blind-spot identification across multiple contexts
+
+### Proposed Development Plan
+
+#### Phase 1: Context-Aware Pattern Recognition
+**Endpoint: `POST /patterns/analyze`**
+- Enhanced version of `/patterns/recognize` that accepts `contextId`
+- Analyzes patterns within specific operational contexts
+- Returns context-adjusted confidence scores and recommendations
+
+**Key Features:**
+- Context-specific pattern libraries
+- Environmental factor weighting
+- Cross-context pattern correlation
+
+#### Phase 2: MCP Server Registry
+**Endpoints:**
+- `POST /mcp/servers/register` - Register MCP server capabilities
+- `GET /mcp/servers` - List available MCP servers
+- `GET /mcp/servers/{serverId}/capabilities` - Get server capabilities
+
+**Schema Elements:**
+- Server metadata (name, endpoint, protocols)
+- Capability declarations (tools, resources, patterns)
+- Context compatibility mapping
+
+#### Phase 3: Orchestration Engine
+**Endpoint: `POST /orchestrate/analyze`**
+- Accepts input data + contextId
+- Performs pattern recognition
+- Automatically routes to relevant MCP servers
+- Aggregates multi-server responses
+- Identifies blind spots and force multiplication opportunities
+
+**Response includes:**
+- Primary patterns detected
+- MCP server recommendations
+- Cross-context insights
+- Force multiplication score with actionable steps
+- Blind-spot analysis report
+
+#### Phase 4: Force Multiplication Analytics
+**Endpoints:**
+- `GET /analytics/force-multiplication/{contextId}` - Context-specific FM metrics
+- `POST /analytics/compound-value` - Calculate compounding value across contexts
+- `GET /analytics/blind-spots` - Identify systemic blind spots
+
+### Implementation Priorities
+
+1. **Context-Pattern Linking** (Week 1)
+   - Extend pattern recognition to accept contextId
+   - Implement context-aware scoring algorithms
+   - Add pattern-to-context mapping storage
+
+2. **MCP Server Integration** (Week 2)
+   - Create server registry schema
+   - Implement registration/discovery endpoints
+   - Add capability matching logic
+
+3. **Orchestration Logic** (Week 3)
+   - Build routing engine
+   - Implement response aggregation
+   - Add blind-spot detection algorithms
+
+4. **Analytics Dashboard** (Week 4)
+   - Force multiplication calculations
+   - Compound value tracking
+   - Blind-spot reporting
+
+### Technical Considerations
+- Maintain in-memory storage for prototype
+- Use async processing for MCP server calls
+- Implement circuit breakers for server failures
+- Add comprehensive logging for orchestration decisions
+
+### Gold-Plated IPE Compliance
+- Transparent orchestration decisions with audit trails
+- Clear documentation of pattern-context relationships
+- Metrics on all force multiplication calculations
+- Comprehensive error handling with actionable messages
+
+Would you like me to start with the Context-Aware Pattern Recognition enhancement, or would you prefer to focus on a different aspect of this plan?

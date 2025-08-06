@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+pytest
+httpx
+
+
+
+prometheus-client
+
+
+
+ruff
+mypy
+

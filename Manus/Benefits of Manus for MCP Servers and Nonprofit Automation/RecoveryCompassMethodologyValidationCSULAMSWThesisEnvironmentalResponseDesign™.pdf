@@ -1,0 +1,269 @@
+TABLE OF CONTENTS
+● ABSTRACT
+● ACKNOWLEDGMENTS
+● LIST OF FIGURES
+● CHAPTER 1: INTRODUCTION
+○ Introduction and Problem Statement
+○ Background and Significance
+○ Purpose of the Project
+○ Theoretical Framework
+● CHAPTER 2: LITERATURE REVIEW
+○ Introduction
+○ Environmental Factors in Recovery
+○ Financial Capability and Recovery Outcomes
+○ Social Support Systems and Recovery
+○ Technology in Addiction Treatment
+○ Gaps in Current Approaches
+○ Summary
+● CHAPTER 3: INTERVENTION PROPOSAL
+○ Intervention Purpose & Function
+○ Core Components and Interface Overview
+○ Addressing the Implementation Gap
+○ Addressing Equity and Access
+
+
+--- PAGE 1 ---
+
+○ Implementation Instructions
+● CHAPTER 4: IMPLICATIONS AND STRATEGIC IMPLEMENTATION
+○ Core Findings with Measurable Impact
+○ Strategic Implementation at Ted's Place
+○ Economic Case for Funders
+○ Technology-Enhanced Implementation
+○ Conclusion: From Evidence to Implementation
+○ Implementation Timeline and Deliverables
+● REFERENCES
+LIST OF FIGURES
+● Figure 1. Recovery Compass dashboard displaying the integrated environmental mastery
+modules and real-time progress metrics.
+● Figure 2. Environmental Risk Assessment interface showing domain-specific evaluation
+tools and risk mapping visualization.
+● Figure 3. Environmental Modification Planning interface displaying personalized
+intervention strategies and community resource connections.
+● Figure 4. Financial Capability Assessment interface showing financial stability evaluation
+tools and personalized planning components.
+● Figure 5. Financial Action Planning interface displaying staged intervention components
+and progress tracking tools.
+● Figure 6. Social Network Mapping interface showing relationship assessment tools and
+network visualization components.
+
+
+--- PAGE 2 ---
+
+● Figure 7. Relationship Development Planning interface displaying phased connection
+strategies and community integration tools.
+● Figure 8. Multidimensional Progress Dashboard displaying real-time metrics across
+environmental domains and intervention components.
+● Figure 9. Adaptive Intervention Adjustment interface showing algorithm-assisted
+recommendation tools and collaborative refinement components.
+CHAPTER 1: INTRODUCTION
+Introduction and Problem Statement
+Recovery Compass emerges as a transformative response to the fundamental limitations
+of traditional addiction treatment approaches. While existing modalities primarily target
+individual behavior change, Recovery Compass shifts the paradigm toward environmental
+mastery-addressing the critical 95% of environmental factors that determine recovery outcomes
+rather than focusing exclusively on the 5% represented by individual willpower and adaptation
+(Galaj, Barrera, & Ranaldi, 2020). This digital intervention operationalizes the insight that
+sustainable recovery requires transformation of the recovery environment itself, not merely
+adaptation to existing environmental challenges.
+Recovery Compass is currently a conceptual framework and prototype system; no human
+subjects research or clinical implementation has been conducted to date.
+Recovery Compass functions as a comprehensive system that integrates four evidence-based
+components into a cohesive intervention framework:
+1. Environmental Response Design™ - The intervention's foundation is a systematic
+
+
+--- PAGE 3 ---
+
+assessment and modification of environmental risk factors that trigger substance use.
+Recovery Compass employs validated assessment protocols derived from behavioral
+economic research (Collin et al., 2024) to identify each individual's unique environmental
+risk profile. The system then generates personalized environmental modification strategies
+that transform high-risk contexts into recovery-supportive environments. This approach
+directly addresses Barillot et al.'s (2023) finding that environmental conditions during
+periods of abstinence represent a critical intervention opportunity, yet remain largely
+unaddressed in traditional recovery models.
+2. Financial Capability & Asset Building (FCAB) - Recovery Compass integrates structured
+financial capability interventions that address what Jones-Sanpei and Nance (2021)
+identified as a critical yet overlooked barrier to sustained recovery: financial instability. The
+FCAB component provides personalized financial assessment, goal-setting tools, and
+structured pathways to financial stability that align with the specific needs of individuals in
+recovery. This implementation responds directly to research showing that 78% of
+individuals in addiction treatment believe money management skills are important to their
+recovery, yet only 12% of treatment facilities offer financial counseling services (Gardner et
+al., 2019).
+3. Relational Capital Matching - Drawing on Islam et al.'s (2023) analysis of social support
+in recovery populations, this component facilitates the strategic development of
+recovery-supportive social networks. It uses a "capital matching" approach to connect
+participants with mentors, peers, and family members who can provide positive social
+reinforcement. By intentionally building relational capital, the intervention moves beyond
+
+
+--- PAGE 4 ---
+
+ad-hoc peer support to a structured network enhancement strategy, ensuring that participants
+have a scaffolded social environment conducive to recovery rather than mere
+encouragement (Islam et al., 2023).
+4. Data-Driven Personalization - Recovery Compass leverages advanced analytics to
+continuously refine and personalize the intervention based on individual response patterns.
+This approach draws on recent machine learning applications in addiction treatment, which
+demonstrate that AI-driven methods can effectively identify individual risk factors and
+enable timely interventions (Collin et al., 2024). The system's adaptive algorithms ensure
+that environmental modifications, financial capability strategies, social network supports,
+and behavioral prompts remain responsive to each participant's progress, providing dynamic
+adjustments that keep the recovery plan aligned with evolving needs.
+Background and Significance
+The addiction treatment field has historically emphasized individual behavior change
+through clinical interventions like cognitive-behavioral therapy, motivational interviewing, and
+pharmacotherapy. While these approaches demonstrate efficacy in controlled research settings,
+their real-world impact is often limited by implementation challenges and contextual barriers.
+Recovery Compass addresses these limitations by directly targeting the environmental
+determinants of recovery outcomes, which research increasingly identifies as critical to sustained
+behavior change.
+Environmental factors-including housing stability, financial security, social support
+networks, and community resources-significantly influence recovery trajectories yet remain
+
+
+--- PAGE 5 ---
+
+underaddressed in traditional treatment models. According to Galaj et al. (2020), environmental
+conditions account for up to 95% of variance in substance use outcomes, yet most interventions
+focus primarily on individual factors like motivation and coping skills. This misalignment
+between intervention targets and outcome determinants represents a critical gap in the addiction
+treatment continuum.
+Financial instability further compounds recovery challenges, with Jones-Sanpei and
+Nance (2021) finding that 67% of individuals in recovery identify financial stress as a primary
+relapse trigger. Despite this, only 12% of treatment facilities provide structured financial
+capability interventions. By integrating environmental and financial components, Recovery
+Compass addresses crucial determinants of long-term recovery that existing approaches often
+neglect.
+The intervention's significance extends beyond individual outcomes to systems-level
+efficiency and equity. Current treatment approaches often create implementation burdens for
+providers and access barriers for marginalized populations. By providing structured
+implementation protocols and technology-enhanced coordination tools, Recovery Compass
+reduces provider burden while increasing service accessibility. This approach aligns with recent
+developments in implementation science, which emphasize the importance of systematizing
+evidence-based practices to enhance real-world effectiveness (Carroll & Kiluk, 2017).
+Purpose of the Project
+The primary purpose of this project is to develop a comprehensive intervention
+framework that addresses environmental barriers to sustained recovery from substance use
+
+
+--- PAGE 6 ---
+
+disorders. Recovery Compass integrates evidence-based practices from behavioral economics,
+financial capability theory, social capital development, and adaptive intervention design into a
+coherent environmental mastery system. This integration aims to transform how addiction
+treatment conceptualizes and addresses the contextual factors that influence recovery outcomes.
+Specifically, the project aims to:
+1. Systematize environmental assessment and modification protocols that identify and address
+recovery barriers across physical, financial, social, occupational, and digital domains.
+2. Integrate financial capability building into standard recovery support, addressing economic
+barriers that often undermine treatment engagement and maintenance.
+3. Develop structured approaches to social capital development that move beyond ad-hoc peer
+support to strategic relationship building.
+4. Create technology-enhanced implementation tools that reduce provider burden while
+maintaining intervention fidelity.
+5. Design scalable protocols that can be implemented across diverse settings and populations,
+including resource-constrained environments.
+By achieving these aims, Recovery Compass seeks to transform abstract recovery
+principles into concrete, actionable strategies that empower both practitioners and individuals to
+create sustainable recovery pathways. The intervention specifically targets implementation gaps
+and equity barriers that limit the real-world impact of existing approaches, particularly for
+marginalized populations facing multiple environmental challenges.
+
+
+--- PAGE 7 ---
+
+Theoretical Framework
+Recovery Compass integrates multiple theoretical frameworks into a comprehensive
+approach to addiction recovery. The intervention's foundation is built on four interconnected
+theoretical pillars:
+1. Behavioral Economics: Recovery Compass draws on behavioral economic principles,
+particularly those related to delay discounting and environmental constraints on choice
+architecture. This framework posits that substance use behaviors are influenced not only by
+individual preferences but by contextual factors that constrain or enable particular choices
+(Bickel et al., 2019). By systematically assessing and modifying environmental constraints,
+Recovery Compass aims to create contexts that naturally reinforce recovery-supportive
+behaviors rather than substance use.
+2. Financial Capability Theory: The intervention incorporates financial capability theory,
+which emphasizes the role of financial knowledge, skills, and access in shaping health
+behaviors and outcomes. This framework extends traditional financial literacy approaches
+by addressing structural barriers to financial well-being, including access to banking
+services, credit, and asset-building opportunities (Jones-Sanpei & Nance, 2021). By
+integrating financial capability building into addiction treatment, Recovery Compass
+addresses a critical domain of recovery capital that influences long-term stability.
+3. Social Capital Development: Recovery Compass employs social capital theory to guide its
+approach to relationship building and community integration. This framework distinguishes
+between bonding capital (connections with similar others), bridging capital (connections
+across social divides), and linking capital (connections to institutions and resources) (Islam
+
+
+--- PAGE 8 ---
+
+et al., 2023). The intervention systematically assesses and develops these various forms of
+social capital, creating comprehensive support networks that provide both emotional
+reinforcement and practical resources.
+4. Adaptive Intervention Design: The data-driven personalization component draws on
+adaptive intervention frameworks from implementation science. This approach uses
+continuous feedback loops to refine intervention components based on individual response
+patterns, ensuring that the intervention remains responsive to changing needs and contexts
+(Collins et al., 2024). By embedding adaptivity into the intervention's design, Recovery
+Compass addresses the heterogeneity of recovery journeys and the dynamic nature of
+environmental barriers.
+These theoretical frameworks are integrated through an overarching environmental
+mastery perspective that emphasizes the bidirectional relationship between individuals and their
+environments. Rather than viewing environmental factors as static contexts to which individuals
+must adapt, Recovery Compass conceptualizes environments as dynamic systems that can be
+strategically transformed to support recovery goals. This perspective shifts the intervention focus
+from individual adaptation to environmental transformation, addressing the root causes of
+recovery barriers rather than their symptoms.
+By synthesizing these diverse theoretical perspectives, Recovery Compass creates a
+comprehensive approach to addiction recovery that addresses multiple levels of influence, from
+individual behavior change to systems-level transformation. This integrated framework provides
+both conceptual coherence and practical guidance for intervention implementation across diverse
+
+
+--- PAGE 9 ---
+
+settings and populations.
+CHAPTER 2: LITERATURE REVIEW
+Introduction
+The literature on addiction recovery increasingly recognizes the critical role of
+environmental factors in shaping treatment outcomes. While traditional approaches have
+emphasized individual-level interventions like cognitive-behavioral therapy and motivational
+interviewing, mounting evidence suggests that contextual factors-including housing stability,
+financial security, social support, and community resources-significantly influence recovery
+trajectories (SAMHSA, 2023). This chapter reviews the literature on environmental determinants
+of recovery, financial capability interventions, social capital development, and
+technology-enhanced treatment coordination, highlighting both advances in these domains and
+persistent gaps that Recovery Compass aims to address.
+The review begins by examining research on environmental factors in addiction recovery,
+with particular attention to how physical, financial, social, and digital environments influence
+substance use behaviors. It then explores the emerging literature on financial capability
+interventions for individuals with substance use disorders, documenting both promising practices
+and implementation challenges. Next, the review assesses research on social support systems in
+recovery, distinguishing between different forms of social capital and their respective impacts on
+treatment engagement and maintenance. The chapter then examines the role of technology in
+addiction treatment, focusing on applications that enhance assessment, intervention delivery, and
+coordination of care.
+
+
+--- PAGE 10 ---
+
+Throughout the review, particular attention is given to implementation science findings
+regarding the translation of evidence-based practices into real-world settings, especially for
+marginalized populations facing multiple environmental barriers. The chapter concludes by
+identifying key gaps in current approaches that Recovery Compass aims to address through its
+integrated environmental mastery framework.
+Environmental Factors in Recovery
+Research on environmental determinants of recovery has expanded significantly in recent
+years, moving beyond recognition of contextual influences to detailed examination of specific
+environmental domains and their respective impacts on treatment outcomes. This section reviews
+literature across four key environmental domains: physical, financial, social, and digital
+environments.
+Physical Environment
+Studies consistently identify physical environmental factors as critical determinants of
+recovery outcomes. Housing stability emerges as particularly influential, with unstable housing
+associated with increased substance use, reduced
+(Content truncated due to size limit. Use page ranges or line ranges to read remaining content)

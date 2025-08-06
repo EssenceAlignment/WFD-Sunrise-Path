@@ -1,0 +1,39 @@
+{
+  "name": "wfd-survey-testing",
+  "version": "1.0.0",
+  "description": "Comprehensive testing suite for WFD Survey - Critical for $4.4M Discovery",
+  "main": "test_survey.js",
+  "scripts": {
+    "test": "npm run test:all",
+    "test:all": "npm run test:automated && npm run test:performance && npm run test:backup",
+    "test:automated": "node test_survey.js",
+    "test:performance": "node performance_monitor.js",
+    "test:backup": "node backup_survey.js",
+    "test:quick": "node test_survey.js --quick",
+    "install-deps": "npm install",
+    "clean": "rm -rf test-results performance-results backups screenshots",
+    "report": "node generate_report.js"
+  },
+  "keywords": [
+    "wfd",
+    "survey",
+    "testing",
+    "qa",
+    "workforce-development"
+  ],
+  "author": "Recovery Compass QA Team",
+  "license": "Private",
+  "dependencies": {
+    "puppeteer": "^21.0.0",
+    "chalk": "^4.1.2",
+    "fs-extra": "^11.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "prettier": "^2.8.0"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  }
+}
