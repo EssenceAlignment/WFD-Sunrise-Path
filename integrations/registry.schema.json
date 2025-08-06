@@ -1,0 +1,116 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://recovery-compass.org/schemas/integration-registry/v1",
+  "title": "Recovery Compass Integration Registry Schema",
+  "description": "Schema for component integration manifests in the CIA v0.1 system",
+  "type": "object",
+  "required": [
+    "component_id",
+    "domain",
+    "owner",
+    "inputs",
+    "outputs",
+    "docs"
+  ],
+  "properties": {
+    "component_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Unique identifier for the component (lowercase, alphanumeric, hyphens)"
+    },
+    "domain": {
+      "type": "string",
+      "enum": [
+        "mobile",
+        "mcp",
+        "ai-orchestration",
+        "funding",
+        "observability",
+        "security",
+        "infrastructure",
+        "frontend",
+        "backend",
+        "data"
+      ],
+      "description": "Primary domain this component belongs to"
+    },
+    "owner": {
+      "type": "string",
+      "pattern": "^@[a-zA-Z0-9-]+$",
+      "description": "GitHub username or team responsible for this component"
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of inputs this component consumes"
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of outputs this component produces"
+    },
+    "docs": {
+      "type": "string",
+      "pattern": "^docs/.*\\.md$",
+      "description": "Path to documentation file relative to project root"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9.-]+$"
+      },
+      "description": "Optional tags for categorization and search"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9-]+)?$",
+      "description": "Semantic version of the component"
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["component_id", "version"],
+        "properties": {
+          "component_id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string",
+            "pattern": "^[~^]?v?\\d+\\.\\d+\\.\\d+$"
+          }
+        }
+      },
+      "description": "Other components this one depends on"
+    },
+    "metrics_namespace": {
+      "type": "string",
+      "pattern": "^[a-z_]+$",
+      "description": "Prometheus metrics namespace for observability"
+    },
+    "metrics_port": {
+      "type": "integer",
+      "minimum": 9100,
+      "maximum": 9150,
+      "description": "Port for Prometheus metrics endpoint (9100-9150 range)"
+    },
+    "data_classification": {
+      "type": "string",
+      "enum": ["public", "internal", "pii", "secret"],
+      "default": "internal",
+      "description": "Security classification of data handled by this component"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["planning", "development", "alpha", "beta", "stable", "deprecated"],
+      "default": "development",
+      "description": "Current lifecycle status of the component"
+    }
+  },
+  "additionalProperties": false
+}

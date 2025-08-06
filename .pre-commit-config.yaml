@@ -100,6 +100,33 @@ repos:
       - id: detect-secrets
         args: ['--baseline', '.secrets.baseline']
 
+  - repo: https://github.com/zricethezav/gitleaks
+    rev: v8.18.2
+    hooks:
+      - id: gitleaks
+        name: Detect hardcoded secrets
+        description: Detect hardcoded secrets using Gitleaks
+        entry: gitleaks protect --verbose --redact --staged
+        language: golang
+        pass_filenames: false
+
+  # =====================================================
+  # License hooks
+  # =====================================================
+  - repo: https://github.com/Lucas-C/pre-commit-hooks
+    rev: v1.5.4
+    hooks:
+      - id: insert-license
+        name: Add license headers
+        files: \.(py|js|jsx|ts|tsx)$
+        args:
+          - --license-filepath
+          - LICENSE
+          - --comment-style
+          - //
+          - --skip-license-insertion-comment
+          - "This file is licensed"
+
   # =====================================================
   # Commit message hooks
   # =====================================================

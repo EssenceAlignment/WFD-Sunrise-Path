@@ -1,0 +1,80 @@
+rules:
+  - id: asvs-l2-hardcoded-password
+    message: ASVS L2 - Hardcoded password detected. Use environment variables or secure key management.
+    severity: ERROR
+    languages:
+      - javascript
+      - typescript
+      - python
+    patterns:
+      - pattern-either:
+          - pattern: |
+              $VAR = "...$PASSWORD..."
+          - pattern: |
+              password = "..."
+          - pattern: |
+              const $VAR = { ..., password: "...", ... }
+    metadata:
+      asvs-category: "V2.1 - Password Security"
+      asvs-level: 2
+      cwe: "CWE-798"
+
+  - id: asvs-l2-weak-crypto
+    message: ASVS L2 - Weak cryptographic algorithm detected. Use SHA-256 or stronger.
+    severity: WARNING
+    languages:
+      - javascript
+      - typescript
+    patterns:
+      - pattern-either:
+          - pattern: crypto.createHash("md5")
+          - pattern: crypto.createHash("sha1")
+          - pattern: MD5(...)
+    metadata:
+      asvs-category: "V6.2 - Algorithms"
+      asvs-level: 2
+      cwe: "CWE-327"
+
+  - id: asvs-l2-jwt-weak-secret
+    message: ASVS L2 - JWT secret should be at least 256 bits. Use strong random secrets.
+    severity: ERROR
+    languages:
+      - javascript
+      - typescript
+    patterns:
+      - pattern-either:
+          - pattern: |
+              jwt.sign(..., "...", ...)
+          - pattern: |
+              jwt.verify(..., "...", ...)
+    metavariable-regex:
+      metavariable: $SECRET
+      regex: ^.{0,31}$
+    metadata:
+      asvs-category: "V3.5 - Token-based Session Management"
+      asvs-level: 2
+      cwe: "CWE-330"
+
+  - id: asvs-l2-missing-auth-check
+    message: ASVS L2 - Route handler missing authentication check
+    severity: WARNING
+    languages:
+      - javascript
+      - typescript
+    patterns:
+      - pattern-either:
+          - patterns:
+              - pattern: |
+                  app.$METHOD($PATH, ...)
+              - pattern-not: |
+                  app.$METHOD($PATH, $AUTH, ...)
+              - metavariable-regex:
+                  metavariable: $METHOD
+                  regex: ^(get|post|put|delete|patch)$
+              - metavariable-regex:
+                  metavariable: $PATH
+                  regex: ^((?!\/health|\/metrics|\/public).)*$
+    metadata:
+      asvs-category: "V4.1 - General Access Control"
+      asvs-level: 2
+      cwe: "CWE-306"
