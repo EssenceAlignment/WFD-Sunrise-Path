@@ -8,9 +8,16 @@ on:
   schedule:
     - cron: '0 0 * * 0'  # Weekly scan on Sundays
 
+permissions:
+  contents: read
+  security-events: write
+  id-token: write
+
 jobs:
   python-security:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
         with:
@@ -45,6 +52,8 @@ jobs:
 
   npm-security:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
 
@@ -61,27 +70,13 @@ jobs:
             (cd "$dir" && npm audit || true)
           done
 
-  supply-chain-and-container-scan:
+  container-scan:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
     steps:
       - uses: actions/checkout@v4
-
-      - name: Generate SBOM
-        uses: anchore/sbom-action@v0
-        with:
-          format: cyclonedx-json
-          output-file: sbom.json
-          upload-artifact: true
-
-      - name: Install Cosign
-        uses: sigstore/cosign-installer@v3
-
-      - name: Sign SBOM
-        if: github.event_name != 'pull_request'
-        env:
-          COSIGN_EXPERIMENTAL: 1
-        run: |
-          cosign sign-blob --yes sbom.json > sbom.json.sig
 
       - name: Build Docker Images
         run: |
@@ -92,7 +87,8 @@ jobs:
         with:
           scan-type: 'image'
           image-ref: 'rc-funding-dashboard:latest'
-          exit-code: '1'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
           severity: 'HIGH,CRITICAL'
 
       - name: Upload Trivy Results
@@ -101,8 +97,46 @@ jobs:
         with:
           sarif_file: 'trivy-results.sarif'
 
+  sbom-sign:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          format: cyclonedx-json
+          output-file: sbom.json
+          upload-artifact: true
+
+      - name: Install Cosign (verified release)
+        uses: sigstore/cosign-installer@v3
+        with:
+          cosign-release: 'v2.5.2'
+
+      - name: Sign SBOM with Cosign OIDC
+        if: github.event_name != 'pull_request'
+        env:
+          COSIGN_EXPERIMENTAL: "true"
+        run: |
+          cosign sign-blob --yes sbom.json > sbom.json.sig
+
+      - name: Verify signature (self-test)
+        if: github.event_name != 'pull_request'
+        env:
+          COSIGN_EXPERIMENTAL: "true"
+        run: |
+          cosign verify-blob --certificate-identity-regexp "https://github.com/${GITHUB_REPOSITORY}/.github/workflows/security-scan.yml@refs/heads/.*" \
+               --certificate-oidc-issuer https://token.actions.githubusercontent.com \
+               --signature sbom.json.sig sbom.json
+
   secret-scanning:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
         with:
@@ -117,6 +151,9 @@ jobs:
     needs: [python-security, npm-security]
     runs-on: ubuntu-latest
     if: github.event_name == 'schedule'
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
         with:
