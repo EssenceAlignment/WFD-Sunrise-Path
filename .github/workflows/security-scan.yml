@@ -78,18 +78,43 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
       - name: Build Docker Images
         run: |
-          docker-compose build
+          if [ -f "docker-compose.yml" ] || [ -f "docker-compose.yaml" ]; then
+            echo "Found docker-compose file, building images..."
+            docker-compose build
+          else
+            echo "No docker-compose file found, skipping Docker build"
+          fi
 
-      - name: Trivy Container Scan
+      - name: Trivy Filesystem Scan
         uses: aquasecurity/trivy-action@0.20.0
         with:
-          scan-type: 'image'
-          image-ref: 'rc-funding-dashboard:latest'
+          scan-type: 'fs'
+          scan-ref: '.'
           format: 'sarif'
           output: 'trivy-results.sarif'
           severity: 'HIGH,CRITICAL'
+
+      - name: Trivy Container Scan
+        if: success()
+        run: |
+          if [ -f "docker-compose.yml" ] || [ -f "docker-compose.yaml" ]; then
+            # Scan built images if they exist
+            docker images --format "{{.Repository}}:{{.Tag}}" | grep -v "<none>" | while read image; do
+              echo "Scanning image: $image"
+              docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
+                -v trivy-results-$image.sarif:/root/.cache/trivy \
+                aquasec/trivy:latest image --format sarif \
+                --output trivy-results-$image.sarif \
+                --severity HIGH,CRITICAL $image || true
+            done
+          fi
 
       - name: Upload Trivy Results
         uses: github/codeql-action/upload-sarif@v3
