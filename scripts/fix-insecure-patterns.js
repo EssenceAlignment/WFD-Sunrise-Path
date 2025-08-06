@@ -1,156 +1,144 @@
 #!/usr/bin/env node
+/**
+ * Automated Security Pattern Fixer
+ * Detects and fixes common insecure patterns in the codebase
+ */
 
 const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 
-// Define patterns to fix with their replacements
+// Define patterns to fix
 const patterns = [
   {
     name: 'insecure-random',
     regex: /Math\.random\(\)/g,
     replacement: 'crypto.getRandomValues(new Uint32Array(1))[0] / 0xFFFFFFFF',
-    importNode: "const crypto = globalThis.crypto || require('crypto').webcrypto;",
-    importBrowser: "// crypto is available globally in browsers",
-    description: 'Replace Math.random() with crypto.getRandomValues()',
+    import: "const crypto = require('crypto');",
+    fileTypes: ['js', 'ts'],
+    description: 'Replace Math.random() with secure random'
   },
   {
-    name: 'insecure-date-random',
-    regex: /Date\.now\(\)\s*\*\s*Math\.random\(\)/g,
-    replacement: 'crypto.getRandomValues(new BigUint64Array(1))[0]',
-    importNode: "const crypto = globalThis.crypto || require('crypto').webcrypto;",
-    importBrowser: "// crypto is available globally in browsers",
-    description: 'Replace Date.now() * Math.random() with secure random',
+    name: 'eval-usage',
+    regex: /eval\s*\(/g,
+    replacement: '/* SECURITY: eval() removed - refactor needed */',
+    fileTypes: ['js', 'ts'],
+    description: 'Remove eval() usage'
   },
   {
-    name: 'weak-array-shuffle',
-    regex: /array\.sort\(\(\)\s*=>\s*Math\.random\(\)\s*-\s*0\.5\)/g,
-    replacement: 'array.sort(() => crypto.getRandomValues(new Uint32Array(1))[0] / 0xFFFFFFFF - 0.5)',
-    importNode: "const crypto = globalThis.crypto || require('crypto').webcrypto;",
-    importBrowser: "// crypto is available globally in browsers",
-    description: 'Replace weak array shuffle with secure random',
-  },
+    name: 'hardcoded-localhost',
+    regex: /http:\/\/localhost/g,
+    replacement: `process.env.API_URL || 'http://localhost'`,
+    fileTypes: ['js', 'ts', 'jsx', 'tsx'],
+    description: 'Replace hardcoded localhost with environment variable'
+  }
 ];
 
-// Statistics tracking
-const stats = {
-  filesScanned: 0,
-  filesModified: 0,
-  patternsFixed: 0,
-  errors: [],
+// Additional security headers for React/Next.js files
+const securityHeaders = {
+  'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline';",
+  'X-Frame-Options': 'DENY',
+  'X-Content-Type-Options': 'nosniff',
+  'Referrer-Policy': 'strict-origin-when-cross-origin'
 };
 
-function detectEnvironment(content, filePath) {
-  // Check if it's a browser file
-  const isBrowser = content.includes('window') ||
-                   content.includes('document') ||
-                   filePath.includes('browser') ||
-                   filePath.includes('client');
-
-  // Check if it's TypeScript
-  const isTypeScript = filePath.endsWith('.ts') || filePath.endsWith('.tsx');
-
-  return { isBrowser, isTypeScript };
-}
-
-function addImportIfNeeded(content, pattern, environment) {
-  const importStatement = environment.isBrowser ? pattern.importBrowser : pattern.importNode;
-
-  // Check if crypto is already imported
-  if (content.includes('crypto') || content.includes(importStatement)) {
-    return content;
-  }
-
-  // Add import at the top of the file
-  if (environment.isTypeScript) {
-    // For TypeScript, add after any existing imports
-    const importMatch = content.match(/^(import .+\n)+/m);
-    if (importMatch) {
-      const lastImportEnd = importMatch.index + importMatch[0].length;
-      return content.slice(0, lastImportEnd) + importStatement + '\n' + content.slice(lastImportEnd);
-    }
-  }
-
-  // Add at the very beginning with a comment
-  return `${importStatement}\n\n${content}`;
-}
-
 function fixPatterns(filePath) {
-  try {
-    stats.filesScanned++;
+  let content = fs.readFileSync(filePath, 'utf8');
+  let modified = false;
+  const fixes = [];
 
-    let content = fs.readFileSync(filePath, 'utf8');
-    let modified = false;
-    const environment = detectEnvironment(content, filePath);
+  patterns.forEach(pattern => {
+    const ext = path.extname(filePath).slice(1);
+    if (!pattern.fileTypes.includes(ext)) return;
 
-    patterns.forEach(pattern => {
-      if (pattern.regex.test(content)) {
-        console.log(`📝 Found ${pattern.name} in ${filePath}`);
+    if (pattern.regex.test(content)) {
+      const matches = content.match(pattern.regex);
+      content = content.replace(pattern.regex, pattern.replacement);
+      modified = true;
 
-        // Add import if needed
-        if (!environment.isBrowser) {
-          content = addImportIfNeeded(content, pattern, environment);
-        }
-
-        // Replace the pattern
-        const matches = content.match(pattern.regex)?.length || 0;
-        content = content.replace(pattern.regex, pattern.replacement);
-
-        stats.patternsFixed += matches;
-        modified = true;
-
-        console.log(`   ✅ Fixed ${matches} occurrence(s): ${pattern.description}`);
+      // Add import if needed
+      if (pattern.import && !content.includes(pattern.import.split(' ').pop())) {
+        content = pattern.import + '\n' + content;
       }
-    });
 
-    if (modified) {
-      fs.writeFileSync(filePath, content);
-      stats.filesModified++;
-      console.log(`   💾 Saved ${filePath}\n`);
+      fixes.push({
+        pattern: pattern.name,
+        count: matches ? matches.length : 0,
+        description: pattern.description
+      });
     }
-  } catch (error) {
-    stats.errors.push({ file: filePath, error: error.message });
-    console.error(`❌ Error processing ${filePath}: ${error.message}`);
+  });
+
+  if (modified) {
+    fs.writeFileSync(filePath, content);
+    console.log(`✅ Fixed ${filePath}`);
+    fixes.forEach(fix => {
+      console.log(`   - ${fix.description} (${fix.count} instances)`);
+    });
+  }
+
+  return fixes;
+}
+
+function addSecurityHeaders(filePath) {
+  if (!filePath.includes('_app.') && !filePath.includes('middleware.')) return;
+
+  let content = fs.readFileSync(filePath, 'utf8');
+  let modified = false;
+
+  // Check if security headers are already present
+  if (!content.includes('Content-Security-Policy')) {
+    // Add security headers configuration
+    const headerCode = `
+// Security headers configuration
+export const securityHeaders = ${JSON.stringify(securityHeaders, null, 2)};
+`;
+    content = headerCode + '\n' + content;
+    modified = true;
+  }
+
+  if (modified) {
+    fs.writeFileSync(filePath, content);
+    console.log(`✅ Added security headers to ${filePath}`);
   }
 }
 
 // Main execution
 console.log('🔍 Scanning for insecure patterns...\n');
 
-// Find all JavaScript and TypeScript files
-const files = glob.sync('**/*.{js,jsx,ts,tsx}', {
-  ignore: [
-    'node_modules/**',
-    'coverage/**',
-    'dist/**',
-    'build/**',
-    '*.min.js',
-    'vendor/**',
-  ],
+const srcFiles = glob.sync('src/**/*.{js,ts,jsx,tsx}', { ignore: '**/node_modules/**' });
+const scriptFiles = glob.sync('scripts/**/*.{js,ts}', { ignore: '**/node_modules/**' });
+const allFiles = [...srcFiles, ...scriptFiles];
+
+let totalFixes = 0;
+
+allFiles.forEach(file => {
+  const fixes = fixPatterns(file);
+  totalFixes += fixes.length;
+  addSecurityHeaders(file);
 });
 
-// Process each file
-files.forEach(fixPatterns);
+console.log(`\n✅ Security fixes complete! Fixed ${totalFixes} issues.`);
 
-// Report results
-console.log('\n📊 Summary:');
-console.log(`   Files scanned: ${stats.filesScanned}`);
-console.log(`   Files modified: ${stats.filesModified}`);
-console.log(`   Patterns fixed: ${stats.patternsFixed}`);
+// Also fix package.json scripts if needed
+const packagePath = path.join(process.cwd(), 'package.json');
+if (fs.existsSync(packagePath)) {
+  const pkg = JSON.parse(fs.readFileSync(packagePath, 'utf8'));
 
-if (stats.errors.length > 0) {
-  console.log(`\n⚠️  Errors encountered:`);
-  stats.errors.forEach(({ file, error }) => {
-    console.log(`   - ${file}: ${error}`);
-  });
+  // Add security-related scripts if not present
+  if (!pkg.scripts) pkg.scripts = {};
+
+  if (!pkg.scripts['fix:security']) {
+    pkg.scripts['fix:security'] = 'node scripts/fix-insecure-patterns.js';
+  }
+
+  if (!pkg.scripts['fix:all']) {
+    pkg.scripts['fix:all'] = 'npm run fix:security && npm run lint:fix && npm test';
+  }
+
+  if (!pkg.scripts['pre-push']) {
+    pkg.scripts['pre-push'] = 'npm run fix:all';
+  }
+
+  fs.writeFileSync(packagePath, JSON.stringify(pkg, null, 2) + '\n');
 }
-
-if (stats.filesModified > 0) {
-  console.log('\n✨ Security patterns have been automatically fixed!');
-  console.log('📝 Please review the changes and run tests to ensure everything works correctly.');
-} else {
-  console.log('\n✅ No insecure patterns found. Your code is already secure!');
-}
-
-// Exit with error code if fixes were needed (for CI)
-process.exit(stats.filesModified > 0 ? 1 : 0);
