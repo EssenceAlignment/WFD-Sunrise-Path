@@ -78,18 +78,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Docker Compose
+      - name: Install Docker Compose v2 Plugin
         run: |
           sudo apt-get update
-          sudo apt-get install -y docker-compose
+          sudo apt-get install -y docker-compose-plugin
+
+      - name: Check Docker and Compose versions
+        run: |
+          docker --version
+          docker compose version
 
       - name: Build Docker Images
         run: |
-          if [ -f "docker-compose.yml" ] || [ -f "docker-compose.yaml" ]; then
-            echo "Found docker-compose file, building images..."
-            docker-compose build
+          if [ -f "docker-compose.yml" ] || [ -f "docker-compose.yaml" ] || [ -f "compose.yml" ] || [ -f "compose.yaml" ]; then
+            echo "Found compose file, building images..."
+            docker compose build
           else
-            echo "No docker-compose file found, skipping Docker build"
+            echo "No compose file found, skipping Docker build"
           fi
 
       - name: Trivy Filesystem Scan
@@ -104,7 +109,7 @@ jobs:
       - name: Trivy Container Scan
         if: success()
         run: |
-          if [ -f "docker-compose.yml" ] || [ -f "docker-compose.yaml" ]; then
+          if [ -f "docker-compose.yml" ] || [ -f "docker-compose.yaml" ] || [ -f "compose.yml" ] || [ -f "compose.yaml" ]; then
             # Scan built images if they exist
             docker images --format "{{.Repository}}:{{.Tag}}" | grep -v "<none>" | while read image; do
               echo "Scanning image: $image"
