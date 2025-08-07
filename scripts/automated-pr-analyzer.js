@@ -1,4 +1,5 @@
-const { Octokit } = require("@octokit/rest");
+import { Octokit } from "@octokit/rest";
+import process from 'process';
 
 async function optimizePRs() {
   const octokit = new Octokit({
