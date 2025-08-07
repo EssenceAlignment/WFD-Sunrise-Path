@@ -1,0 +1,49 @@
+name: ES Module Compliance Check
+
+on:
+  pull_request:
+    paths:
+      - '**.js'
+      - 'package.json'
+  push:
+    branches:
+      - main
+    paths:
+      - '**.js'
+      - 'package.json'
+
+jobs:
+  check-es-modules:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install glob
+
+      - name: Check for CommonJS syntax
+        run: |
+          echo "🔍 Checking for CommonJS syntax in ES module project..."
+          node scripts/es-module-migration.js || {
+            echo ""
+            echo "❌ CommonJS syntax detected!"
+            echo ""
+            echo "This project uses ES modules ('type': 'module' in package.json)."
+            echo "Please convert CommonJS syntax to ES modules or rename files to .cjs"
+            echo ""
+            echo "See ES_MODULE_MIGRATION.md for detailed instructions."
+            exit 1
+          }
+
+      - name: Upload migration guide if issues found
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: es-module-migration-guide
+          path: ES_MODULE_MIGRATION.md
