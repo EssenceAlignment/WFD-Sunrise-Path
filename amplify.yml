@@ -3,9 +3,7 @@ frontend:
   phases:
     preBuild:
       commands:
-        - echo "Installing Python dependencies"
-        - python3 -m pip install --upgrade pip
-        - pip3 install -r app/requirements.txt
+        - echo "Setting up build environment"
     build:
       commands:
         - echo "Creating static landing page"
