@@ -1,0 +1,73 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - echo "Installing Python dependencies"
+        - python3 -m pip install --upgrade pip
+        - pip3 install -r app/requirements.txt
+    build:
+      commands:
+        - echo "Building FastAPI application"
+        - mkdir -p dist
+        - cp -r app/* dist/
+        - echo "Creating static index for initial load"
+        - |
+          cat > dist/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>WFD Compliance - Whistler First Day Compliance Platform</title>
+              <meta name="description" content="Intelligence Dashboard for Whistler First Day Compliance">
+              <style>
+                  body {
+                      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+                      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                      color: white;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      height: 100vh;
+                      margin: 0;
+                  }
+                  .container {
+                      text-align: center;
+                      padding: 2rem;
+                  }
+                  h1 {
+                      font-size: 3rem;
+                      margin-bottom: 1rem;
+                  }
+                  p {
+                      font-size: 1.2rem;
+                      opacity: 0.9;
+                  }
+                  .status {
+                      margin-top: 2rem;
+                      padding: 1rem;
+                      background: rgba(255,255,255,0.1);
+                      border-radius: 10px;
+                  }
+              </style>
+          </head>
+          <body>
+              <div class="container">
+                  <h1>WFD Compliance</h1>
+                  <p>Whistler First Day Compliance Intelligence Dashboard</p>
+                  <div class="status">
+                      <p>🚀 Platform Deployment in Progress</p>
+                      <p>Powered by Recovery Compass</p>
+                  </div>
+              </div>
+          </body>
+          </html>
+          EOF
+  artifacts:
+    baseDirectory: dist
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - 'app/venv/**/*'
