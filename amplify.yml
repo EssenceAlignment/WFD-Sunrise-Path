@@ -8,10 +8,8 @@ frontend:
         - pip3 install -r app/requirements.txt
     build:
       commands:
-        - echo "Building FastAPI application"
+        - echo "Creating static landing page"
         - mkdir -p dist
-        - cp -r app/* dist/
-        - echo "Creating static index for initial load"
         - |
           cat > dist/index.html << 'EOF'
           <!DOCTYPE html>
