@@ -193,7 +193,7 @@ jobs:
       # ===== STEP 8: Trivy Security Scanning =====
       - name: Run Trivy security scan
         if: inputs.enable-trivy
-        uses: aquasecurity/trivy-action@0.16.1
+        uses: aquasecurity/trivy-action@0.32.0
         with:
           scan-type: 'fs'
           scan-ref: '.'
