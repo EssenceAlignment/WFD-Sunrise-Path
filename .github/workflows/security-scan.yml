@@ -83,7 +83,7 @@ jobs:
           docker-compose build
 
       - name: Trivy Container Scan
-        uses: aquasecurity/trivy-action@0.20.0
+        uses: aquasecurity/trivy-action@0.32.0
         with:
           scan-type: 'image'
           image-ref: 'rc-funding-dashboard:latest'
