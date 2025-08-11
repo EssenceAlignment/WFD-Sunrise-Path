@@ -62,7 +62,7 @@ jobs:
 
       # ===== STEP 1: Secret Scanning =====
       - name: Secret Scanning with TruffleHog
-        uses: trufflesecurity/trufflehog@v3.63.7
+        uses: trufflesecurity/trufflehog@v3.90.3
         with:
           path: ./
           base: ${{ github.event.repository.default_branch }}
