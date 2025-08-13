@@ -137,7 +137,9 @@ Each script is designed to solve multiple problems simultaneously.`
 
         // Create commit
         const commitMessage = `${group.message}\n\n${group.body}`;
-        execSync(`git commit -m "${commitMessage.replace(/"/g, '\\"')}"`);
+        // Escape backslashes first, then double quotes
+        const safeCommitMessage = commitMessage.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+        execSync(`git commit -m "${safeCommitMessage}"`);
         commitCount++;
 
         console.log(`   ✅ Commit successful!\n`);
